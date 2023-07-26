@@ -10,11 +10,42 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/AdminView.vue'),
+      meta: {
+        isRequiredAuth: true
+      },
+      children: [
+        {
+          path: '',
+          name: 'adminHome',
+          component: () => import('../views/Admin/AdminHome.vue')
+        },
+        {
+          path: '/admin-add-food',
+          name: 'adminFoodAdd',
+          component: () => import('../views/Admin/AdminAddFood.vue')
+        }
+      ]
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const isUserAuthenticated = false
+  const isRequiredAuth = to.matched.some((record) => record.meta.isRequiredAuth)
+
+  if (isRequiredAuth && !isUserAuthenticated) {
+    next('/')
+  } else {
+    next()
+  }
 })
 
 export default router

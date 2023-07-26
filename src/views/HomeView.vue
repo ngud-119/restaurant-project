@@ -1,9 +1,31 @@
-<script setup>
-
-</script>
-
 <template>
   <main>
-    <h1>regregrg</h1>
+    <MainNav></MainNav>
+    <h2>Home View</h2>
   </main>
 </template>
+
+
+<script>
+import { mapActions, mapGetters, mapState } from 'vuex';
+import MainNav from '../components/MainNav.vue';
+
+export default {
+  name: "HomeView",
+  components: { MainNav },
+  computed: {
+    ...mapGetters({
+      getCount: "getCount",
+    })
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import "../assets/config";
+
+h2 {
+  font-size: 60px;
+
+}
+</style>
