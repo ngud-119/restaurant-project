@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import store from '../store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +29,21 @@ const router = createRouter({
           component: () => import('../views/Admin/AdminHome.vue')
         },
         {
+          path: '/all-employee',
+          name: 'allEmployee',
+          component: () => import('../views/Admin/AllEmployeeList.vue')
+        },
+        {
+          path: '/add-employee',
+          name: 'addEmployee',
+          component: () => import('../views/Admin/AddEmployee.vue')
+        },
+        {
+          path: '/all-table',
+          name: 'allTable',
+          component: () => import('../views/Admin/AllTableList.vue')
+        },
+        {
           path: '/admin-add-food',
           name: 'adminFoodAdd',
           component: () => import('../views/Admin/AdminAddFood.vue')
@@ -38,11 +54,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isUserAuthenticated = false
+  const isUserAuthenticated = store.getters.getToken ? true : false
   const isRequiredAuth = to.matched.some((record) => record.meta.isRequiredAuth)
 
   if (isRequiredAuth && !isUserAuthenticated) {
-    next('/')
+    next('/login')
   } else {
     next()
   }

@@ -2,7 +2,6 @@
   <section class="login-section">
     <div class="login-container">
       <h1 class="logo">BSS Restaurant</h1>
-      <h1 class="logo">{{ $store.state?.currentUser?.fullName }}</h1>
       <div class="form-container">
         <form @submit.prevent="submitLoginInfo">
           <div class="mb-5">
@@ -26,7 +25,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: "LoginView",
@@ -36,16 +35,30 @@ export default {
         userName: "",
         password: ""
       }
-
     }
+  },
+  computed: {
+    ...mapGetters({
+      getToken: "getToken",
+      getCurrentUser: "getCurrentUser"
+    })
   },
   methods: {
     ...mapActions({
-      loginUser: 'loginUser'
+      loginUser: 'loginUser',
     }),
 
-    submitLoginInfo() {
-      this.loginUser(this.user);
+    async submitLoginInfo() {
+      await this.loginUser(this.user)
+      
+      this.$router.push({ name: "admin" })
+    }
+  },
+  mounted() {
+    console.log("mounted");
+    let currentUser = this.getCurrentUser;
+    if (currentUser) {
+      this.$router.push({ path: "/admin" })
     }
   }
 }

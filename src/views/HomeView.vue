@@ -7,7 +7,7 @@
 
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import MainNav from '../components/MainNav.vue';
 
 export default {
