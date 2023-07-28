@@ -1,6 +1,6 @@
 <template>
   <nav class="nav-container">
-    <div class="d-flex">
+    <div class="d-flex align-center">
       <v-btn class="me-5 menu-btn" icon="mdi-menu" @click.stop="toggleDrawer"></v-btn>
       <h2 class="logo">BSS Restaurant</h2>
     </div>
@@ -56,9 +56,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 40px;
+  padding: 10px 10px;
   background-color: $primary;
   border-radius: 0px;
+
+  @include lg{
+    padding: 10px 40px;
+  }
 
   .menu-btn{
     background-color: transparent;
@@ -66,13 +70,21 @@ export default {
     box-shadow: none;
   }
   .logo {
-    font-size: 32px;
+    font-size: 16px;
     font-weight: 600;
     text-align: center;
     color: white;
+
+    @include lg{
+      font-size: 32px;
+    }
   }
 
   .link-container {
+    display: none;
+    @include lg{
+      display: block;
+    }
     .nav-link {
       color: white;
       text-decoration: none;

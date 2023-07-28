@@ -18,7 +18,7 @@
 							<v-file-input class="img-input-field" @change="onImageSelect" name="img" id="img"
 								accept="image/png, image/jpeg, image/bmp" placeholder="Pick an Image" prepend-icon="mdi-camera"
 								label="Image"></v-file-input>
-							<img v-if="employee.image" :src={} alt="">
+							<img class="preview-img" v-if="previewImg" :src="previewImg" alt="">
 						</label>
 					</v-col>
 				</v-row>
@@ -46,7 +46,7 @@
 				</v-row>
 				<v-row>
 					<v-col cols="12" lg="3">
-						<v-select label="Gender" v-model="employee.genderId" :items="['Male', 'Female', 'others']">
+						<v-select label="Gender" v-model="genderInfo" :items="['Male', 'Female', 'others']">
 						</v-select>
 					</v-col>
 					<v-col cols="12" lg="3">
@@ -68,10 +68,13 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
 	name: "AddEmployee",
 	data() {
 		return {
+			genderInfo: "",
 			employee: {
 				firstName: "",
 				middleName: "",
@@ -85,25 +88,51 @@ export default {
 				dob: "",
 				joinDate: "",
 				nid: "",
-				nidVerifiedDate: "",
-				nidVerifiedBy: "",
 				designation: "",
-				image: [],
+				image: "",
 				base64: "",
-			}
+			},
+			previewImg: null
 		}
 	},
 	methods: {
+		...mapActions({
+			postEmployee: 'postEmployee',
+		}),
 		submitAddEmployee() {
 			console.log("sub");
+			if (this.genderInfo === "Male") {
+				this.employee.genderId = 1
+			}
+			else if (this.genderInfo === "Female") {
+				this.employee.genderId = 2
+			}
+			else {
+				this.employee.genderId = 3
+			}
+
+			this.postEmployee(this.employee)
+
 			console.log(this.employee);
+
 		},
 		openFile() {
-			document.getElementById("img").click()
+			//document.getElementById("img").click()
 		},
 		onImageSelect(e) {
-			console.log(e);
-		}
+			console.log(e.target.files[0]);
+			this.previewImg = URL.createObjectURL(e.target.files[0]);
+			this.employee.image = e.target.files[0].name;
+			this.createBase64Image(e.target.files[0]);
+		},
+		createBase64Image(fileObject) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				// console.log("base 64 working", e.target.result);
+				this.employee.base64 = e.target.result;
+			};
+			reader.readAsDataURL(fileObject);
+		},
 	}
 }
 </script>
@@ -115,12 +144,17 @@ export default {
 .image-selection-input {
 	label[for="img"] {
 		display: block;
-		padding: 30px;
 		border: 1px solid lightgray;
-		height: 91%;
+		height: 213px;
 
 		.img-input-field {
 			display: none;
+		}
+
+		.preview-img {
+			width: 100%;
+			height: 155px;
+			object-fit: cover;
 		}
 	}
 

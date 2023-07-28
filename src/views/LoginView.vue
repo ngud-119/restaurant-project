@@ -21,19 +21,15 @@
         <RouterLink class="link" to="/admin-add-food">Back To Home</RouterLink>
       </div>
     </div>
-    <LoadingSpinner v-if="getLoadingState"></LoadingSpinner>
+   
   </section>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import LoadingSpinner from "../components/LoadingSpinner.vue"
 
 export default {
   name: "LoginView",
-  components: {
-    LoadingSpinner
-  },
   data() {
     return {
       user: {

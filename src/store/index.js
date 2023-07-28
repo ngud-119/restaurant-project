@@ -47,6 +47,18 @@ export default createStore({
       }
     },
 
+    async postEmployee({ commit }, payload) {
+      try {
+        commit('IS_LOADING', true)
+        const response = await ApiCall.post('api/Employee/create', payload)
+        console.log(response.data)
+        commit('IS_LOADING', false)
+      } catch (error) {
+        console.log(error);
+        commit('IS_LOADING', false)
+      }
+    },
+
     logoutUser({ commit }) {
       commit('DELETE_USER')
     },

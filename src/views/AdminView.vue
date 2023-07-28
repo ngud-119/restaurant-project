@@ -2,7 +2,7 @@
   <div class="">
     <v-card>
       <v-layout>
-        <v-navigation-drawer  v-model="$store.state.drawerVisibility" mobile-break-point="960">
+        <v-navigation-drawer v-model="$store.state.drawerVisibility" mobile-break-point="960">
           <v-list>
             <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
               :title="getCurrentUser.fullName" :subtitle="getCurrentUser.email"></v-list-item>
@@ -70,7 +70,9 @@ export default {
   text-decoration: none;
   font-size: 18px;
   color: $primary;
-  .side-list-item {}
+
+  .side-list-item {
+  }
 }
 
 
@@ -81,7 +83,11 @@ export default {
   .dashboard-view {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 60px;
+    padding: 10px;
+
+    @include lg {
+      padding: 60px;
+    }
   }
 }
 </style>
