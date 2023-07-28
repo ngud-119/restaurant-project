@@ -1,14 +1,11 @@
 # restaurant-project
 
-This template should help get you started developing with Vue 3 in Vite.
+A Web app where an admin can manage a restaurant. The main challenge is to implement the functionalities like table
+management, employee management, and order management using Vue JS and other technologies
 
-## Recommended IDE Setup
+## Live Site Link
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+See [https://legendary-lokum-6fdd3d.netlify.app](https://legendary-lokum-6fdd3d.netlify.app)
 
 ## Project Setup
 

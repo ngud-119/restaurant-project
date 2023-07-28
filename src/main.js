@@ -15,7 +15,6 @@ import { VDataTable } from 'vuetify/labs/VDataTable'
 
 const vuetify = createVuetify({
   // components,
- 
   components: { ...components, VDataTable },
   directives,
   icons: {
