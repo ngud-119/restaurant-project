@@ -2,10 +2,10 @@
   <div class="">
     <v-card>
       <v-layout>
-        <v-navigation-drawer v-model="$store.state.drawerVisibility" mobile-break-point="960">
+        <v-navigation-drawer v-model="$store.state.drawerVisibility" app mobile-break-point="1440">
           <v-list>
             <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-              :title="getCurrentUser.fullName" :subtitle="getCurrentUser.email"></v-list-item>
+              :title="getCurrentUser.fullName" :right="$vuetify.rtl" :subtitle="getCurrentUser.email"></v-list-item>
           </v-list>
 
           <v-divider></v-divider>
@@ -71,8 +71,7 @@ export default {
   font-size: 18px;
   color: $primary;
 
-  .side-list-item {
-  }
+  .side-list-item {}
 }
 
 

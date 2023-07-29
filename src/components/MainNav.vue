@@ -5,7 +5,7 @@
       <h2 class="logo">BSS Restaurant</h2>
     </div>
     <div class="link-container">
-      <RouterLink class="nav-link" to="/home">Home</RouterLink>
+      <!-- <RouterLink class="nav-link" to="/home">Home</RouterLink> -->
       <RouterLink class="nav-link" to="/admin">Admin</RouterLink>
 
       <button v-if="getCurrentUser.email" @click="logoutUserData" class="nav-link d-inline">

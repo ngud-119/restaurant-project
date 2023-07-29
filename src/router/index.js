@@ -17,7 +17,6 @@ const router = createRouter({
     },
     {
       path: '/admin',
-      name: 'admin',
       component: () => import('../views/AdminView.vue'),
       meta: {
         isRequiredAuth: true
@@ -25,7 +24,7 @@ const router = createRouter({
       children: [
         {
           path: '',
-          name: 'adminHome',
+          name: 'admin',
           component: () => import('../views/Admin/AdminHome.vue')
         },
         {

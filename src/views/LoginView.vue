@@ -17,9 +17,9 @@
           </div>
         </form>
       </div>
-      <div class="mt-5 text-center">
+      <!-- <div class="mt-5 text-center">
         <RouterLink class="link" to="/admin-add-food">Back To Home</RouterLink>
-      </div>
+      </div> -->
     </div>
    
   </section>

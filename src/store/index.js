@@ -9,7 +9,7 @@ export default createStore({
     token: localStorageToken ? localStorageToken : '',
     currentUser: localStorageUser ? JSON.parse(localStorageUser) : {},
     allEmployee: {},
-    drawerVisibility: false,
+    drawerVisibility: true,
     loadingState: false
   },
   getters: {
