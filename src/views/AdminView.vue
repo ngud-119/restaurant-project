@@ -2,9 +2,9 @@
   <div class="">
     <v-card>
       <v-layout>
-        <v-navigation-drawer v-model="$store.state.drawerVisibility" app mobile-break-point="1440">
-          <v-list>
-            <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
+        <v-navigation-drawer class="nav-drawer" v-model="$store.state.drawerVisibility" app mobile-break-point="1440">
+          <v-list class="pb-3">
+            <v-list-item class="" prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
               :title="getCurrentUser.fullName" :right="$vuetify.rtl" :subtitle="getCurrentUser.email"></v-list-item>
           </v-list>
 
@@ -66,12 +66,19 @@ export default {
 @import "../assets/config";
 @import "../assets/responsive";
 
+
+.nav-drawer {
+  // background-color: $primary;
+}
+
 .side-list-link {
   text-decoration: none;
   font-size: 18px;
   color: $primary;
 
-  .side-list-item {}
+  .side-list-item {
+    // color: white;
+  }
 }
 
 
@@ -85,7 +92,7 @@ export default {
     padding: 10px;
 
     @include lg {
-      padding: 60px;
+      padding: 40px 60px;
     }
   }
 }

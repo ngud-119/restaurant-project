@@ -1,6 +1,6 @@
 <template>
 	<div class="loading-container">
-		<swapping-squares-spinner :animation-duration="1000" :size="65" color="#f25b0a" />
+		<swapping-squares-spinner :animation-duration="1000" :size="80" color="#cc080b" />
 	</div>
 </template>
 

@@ -21,7 +21,7 @@
         <RouterLink class="link" to="/admin-add-food">Back To Home</RouterLink>
       </div> -->
     </div>
-   
+
   </section>
 </template>
 
@@ -78,9 +78,10 @@ export default {
 
   .login-container {
     width: 90%;
-    background-color: #f1f1f1;
     padding: 30px;
     border-radius: 10px;
+    border: 2px solid $primary;
+
 
     @include lg {
       width: 540px;
@@ -106,7 +107,7 @@ export default {
         outline: none;
         font-size: 18px;
         padding: 10px;
-        border: 2px solid gray;
+        border: 2px solid $primary;
         border-radius: 5px;
       }
 
