@@ -84,7 +84,7 @@ export default {
 
 
     @include lg {
-      width: 540px;
+      width: 480px;
     }
 
     .logo {
@@ -116,7 +116,7 @@ export default {
         width: 100%;
         color: white;
         background-color: $primary;
-        padding: 15px 0px;
+        padding: 12px 0px;
         border-radius: 5px;
 
         &:hover {

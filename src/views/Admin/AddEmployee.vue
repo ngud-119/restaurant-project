@@ -18,8 +18,8 @@
 							<v-container v-if="!previewImg" class="text-center">
 								<p>Add Profile Image</p>
 							</v-container>
-							<v-file-input class="img-input-field" @change="onImageSelect" name="img"
-								id="img" accept="image/png, image/jpeg, image/bmp" placeholder="Pick an Image"
+							<v-file-input class="img-input-field" @change="onImageSelect" name="img" id="img"
+								accept="image/png, image/jpeg, image/bmp" placeholder="Pick an Image"
 								prepend-icon="mdi-camera" label="Image" required></v-file-input>
 							<img class="preview-img" v-if="previewImg" :src="previewImg" alt="">
 						</label>
@@ -227,8 +227,9 @@ export default {
 .image-selection-input {
 	label[for="img"] {
 		display: block;
-		border: 1px solid lightgray;
+		border: 2px dashed lightgray;
 		height: 238px;
+		padding: 10px;
 
 		.img-input-field {
 			display: none;

@@ -35,7 +35,7 @@ export default {
       logoutUser: "logoutUser",
       toggleDrawerVisibility: "toggleDrawerVisibility"
     }),
-    toggleDrawer(){
+    toggleDrawer() {
       this.toggleDrawerVisibility()
     },
     logoutUserData() {
@@ -60,31 +60,34 @@ export default {
   background-color: $primary;
   border-radius: 0px;
 
-  @include lg{
+  @include lg {
     padding: 10px 40px;
   }
 
-  .menu-btn{
+  .menu-btn {
     background-color: transparent;
     color: white;
     box-shadow: none;
   }
+
   .logo {
     font-size: 16px;
     font-weight: 600;
     text-align: center;
     color: white;
 
-    @include lg{
+    @include lg {
       font-size: 32px;
     }
   }
 
   .link-container {
     display: none;
-    @include lg{
+
+    @include lg {
       display: block;
     }
+
     .nav-link {
       color: white;
       text-decoration: none;

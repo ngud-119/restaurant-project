@@ -2,7 +2,7 @@
 	<div>
 		<div class="d-flex align-center justify-space-between mb-8">
 			<h2>All Employee List</h2>
-			<v-btn class="bg-primary" @click='addEmployee'>
+			<v-btn class="add-btn" @click='addEmployee'>
 				Add Employee
 			</v-btn>
 		</div>
@@ -12,8 +12,8 @@
 				<template v-slot:bottom>
 					<div class="text-center pt-2">
 						<v-pagination v-model="page" :length="pageCount"></v-pagination>
-						<v-text-field :model-value="itemsPerPage" class="pa-2" label="Items per page" type="number" min="-1"
-							max="15" hide-details @update:model-value="itemsPerPage = parseInt($event, 10)"></v-text-field>
+						<v-text-field :model-value="itemsPerPage" class="pa-2" label="Items per page" type="number" min="-1" max="15"
+							hide-details @update:model-value="itemsPerPage = parseInt($event, 10)"></v-text-field>
 					</div>
 				</template>
 			</v-data-table>
@@ -146,7 +146,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "../../assets/config";
+@import "../../assets/responsive";
+@import "../../styles/component";
+
+.add-btn {
+	@include btn($primary)
+}
+</style>
 
 
 
