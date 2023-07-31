@@ -7,13 +7,13 @@
 			</v-btn>
 		</div>
 		<div>
-			<v-data-table v-model:page="page" :headers="headers" :items="desserts" :items-per-page="itemsPerPage"
+			<v-data-table v-model:page="page" :headers="headers" :items="getAllEmployee.data" :items-per-page="itemsPerPage"
 				hide-default-footer class="elevation-1">
 				<template v-slot:bottom>
 					<div class="text-center pt-2">
 						<v-pagination v-model="page" :length="pageCount"></v-pagination>
-						<v-text-field :model-value="itemsPerPage" class="pa-2" label="Items per page" type="number" min="-1" max="15"
-							hide-details @update:model-value="itemsPerPage = parseInt($event, 10)"></v-text-field>
+						<v-text-field :model-value="itemsPerPage" class="pa-2" label="Items per page" type="number" min="-1"
+							max="15" hide-details @update:model-value="itemsPerPage = parseInt($event, 10)"></v-text-field>
 					</div>
 				</template>
 			</v-data-table>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
 	data() {
@@ -32,15 +32,15 @@ export default {
 			headers: [
 				{
 					align: 'start',
-					key: 'name',
+					key: 'image',
 					sortable: false,
-					title: 'Dessert (100g serving)',
+					title: 'Image',
 				},
-				{ title: 'Calories', key: 'calories' },
-				{ title: 'Fat (g)', key: 'fat' },
-				{ title: 'Carbs (g)', key: 'carbs' },
-				{ title: 'Protein (g)', key: 'protein' },
-				{ title: 'Iron (%)', key: 'iron' },
+				{ title: 'Name', key: 'middleName' },
+				{ title: 'Designation', key: 'designation' },
+				{ title: 'Gender', key: 'gender' },
+				{ title: 'Phone', key: 'phone' },
+				{ title: 'Join Date', key: 'joinDate' },
 			],
 			desserts: [
 				{
@@ -127,6 +127,9 @@ export default {
 		}
 	},
 	computed: {
+		...mapGetters({
+			getAllEmployee: "getAllEmployee"
+		}),
 		pageCount() {
 			return Math.ceil(this.desserts.length / this.itemsPerPage)
 		},
