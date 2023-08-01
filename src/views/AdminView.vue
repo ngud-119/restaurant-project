@@ -27,9 +27,12 @@
         </v-navigation-drawer>
         <!--!-------- Dashboard View Field ---------->
         <v-main>
+          <MainNav></MainNav>
           <div class="dashboard-container">
-            <MainNav></MainNav>
+
+
             <div class="dashboard-view">
+
               <RouterView />
             </div>
           </div>
@@ -42,10 +45,11 @@
 <script>
 import { mapGetters } from 'vuex';
 import MainNav from '../components/MainNav.vue';
+import DashboardSpinner from "../components/DashboardSpinner.vue"
 
 export default {
   name: "adminView",
-  components: { MainNav },
+  components: { MainNav, DashboardSpinner },
   data() {
     return {
       drawer: true
@@ -55,7 +59,8 @@ export default {
   computed: {
     ...mapGetters({
       getCurrentUser: "getCurrentUser",
-      getDrawerVisibility: "getDrawerVisibility"
+      getDrawerVisibility: "getDrawerVisibility",
+      getLoadingState: "getLoadingState"
     })
   }
 
@@ -84,7 +89,7 @@ export default {
 
 
 .dashboard-container {
-  min-height: 100vh;
+  min-height: 90vh;
 
   .dashboard-view {
     max-width: 1280px;

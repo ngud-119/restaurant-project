@@ -192,9 +192,9 @@ export default {
 				this.employee.genderId = 3
 			}
 			const { valid } = await this.$refs.addEmployeeForm.validate()
-			console.log(valid);
-			if (valid) alert('Form is valid')
-			//this.postEmployee(this.employee)
+			if (valid) {
+				this.postEmployee(this.employee)
+			}
 
 			console.log(this.employee);
 

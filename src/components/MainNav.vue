@@ -59,6 +59,7 @@ export default {
   padding: 10px 10px;
   background-color: $primary;
   border-radius: 0px;
+  z-index: 50;
 
   @include lg {
     padding: 10px 40px;

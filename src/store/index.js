@@ -9,6 +9,7 @@ export default createStore({
     token: localStorageToken ? localStorageToken : '',
     currentUser: localStorageUser ? JSON.parse(localStorageUser) : {},
     allEmployee: {},
+    allTable: {},
     drawerVisibility: true,
     loadingState: false
   },
@@ -39,10 +40,13 @@ export default createStore({
 
     async fetchAllEmployee({ commit }, payload) {
       try {
+        commit('IS_LOADING', true)
         const response = await ApiCall.get('api/Employee/datatable')
         console.log(response.data)
         commit('ADD_ALL_EMPLOYEE', response.data)
+        commit('IS_LOADING', false)
       } catch (error) {
+        commit('IS_LOADING', false)
         console.log(error)
       }
     },
@@ -54,8 +58,33 @@ export default createStore({
         console.log(response.data)
         commit('IS_LOADING', false)
       } catch (error) {
-        console.log(error);
+        console.log(error)
         commit('IS_LOADING', false)
+      }
+    },
+    async deleteEmployee({ commit }, payload) {
+      try {
+        console.log('pay', payload)
+        commit('IS_LOADING', true)
+        const response = await ApiCall.delete(`api/Employee/delete/${payload}`)
+        console.log(response.data)
+        commit('REMOVE_EMPLOYEE', response.data)
+        commit('IS_LOADING', false)
+      } catch (error) {
+        console.log(error)
+        commit('IS_LOADING', false)
+      }
+    },
+    async fetchAllTable({ commit }, payload) {
+      try {
+        commit('IS_LOADING', true)
+        const response = await ApiCall.get('api/Table/datatable')
+        console.log(response.data)
+        commit('ADD_ALL_TABLE', response.data)
+        commit('IS_LOADING', false)
+      } catch (error) {
+        commit('IS_LOADING', false)
+        console.log(error)
       }
     },
 
@@ -80,6 +109,9 @@ export default createStore({
     },
     ADD_ALL_EMPLOYEE(state, payload) {
       state.allEmployee = payload
+    },
+    ADD_ALL_TABLE(state, payload) {
+      state.allTable = payload
     },
     IS_LOADING(state, payload) {
       state.loadingState = payload
