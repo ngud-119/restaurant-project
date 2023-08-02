@@ -241,8 +241,6 @@ export default {
 			object-fit: contain;
 		}
 	}
-
-
 }
 
 .submit-btn {

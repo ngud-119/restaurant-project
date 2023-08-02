@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<div class="d-flex align-center justify-space-between mb-8">
-			<h2>All Employee List</h2>
-			<v-btn class="add-btn" @click='addEmployee'>
+			<h2>All Table List</h2>
+			<v-btn class="add-btn" @click='() => this.$router.push({ path: "/add-table" })'>
 				Add Table
 			</v-btn>
 		</div>

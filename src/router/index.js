@@ -48,6 +48,11 @@ const router = createRouter({
           component: () => import('../views/Admin/AllTableList.vue')
         },
         {
+          path: '/add-table',
+          name: 'addTable',
+          component: () => import('../views/Admin/AddTable.vue')
+        },
+        {
           path: '/admin-add-food',
           name: 'adminFoodAdd',
           component: () => import('../views/Admin/AdminAddFood.vue')
