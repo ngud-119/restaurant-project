@@ -73,6 +73,7 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/config";
 @import "../assets/responsive";
+@import "../styles/component";
 
 .login-section {
   max-width: 1600px;
@@ -139,11 +140,10 @@ export default {
       }
 
       .logo {
-        font-size: 32px;
-        font-weight: 600;
         text-align: center;
         color: $primary;
         margin-bottom: 30px;
+        @include logo
       }
 
       .form-container {

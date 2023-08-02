@@ -105,8 +105,8 @@ export default createStore({
       try {
         commit('IS_LOADING', true)
         console.log('payload', payload)
-        //const response = await ApiCall.post('api/EmployeeTable/create', payload)
-        //console.log(response.data)
+        const response = await ApiCall.post('api/EmployeeTable/create', payload)
+        console.log(response.data)
         commit('IS_LOADING', false)
       } catch (error) {
         commit('IS_LOADING', false)

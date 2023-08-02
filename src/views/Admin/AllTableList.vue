@@ -18,8 +18,6 @@
 					<v-select :items="item.raw.employees"></v-select>
 				</template>
 				<template v-slot:item.assignEmployees="{ item }">
-					<!-- <v-select :style="{maxWidth: '350px'}" :items="getAllEmployee.data" item-title="name" item-value="id" multiple
-						label="Select employee"></v-select> -->
 					<div>
 						<v-btn color="#cc080b" variant="outlined" icon="mdi-open-in-new" @click="openDialog(item)"></v-btn>
 					</div>

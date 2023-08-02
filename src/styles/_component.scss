@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap');
+
 @mixin btn($color) {
   width: auto;
   height: auto;
@@ -13,4 +15,10 @@
     background-color: $color;
     color: white;
   }
+}
+
+@mixin logo {
+  font-size: 45px;
+  font-weight: 800;
+  font-family: 'Lily Script One', cursive;
 }

@@ -8,7 +8,7 @@
       <!-- <RouterLink class="nav-link" to="/home">Home</RouterLink> -->
       <RouterLink class="nav-link" to="/admin">Admin</RouterLink>
 
-      <button v-if="getCurrentUser.email" @click="logoutUserData" class="nav-link d-inline">
+      <button v-if="getCurrentUser.email" @click="logoutUserData" class="nav-link">
         <v-icon icon="mdi-login" />
         Logout
       </button>
@@ -51,6 +51,7 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/config";
 @import "../assets/responsive";
+@import "../styles/component";
 
 .nav-container {
   display: flex;
@@ -72,10 +73,9 @@ export default {
   }
 
   .logo {
-    font-size: 16px;
-    font-weight: 600;
     text-align: center;
     color: white;
+    @include logo;
 
     @include lg {
       font-size: 32px;
@@ -86,13 +86,19 @@ export default {
     display: none;
 
     @include lg {
-      display: block;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .nav-link {
       color: white;
       text-decoration: none;
       padding: 20px 24px;
+      outline: none;
+      border: 0px;
+      display: block;
+      transition: all 0.4s;
 
       &:hover {
         color: white;
