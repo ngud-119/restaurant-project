@@ -172,8 +172,6 @@ export default {
 				nid => !!nid || 'Nid Number is required',
 				nid => (!(/[a-zA-Z]/.test(nid))) || 'NID number cannot contain any letter'
 			]
-
-
 		}
 	},
 	methods: {

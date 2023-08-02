@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/valid-v-slot -->
 
 <template>
 	<div>
@@ -12,16 +13,15 @@
 				:items-per-page="getAllEmployee.per_page" :items-length="getAllEmployee.total" hide-default-footer
 				class="elevation-1">
 				<template v-slot:item.action="{ item }">
-					<span class="me-2"><v-btn variant="outlined" @click="viewProfile(item)"
-							color="blue">Profile</v-btn></span>
-					<span class="me-2"><v-btn variant="outlined" color="success">Edit</v-btn></span>
-					<span class="me-2"><v-btn variant="outlined" @click="removeEmployee(item)"
-							color="#cc080b">Delete</v-btn></span>
+					<!-- <span class="me-2"><v-btn variant="outlined" @click="viewProfile(item)" color="blue">Profile</v-btn></span> -->
+					<span class="me-4"><v-btn width="36" height="36" variant="outlined" color="success" icon="mdi-account-edit"></v-btn></span>
+					<span class=""><v-btn width="36" height="36" variant="outlined" @click="removeEmployee(item)" icon="mdi-delete"
+							color="#cc080b"></v-btn></span>
 				</template>
 				<template v-slot:bottom>
 					<div class="text-center pt-2">
-						<v-pagination v-model="getAllEmployee.current_page" :next="nextPage()" color="#cc080b"
-							active-color="#cc080b" rounded="circle" :length="getAllEmployee.totalPages"></v-pagination>
+						<v-pagination v-model="getAllEmployee.current_page" :next="nextPage()" color="#cc080b" active-color="#cc080b"
+							rounded="circle" :length="getAllEmployee.totalPages"></v-pagination>
 					</div>
 				</template>
 			</v-data-table>
@@ -71,7 +71,7 @@ export default {
 		nextPage() {
 			console.log("dsdvd");
 		},
-			removeEmployee(item) {
+		removeEmployee(item) {
 			this.deleteEmployee(item.raw.id)
 		}
 	}

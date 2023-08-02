@@ -56,13 +56,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 10px;
+  padding: 0px 10px;
   background-color: $primary;
   border-radius: 0px;
   z-index: 50;
 
   @include lg {
-    padding: 10px 40px;
+    padding: 0px 40px;
   }
 
   .menu-btn {
@@ -92,10 +92,11 @@ export default {
     .nav-link {
       color: white;
       text-decoration: none;
-      padding: 10px 24px;
+      padding: 20px 24px;
 
       &:hover {
-        color: lightgray;
+        color: white;
+        background-color: #8f0709;
         cursor: pointer;
       }
     }

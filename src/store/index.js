@@ -17,6 +17,7 @@ export default createStore({
     getCurrentUser: (state) => state.currentUser,
     getToken: (state) => state.token,
     getAllEmployee: (state) => state.allEmployee,
+    getAllTableData: (state) => state.allTable,
     getDrawerVisibility: (state) => state.drawerVisibility,
     getLoadingState: (state) => state.loadingState
   },
@@ -67,8 +68,8 @@ export default createStore({
         console.log('pay', payload)
         commit('IS_LOADING', true)
         const response = await ApiCall.delete(`api/Employee/delete/${payload}`)
-        console.log(response.data)
-        commit('REMOVE_EMPLOYEE', response.data)
+        console.log("delete-employee-pay", payload)
+        commit('REMOVE_EMPLOYEE', payload)
         commit('IS_LOADING', false)
       } catch (error) {
         console.log(error)
@@ -81,6 +82,31 @@ export default createStore({
         const response = await ApiCall.get('api/Table/datatable')
         console.log(response.data)
         commit('ADD_ALL_TABLE', response.data)
+        commit('IS_LOADING', false)
+      } catch (error) {
+        commit('IS_LOADING', false)
+        console.log(error)
+      }
+    },
+    async postTable({ commit }, payload) {
+      try {
+        commit('IS_LOADING', true)
+        console.log('payload', payload)
+        const response = await ApiCall.post('api/Table/create', payload)
+        console.log(response.data)
+        commit('IS_LOADING', false)
+      } catch (error) {
+        commit('IS_LOADING', false)
+        console.log(error)
+      }
+    },
+
+    async assignEmployee({ commit }, payload) {
+      try {
+        commit('IS_LOADING', true)
+        console.log('payload', payload)
+        //const response = await ApiCall.post('api/EmployeeTable/create', payload)
+        //console.log(response.data)
         commit('IS_LOADING', false)
       } catch (error) {
         commit('IS_LOADING', false)
@@ -109,6 +135,9 @@ export default createStore({
     },
     ADD_ALL_EMPLOYEE(state, payload) {
       state.allEmployee = payload
+    },
+    REMOVE_EMPLOYEE(state, payload) {
+      state.allEmployee.data = state.allEmployee.data.filter((employee) => employee.id !== payload)
     },
     ADD_ALL_TABLE(state, payload) {
       state.allTable = payload

@@ -49,7 +49,7 @@ import DashboardSpinner from "../components/DashboardSpinner.vue"
 
 export default {
   name: "adminView",
-  components: { MainNav, DashboardSpinner },
+  components: { MainNav },
   data() {
     return {
       drawer: true
