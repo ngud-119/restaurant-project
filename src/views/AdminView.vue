@@ -23,6 +23,10 @@
               <v-list-item class="side-list-item" prepend-icon="mdi-list-box" title="All Table List"
                 value="allTable"></v-list-item>
             </RouterLink>
+            <RouterLink class="side-list-link" to="/admin-all-food-list">
+              <v-list-item class="side-list-item" prepend-icon="mdi-food" title="All Food List"
+                value="allFood"></v-list-item>
+            </RouterLink>
           </v-list>
         </v-navigation-drawer>
         <!--!-------- Dashboard View Field ---------->

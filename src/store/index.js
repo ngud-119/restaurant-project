@@ -10,6 +10,7 @@ export default createStore({
     currentUser: localStorageUser ? JSON.parse(localStorageUser) : {},
     allEmployee: {},
     allTable: {},
+    allFood: {},
     drawerVisibility: true,
     loadingState: false
   },
@@ -18,6 +19,7 @@ export default createStore({
     getToken: (state) => state.token,
     getAllEmployee: (state) => state.allEmployee,
     getAllTableData: (state) => state.allTable,
+    getAllFoodData: (state) => state.allFood,
     getDrawerVisibility: (state) => state.drawerVisibility,
     getLoadingState: (state) => state.loadingState
   },
@@ -63,13 +65,50 @@ export default createStore({
         commit('IS_LOADING', false)
       }
     },
+
+    async postFoodDetails({ commit }, payload) {
+      try {
+        commit('IS_LOADING', true)
+        console.log('payload-addFood', payload)
+        const response = await ApiCall.post('api/Food/create', payload)
+        console.log(response.data)
+        commit('IS_LOADING', false)
+      } catch (error) {
+        console.log(error)
+        commit('IS_LOADING', false)
+      }
+    },
+
+    async fetchAllFoodData({ commit }) {
+      try {
+        commit('IS_LOADING', true)
+        const response = await ApiCall.get('api/Food/datatable')
+        console.log(response.data)
+        commit('ADD_ALL_FOOD', response.data)
+        commit('IS_LOADING', false)
+      } catch (error) {
+        commit('IS_LOADING', false)
+        console.log(error)
+      }
+    },
     async deleteEmployee({ commit }, payload) {
       try {
-        console.log('pay', payload)
         commit('IS_LOADING', true)
         const response = await ApiCall.delete(`api/Employee/delete/${payload}`)
-        console.log("delete-employee-pay", payload)
+        console.log('delete-employee-pay', payload)
         commit('REMOVE_EMPLOYEE', payload)
+        commit('IS_LOADING', false)
+      } catch (error) {
+        console.log(error)
+        commit('IS_LOADING', false)
+      }
+    },
+    async deleteFood({ commit }, payload) {
+      try {
+        commit('IS_LOADING', true)
+        const response = await ApiCall.delete(`api/Food/delete/${payload}`)
+        console.log('delete-food-pay', payload)
+        commit('REMOVE_FOOD_DATA', payload)
         commit('IS_LOADING', false)
       } catch (error) {
         console.log(error)
@@ -105,8 +144,7 @@ export default createStore({
       try {
         commit('IS_LOADING', true)
         console.log('payload', payload)
-        const response = await ApiCall.post('api/EmployeeTable/create', payload)
-        console.log(response.data)
+        const response = await ApiCall.post('api/EmployeeTable/create-range', payload)
         commit('IS_LOADING', false)
       } catch (error) {
         commit('IS_LOADING', false)
@@ -141,6 +179,12 @@ export default createStore({
     },
     ADD_ALL_TABLE(state, payload) {
       state.allTable = payload
+    },
+    ADD_ALL_FOOD(state, payload) {
+      state.allFood = payload
+    },
+    REMOVE_FOOD_DATA(state, payload) {
+      state.allFood = state.allFood.data.filter((food) => food.id !== payload)
     },
     IS_LOADING(state, payload) {
       state.loadingState = payload

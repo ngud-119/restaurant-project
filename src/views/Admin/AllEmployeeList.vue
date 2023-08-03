@@ -12,9 +12,21 @@
 			<v-data-table v-model:page="getAllEmployee.current_page" :headers="headers" :items="getAllEmployee.data"
 				:items-per-page="getAllEmployee.per_page" :items-length="getAllEmployee.total" hide-default-footer
 				class="elevation-1">
+				<template v-slot:item.image="{ item }">
+					<img class="rounded-circle" :src="imageUrl + 'user/' + item.raw.user.image" alt="" width="40" height="40">
+				</template>
+				<template v-slot:item.name="{ item }">
+					<span>{{ item.raw.user.fullName }}</span>
+				</template>
+				<template v-slot:item.email="{ item }">
+					<span>{{ item.raw.user.email }}</span>
+				</template>
+				<template v-slot:item.phoneNumber="{ item }">
+					<span>{{ item.raw.user.phoneNumber }}</span>
+				</template>
 				<template v-slot:item.action="{ item }">
-					<!-- <span class="me-2"><v-btn variant="outlined" @click="viewProfile(item)" color="blue">Profile</v-btn></span> -->
-					<span class="me-4"><v-btn width="36" height="36" variant="outlined" color="success" icon="mdi-account-edit"></v-btn></span>
+					<span class="me-4"><v-btn width="36" height="36" variant="outlined" color="success"
+							icon="mdi-account-edit"></v-btn></span>
 					<span class=""><v-btn width="36" height="36" variant="outlined" @click="removeEmployee(item)" icon="mdi-delete"
 							color="#cc080b"></v-btn></span>
 				</template>
@@ -31,20 +43,30 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import { imageUrl } from '../../constants/config'
 
 export default {
 	data() {
 		return {
 			page: 2,
+			imageUrl: imageUrl,
 			headers: [
+				{
+					align: 'start',
+					key: 'image',
+					sortable: false,
+					title: 'Image',
+				},
 				{
 					align: 'start',
 					key: 'name',
 					sortable: false,
 					title: 'Name',
 				},
+				{ title: 'Email', key: 'email' },
 				{ title: 'Designation', key: 'designation' },
 				{ title: 'Join Date', key: 'joinDate' },
+				{ title: 'Phone Number', key: 'phoneNumber' },
 				{ title: 'Action', key: 'action' },
 			]
 		}

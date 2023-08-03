@@ -15,15 +15,16 @@
 					{{ item.raw.isOccupied ? "Booked" : "Available" }}
 				</template>
 				<template v-slot:item.employees="{ item }">
-					<v-select :items="item.raw.employees"></v-select>
+					<p v-for="employee in item.raw.employees" :key="employee.id">{{ employee.name }}</p>
 				</template>
 				<template v-slot:item.assignEmployees="{ item }">
 					<div>
-						<v-btn color="#cc080b" variant="outlined" icon="mdi-open-in-new" @click="openDialog(item)"></v-btn>
+						<v-btn color="green" variant="outlined" icon="mdi-open-in-new" width="36" height="36"
+							@click="openDialog(item)"></v-btn>
 					</div>
 				</template>
 				<template v-slot:item.action="{ item }">
-					<span class="me-2"><v-btn variant="outlined" @click="removeTable(item)" icon="mdi-delete"
+					<span class="me-2"><v-btn variant="outlined" width="36" height="36" @click="removeTable(item)" icon="mdi-delete"
 							color="#cc080b"></v-btn></span>
 				</template>
 				<template v-slot:bottom>
@@ -57,8 +58,8 @@
 									<div class="text-h5 mb-3">
 										<span>Number of seats: {{ dialogData.seats }}</span>
 									</div>
-									<v-select v-model="dialogData.employeeId" :items=getAllEmployee.data item-title="name" item-value="id"
-										label="Select Employee" multiple></v-select>
+									<v-select v-model="dialogData.employeeId" :items=getAllEmployee.data item-title="name" item-value="id" label="Select Employee"
+										multiple></v-select>
 								</v-col>
 							</v-row>
 						</v-container>
@@ -68,7 +69,7 @@
 						<v-btn color="blue-darken-1" variant="text" @click="dialog = false">
 							Close
 						</v-btn>
-						<v-btn color="blue-darken-1" variant="text" @click="dialogFinal">
+						<v-btn color="blue-darken-1" variant="text" @click=" dialogFinal ">
 							Save
 						</v-btn>
 					</v-card-actions>
@@ -136,8 +137,9 @@ export default {
 		},
 		dialogFinal() {
 			this.dialog = false
-			console.log(this.dialogData);
-			const data = { employeeId: this.dialogData.employeeId, tableId: this.dialogData.id };
+			const data = [...this.dialogData.employeeId.map(item => {
+				return { employeeId: item, tableId: this.dialogData.id }
+			})];
 			console.log(data);
 			this.assignEmployee(data)
 			this.dialogData = {

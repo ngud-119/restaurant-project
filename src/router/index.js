@@ -53,6 +53,11 @@ const router = createRouter({
           component: () => import('../views/Admin/AddTable.vue')
         },
         {
+          path: '/admin-all-food-list',
+          name: 'adminAllFood',
+          component: () => import('../views/Admin/AllFoodList.vue')
+        },
+        {
           path: '/admin-add-food',
           name: 'adminFoodAdd',
           component: () => import('../views/Admin/AdminAddFood.vue')
