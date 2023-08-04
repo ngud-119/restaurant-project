@@ -2,7 +2,7 @@
   <div class="">
     <v-card>
       <v-layout>
-        <v-navigation-drawer class="nav-drawer" v-model="$store.state.drawerVisibility" app mobile-break-point="1440">
+        <v-navigation-drawer class="nav-drawer" v-model="$store.state.drawerVisibility" app mobile-break-point="640">
           <v-list class="pb-3">
             <v-list-item class="" prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
               :title="getCurrentUser.fullName" :right="$vuetify.rtl" :subtitle="getCurrentUser.email"></v-list-item>
@@ -49,7 +49,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import MainNav from '../components/MainNav.vue';
-import DashboardSpinner from "../components/DashboardSpinner.vue"
 
 export default {
   name: "adminView",

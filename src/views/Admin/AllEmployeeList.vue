@@ -9,8 +9,14 @@
 			</v-btn>
 		</div>
 		<div>
-			<v-data-table v-model:page="getAllEmployee.current_page" :headers="headers" :items="getAllEmployee.data"
-				:items-per-page="getAllEmployee.per_page" :items-length="getAllEmployee.total" hide-default-footer
+			<v-data-table-server 
+				v-model:items-per-page="itemsPerPage" 
+				:headers="headers" 
+				:items-length="totalItems"
+				:items="tableData" 
+				:items-per-page="itemsPerPage"
+				@update:options="loadItems" 
+				hide-default-footer
 				class="elevation-1">
 				<template v-slot:item.image="{ item }">
 					<img class="rounded-circle" :src="imageUrl + 'user/' + item.raw.user.image" alt="" width="40" height="40">
@@ -30,25 +36,23 @@
 					<span class=""><v-btn width="36" height="36" variant="outlined" @click="removeEmployee(item)" icon="mdi-delete"
 							color="#cc080b"></v-btn></span>
 				</template>
-				<template v-slot:bottom>
-					<div class="text-center pt-2">
-						<v-pagination v-model="getAllEmployee.current_page" :next="nextPage()" color="#cc080b" active-color="#cc080b"
-							rounded="circle" :length="getAllEmployee.totalPages"></v-pagination>
-					</div>
-				</template>
-			</v-data-table>
+			</v-data-table-server>
 		</div>
 	</div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { imageUrl } from '../../constants/config'
+import { imageUrl } from '../../constants/config';
+import ApiCall from '../../api/apiInterface';
 
 export default {
 	data() {
 		return {
-			page: 2,
+			totalItems: 0,
+			itemsPerPage: 10,
+			totalPages: 0,
+			tableData: [],
 			imageUrl: imageUrl,
 			headers: [
 				{
@@ -95,7 +99,17 @@ export default {
 		},
 		removeEmployee(item) {
 			this.deleteEmployee(item.raw.id)
-		}
+		},
+		
+		async loadItems({ page, itemsPerPage, sortBy }) {
+			this.page = page ??= this.page;
+			this.itemsPerPage = itemsPerPage ??= this.itemsPerPage;
+			this.sortBy = sortBy ??= this.sortBy;
+			const response = await ApiCall.get(`api/Employee/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`)
+			this.tableData = response.data.data
+			this.totalPages = response.data.totalPages;
+			this.totalItems = response.data.total;
+		},
 	}
 }
 </script>

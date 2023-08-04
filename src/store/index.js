@@ -11,6 +11,7 @@ export default createStore({
     allEmployee: {},
     allTable: {},
     allFood: {},
+    nonAssignedEmployees: [],
     drawerVisibility: true,
     loadingState: false
   },
@@ -18,6 +19,7 @@ export default createStore({
     getCurrentUser: (state) => state.currentUser,
     getToken: (state) => state.token,
     getAllEmployee: (state) => state.allEmployee,
+    getAllNonAssignedEmployees: (state) => state.nonAssignedEmployees,
     getAllTableData: (state) => state.allTable,
     getAllFoodData: (state) => state.allFood,
     getDrawerVisibility: (state) => state.drawerVisibility,
@@ -140,11 +142,24 @@ export default createStore({
       }
     },
 
+    async fetchNonAssignedEmployees({ commit }, payload) {
+      try {
+        commit('IS_LOADING', true)
+        const response = await ApiCall.get(`api/Employee/non-assigned-employees/${payload}`)
+        console.log(response.data)
+        commit('ADD_ALL_NON_ASSIGNED_EMPLOYEES', response.data)
+        commit('IS_LOADING', false)
+      } catch (error) {
+        commit('IS_LOADING', false)
+        console.log(error)
+      }
+    },
     async assignEmployee({ commit }, payload) {
       try {
         commit('IS_LOADING', true)
-        console.log('payload', payload)
+        console.log('payload-assignEmployee', payload)
         const response = await ApiCall.post('api/EmployeeTable/create-range', payload)
+        commit('ASSIGN_EMPLOYEE_DATA', payload)
         commit('IS_LOADING', false)
       } catch (error) {
         commit('IS_LOADING', false)
@@ -179,6 +194,14 @@ export default createStore({
     },
     ADD_ALL_TABLE(state, payload) {
       state.allTable = payload
+    },
+    ADD_ALL_NON_ASSIGNED_EMPLOYEES(state, payload) {
+      state.nonAssignedEmployees = payload
+    },
+    ASSIGN_EMPLOYEE_DATA(state, payload) {
+      state.getAllTableData.data
+        .filter((item) => item.id === payload.tableId)
+        .employees.push([...payload])
     },
     ADD_ALL_FOOD(state, payload) {
       state.allFood = payload
