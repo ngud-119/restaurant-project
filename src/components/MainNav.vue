@@ -1,10 +1,14 @@
 <template>
   <nav class="nav-container">
-    <div class="d-flex align-center">
-      <v-btn class="me-5 menu-btn hidden-lg" icon="mdi-menu" @click.stop="toggleDrawer"></v-btn>
-      <div class="d-flex align-center">
+    <div class="logo-container">
+      <v-btn
+        class="order-last menu-btn hidden-lg text-h5"
+        icon="mdi-menu"
+        @click.stop="toggleDrawer"
+      ></v-btn>
+      <div class="d-flex align-center order-first">
         <img src="../assets/logo.png" alt="" width="50" />
-        <p class="d-block text-white text-h6 font-weight-bold mt-1 ms-2">BSS RESTAURANT</p>
+        <p class="logo-text">BSS RESTAURANT</p>
       </div>
     </div>
     <div class="link-container">
@@ -60,7 +64,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 10px;
+  padding: 12px 10px;
   background-color: $primary;
   border-radius: 0px;
   z-index: 50;
@@ -69,19 +73,32 @@ export default {
     padding: 0px 40px;
   }
 
+  .logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include lg {
+      width: fit-content;
+    }
+  }
+
   .menu-btn {
     background-color: transparent;
     color: white;
     box-shadow: none;
   }
 
-  .logo {
-    text-align: center;
-    color: white;
+  .logo-text {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 18px;
+
     @include logo;
 
     @include lg {
-      font-size: 32px;
+      font-size: 22px;
     }
   }
 

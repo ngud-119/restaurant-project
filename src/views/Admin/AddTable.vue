@@ -89,6 +89,7 @@ export default {
           image: '',
           base64: ''
         }
+		this.previewTableImg = null;
       }
     },
 

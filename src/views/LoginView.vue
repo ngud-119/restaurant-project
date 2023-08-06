@@ -7,9 +7,7 @@
       <div class="login-container">
         <div class="logo">
           <img src="../assets/logo.png" alt="" width="150" />
-          <p class="d-block text-black heading-font text-h5 font-weight-bold mt-2">
-            BSS RESTAURANT
-          </p>
+          <p class="logo-text">BSS RESTAURANT</p>
         </div>
         <div class="form-container">
           <form @submit.prevent="submitLoginInfo">
@@ -112,6 +110,7 @@ export default {
     display: none;
     justify-content: center;
     align-items: center;
+    filter: drop-shadow(8px 8px 10px rgba(0, 0, 0, 0.25));
 
     @include lg {
       display: flex;
@@ -153,6 +152,9 @@ export default {
       background-color: #f1f1f1;
       padding: 30px 45px 30px 45px;
       border-radius: 10px;
+      // box-shadow:
+      //   0 10px 20px rgba(0, 0, 0, 0.19),
+      //   0 6px 6px rgba(0, 0, 0, 0.23);
 
       @include lg {
         width: 540px;
@@ -160,7 +162,29 @@ export default {
 
       .logo {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
+
+        .logo-text {
+          margin-top: 10px;
+          font-size: 32px;
+          font-weight: 700;
+          color: white;
+          letter-spacing: 2px;
+          text-shadow:
+            $primary 2px 0px 0px,
+            $primary 1.75517px 0.958851px 0px,
+            $primary 1.0806px 1.68294px 0px,
+            $primary 0.141474px 1.99499px 0px,
+            $primary -0.832294px 1.81859px 0px,
+            $primary -1.60229px 1.19694px 0px,
+            $primary -1.97998px 0.28224px 0px,
+            $primary -1.87291px -0.701566px 0px,
+            $primary -1.30729px -1.5136px 0px,
+            $primary -0.421592px -1.95506px 0px,
+            $primary 0.567324px -1.91785px 0px,
+            $primary 1.41734px -1.41108px 0px,
+            $primary 1.92034px -0.558831px 0px;
+        }
       }
 
       .form-container {

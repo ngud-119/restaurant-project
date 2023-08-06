@@ -31,6 +31,7 @@
               @click="removeAssignedEmployee(employee.employeeTableId)"
             ></v-icon>
           </p>
+          <p v-if="item.raw.employees.length <= 0">No assigned employee</p>
         </template>
         <template v-slot:item.assignEmployees="{ item }">
           <div>
@@ -57,6 +58,12 @@
           ></span>
         </template>
       </v-data-table-server>
+      sc
+      <CustomDialog
+        icon="mdi-account-remove"
+        heading="Removing Employee"
+        text="Are you Sure?"
+      ></CustomDialog>
     </div>
   </div>
   <!---------- Modal Data Show ------------>
@@ -108,11 +115,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { imageUrl } from '../../constants/config'
+import CustomDialog from '../../components/CustomDialog.vue'
 import ApiCall from '../../api/apiInterface'
 import store from '../../store'
 
 export default {
   name: 'AllTableList',
+  components: { CustomDialog },
   data() {
     return {
       dialog: false,
@@ -184,13 +193,16 @@ export default {
     async removeTable(item) {
       console.log(item.raw.id)
       try {
+        store.commit('IS_LOADING', true)
         await ApiCall.delete(`api/Table/delete/${item.raw.id}`)
         await this.loadItems({
           page: this.page,
           itemsPerPage: this.itemsPerPage,
           sortBy: this.sortBy
         })
+        store.commit('IS_LOADING', false)
       } catch (e) {
+        store.commit('IS_LOADING', false)
         console.log(e)
       }
     },

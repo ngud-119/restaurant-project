@@ -1,4 +1,3 @@
-
 <template>
   <LoadingSpinner v-if="getLoadingState"></LoadingSpinner>
   <RouterView />
@@ -6,22 +5,20 @@
 
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-import LoadingSpinner from "./components/LoadingSpinner.vue"
-import { mapGetters } from 'vuex';
+import LoadingSpinner from './components/LoadingSpinner.vue'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     LoadingSpinner
   },
   computed: {
     ...mapGetters({
-      getLoadingState: "getLoadingState"
+      getLoadingState: 'getLoadingState'
     })
-  },
+  }
 }
 </script>
-
-
 
 <style scoped></style>
