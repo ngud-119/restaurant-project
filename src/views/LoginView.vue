@@ -1,23 +1,42 @@
 <template>
   <section class="login-section">
-    <div class=" img-container">
-      <img src="../assets/img/login-bg.png" alt="">
+    <div class="img-container">
+      <img src="../assets/img/login-bg.png" alt="" />
     </div>
     <div class="login-container-wrapper">
       <div class="login-container">
-        <h1 class="logo">BSS Restaurant</h1>
+        <div class="logo">
+          <img src="../assets/logo.png" alt="" width="150" />
+          <p class="d-block text-black heading-font text-h5 font-weight-bold mt-2">
+            BSS RESTAURANT
+          </p>
+        </div>
         <div class="form-container">
           <form @submit.prevent="submitLoginInfo">
             <div class="mb-5">
               <p class="input-label">Username:</p>
-              <input class="input-field" type="text" v-model="user.userName" name="userName" id="userName" required>
+              <input
+                class="input-field"
+                type="text"
+                v-model="user.userName"
+                name="userName"
+                id="userName"
+                required
+              />
             </div>
             <div class="mb-5">
               <p class="input-label">Password:</p>
-              <input class="input-field" type="password" v-model="user.password" name="password" id="password" required>
+              <input
+                class="input-field"
+                type="password"
+                v-model="user.password"
+                name="password"
+                id="password"
+                required
+              />
             </div>
             <div>
-              <input class="submit-btn" type="submit" value="Login">
+              <input class="submit-btn" type="submit" value="Login" />
             </div>
           </form>
         </div>
@@ -33,47 +52,47 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: "LoginView",
+  name: 'LoginView',
   data() {
     return {
       user: {
-        userName: "",
-        password: ""
+        userName: '',
+        password: ''
       }
     }
   },
   computed: {
     ...mapGetters({
-      getToken: "getToken",
-      getCurrentUser: "getCurrentUser",
-      getLoadingState: "getLoadingState"
+      getToken: 'getToken',
+      getCurrentUser: 'getCurrentUser',
+      getLoadingState: 'getLoadingState'
     })
   },
   methods: {
     ...mapActions({
-      loginUser: 'loginUser',
+      loginUser: 'loginUser'
     }),
 
     async submitLoginInfo() {
       await this.loginUser(this.user)
 
-      this.$router.push({ name: "admin" })
+      this.$router.push({ name: 'admin' })
     }
   },
   mounted() {
-    console.log("mounted");
-    let currentUser = this.getCurrentUser;
+    console.log('mounted')
+    let currentUser = this.getCurrentUser
     if (currentUser) {
-      this.$router.push({ path: "/admin" })
+      this.$router.push({ path: '/admin' })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/config";
-@import "../assets/responsive";
-@import "../styles/component";
+@import '../assets/config';
+@import '../assets/responsive';
+@import '../styles/component';
 
 .login-section {
   max-width: 1600px;
@@ -84,7 +103,7 @@ export default {
   align-items: center;
 
   .img-container {
-    background: url("../assets/img/food-bg2.png");
+    background: url('../assets/img/food-bg2.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 1000px;
@@ -132,7 +151,7 @@ export default {
     .login-container {
       width: 90%;
       background-color: #f1f1f1;
-      padding: 80px 45px 80px 45px;
+      padding: 30px 45px 30px 45px;
       border-radius: 10px;
 
       @include lg {
@@ -141,13 +160,10 @@ export default {
 
       .logo {
         text-align: center;
-        color: $primary;
-        margin-bottom: 30px;
-        @include logo
+        margin-bottom: 40px;
       }
 
       .form-container {
-
         .input-label {
           font-size: 18px;
           margin-bottom: 8px;

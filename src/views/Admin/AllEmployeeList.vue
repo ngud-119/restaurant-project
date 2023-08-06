@@ -3,23 +3,18 @@
 <template>
 	<div>
 		<div class="d-flex align-center justify-space-between mb-8">
-			<h2>All Employee List</h2>
+			<h2 class="heading-font">All Employee</h2>
 			<v-btn class="add-btn" @click='addEmployee'>
 				Add Employee
 			</v-btn>
 		</div>
 		<div>
-			<v-data-table-server 
-				v-model:items-per-page="itemsPerPage" 
-				:headers="headers" 
-				:items-length="totalItems"
-				:items="tableData" 
-				:items-per-page="itemsPerPage"
-				@update:options="loadItems" 
-				hide-default-footer
-				class="elevation-1">
+			<v-data-table-server v-model:items-per-page="itemsPerPage" :headers="headers" :items-length="totalItems"
+				:items="tableData" :items-per-page="itemsPerPage" @update:options="loadItems" hide-default-footer
+				:hover="true" class="elevation-1">
 				<template v-slot:item.image="{ item }">
-					<img class="rounded-circle" :src="imageUrl + 'user/' + item.raw.user.image" alt="" width="40" height="40">
+					<img class="rounded-circle" :src="imageUrl + 'user/' + item.raw.user.image" alt="" width="40"
+						height="40">
 				</template>
 				<template v-slot:item.name="{ item }">
 					<span>{{ item.raw.user.fullName }}</span>
@@ -33,8 +28,8 @@
 				<template v-slot:item.action="{ item }">
 					<span class="me-4"><v-btn width="36" height="36" variant="outlined" color="success"
 							icon="mdi-account-edit"></v-btn></span>
-					<span class=""><v-btn width="36" height="36" variant="outlined" @click="removeEmployee(item)" icon="mdi-delete"
-							color="#cc080b"></v-btn></span>
+					<span class=""><v-btn width="36" height="36" variant="outlined" @click="removeEmployee(item)"
+							icon="mdi-trash-can" color="#cc080b"></v-btn></span>
 				</template>
 			</v-data-table-server>
 		</div>
@@ -100,7 +95,7 @@ export default {
 		removeEmployee(item) {
 			this.deleteEmployee(item.raw.id)
 		},
-		
+
 		async loadItems({ page, itemsPerPage, sortBy }) {
 			this.page = page ??= this.page;
 			this.itemsPerPage = itemsPerPage ??= this.itemsPerPage;

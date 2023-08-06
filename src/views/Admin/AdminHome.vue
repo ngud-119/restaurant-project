@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>admin home</h2>
+        <h2 class="heading-font">admin home</h2>
     </div>
 </template>
 

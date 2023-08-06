@@ -1,8 +1,11 @@
 <template>
   <nav class="nav-container">
     <div class="d-flex align-center">
-      <v-btn class="me-5 menu-btn" icon="mdi-menu" @click.stop="toggleDrawer"></v-btn>
-      <h2 class="logo">BSS Restaurant</h2>
+      <v-btn class="me-5 menu-btn hidden-lg" icon="mdi-menu" @click.stop="toggleDrawer"></v-btn>
+      <div class="d-flex align-center">
+        <img src="../assets/logo.png" alt="" width="50" />
+        <p class="d-block text-white text-h6 font-weight-bold mt-1 ms-2">BSS RESTAURANT</p>
+      </div>
     </div>
     <div class="link-container">
       <!-- <RouterLink class="nav-link" to="/home">Home</RouterLink> -->
@@ -22,26 +25,26 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex'
 export default {
-  name: "mainNav",
+  name: 'mainNav',
   computed: {
     ...mapGetters({
-      getCurrentUser: "getCurrentUser"
+      getCurrentUser: 'getCurrentUser'
     })
   },
   methods: {
     ...mapActions({
-      logoutUser: "logoutUser",
-      toggleDrawerVisibility: "toggleDrawerVisibility"
+      logoutUser: 'logoutUser',
+      toggleDrawerVisibility: 'toggleDrawerVisibility'
     }),
     toggleDrawer() {
       this.toggleDrawerVisibility()
     },
     logoutUserData() {
-      console.log("logout");
-      localStorage.clear();
-      this.logoutUser();
+      console.log('logout')
+      localStorage.clear()
+      this.logoutUser()
       this.$router.push({ name: 'login' })
     }
   }
@@ -49,9 +52,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/config";
-@import "../assets/responsive";
-@import "../styles/component";
+@import '../assets/config';
+@import '../assets/responsive';
+@import '../styles/component';
 
 .nav-container {
   display: flex;
@@ -91,10 +94,16 @@ export default {
       align-items: center;
     }
 
+    .active-nav-link {
+      color: white;
+      background-color: #8f0709;
+      cursor: pointer;
+    }
+
     .nav-link {
       color: white;
       text-decoration: none;
-      padding: 20px 24px;
+      padding: 20px 36px;
       outline: none;
       border: 0px;
       display: block;
@@ -107,7 +116,5 @@ export default {
       }
     }
   }
-
-
 }
 </style>

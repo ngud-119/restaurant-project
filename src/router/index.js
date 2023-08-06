@@ -64,7 +64,8 @@ const router = createRouter({
         }
       ]
     }
-  ]
+  ],
+  linkActiveClass: 'active-nav-link'
 })
 
 router.beforeEach((to, from, next) => {
