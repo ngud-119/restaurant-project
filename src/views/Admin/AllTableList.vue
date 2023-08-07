@@ -292,7 +292,6 @@ export default {
 // .v-data-table__thead tr {
 //   background-color: $primary !important;
 // }
-
 </style>
 <style lang="scss" scoped>
 @import '../../assets/config';
@@ -317,6 +316,13 @@ export default {
 
     @include lg {
       display: flex;
+    }
+
+    p {
+      min-width: 60px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .assigned-employees-close-icon {
