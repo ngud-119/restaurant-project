@@ -92,7 +92,7 @@ export default {
         { title: 'Discount Type', key: 'discountType' },
         { title: 'Discount', key: 'discount' },
         { title: 'Discount Price', key: 'discountPrice' },
-        { title: 'Action', key: 'action' }
+        { title: 'Action', key: 'action', width: '130px' }
       ]
     }
   },
@@ -137,9 +137,5 @@ export default {
 
 .add-btn {
   @include btn($primary);
-}
-
-thead {
-  border: 2px solid red !important;
 }
 </style>

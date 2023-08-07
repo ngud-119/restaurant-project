@@ -2,7 +2,7 @@
   <nav class="nav-container">
     <div class="logo-container">
       <v-btn
-        class="order-last menu-btn hidden-lg text-h5"
+        class="order-last menu-btn text-h5"
         icon="mdi-menu"
         @click.stop="toggleDrawer"
       ></v-btn>
@@ -15,10 +15,10 @@
       <!-- <RouterLink class="nav-link" to="/home">Home</RouterLink> -->
       <RouterLink class="nav-link" to="/admin">Admin</RouterLink>
 
-      <button v-if="getCurrentUser.email" @click="logoutUserData" class="nav-link">
+      <!-- <button v-if="getCurrentUser.email" @click="logoutUserData" class="nav-link">
         <v-icon icon="mdi-login" />
         Logout
-      </button>
+      </button> -->
 
       <RouterLink v-if="!getCurrentUser.email" class="nav-link" to="/">
         <v-icon icon="mdi-login" />
@@ -46,7 +46,6 @@ export default {
       this.toggleDrawerVisibility()
     },
     logoutUserData() {
-      console.log('logout')
       localStorage.clear()
       this.logoutUser()
       this.$router.push({ name: 'login' })
@@ -88,6 +87,11 @@ export default {
     background-color: transparent;
     color: white;
     box-shadow: none;
+    display: block;
+
+    @include lg{
+      display: none;
+    }
   }
 
   .logo-text {

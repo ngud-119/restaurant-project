@@ -150,7 +150,7 @@ export default {
     .login-container {
       width: 90%;
       background-color: #f1f1f1;
-      padding: 30px 45px 30px 45px;
+      padding: 20px;
       border-radius: 10px;
       // box-shadow:
       //   0 10px 20px rgba(0, 0, 0, 0.19),
@@ -158,15 +158,20 @@ export default {
 
       @include lg {
         width: 540px;
+        padding: 30px 45px 30px 45px;
       }
 
       .logo {
         text-align: center;
         margin-bottom: 20px;
 
+        img {
+          // mix-blend-mode: color-burn;
+        }
+
         .logo-text {
           margin-top: 10px;
-          font-size: 32px;
+          font-size: 24px;
           font-weight: 700;
           color: white;
           letter-spacing: 2px;
@@ -184,6 +189,10 @@ export default {
             $primary 0.567324px -1.91785px 0px,
             $primary 1.41734px -1.41108px 0px,
             $primary 1.92034px -0.558831px 0px;
+
+          @include lg {
+            font-size: 32px;
+          }
         }
       }
 

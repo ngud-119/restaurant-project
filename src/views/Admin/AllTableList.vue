@@ -58,12 +58,12 @@
           ></span>
         </template>
       </v-data-table-server>
-      sc
+      <!-- sc
       <CustomDialog
         icon="mdi-account-remove"
         heading="Removing Employee"
         text="Are you Sure?"
-      ></CustomDialog>
+      ></CustomDialog> -->
     </div>
   </div>
   <!---------- Modal Data Show ------------>
@@ -95,6 +95,8 @@
                     item-title="name"
                     item-value="employeeId"
                     label="Select Employee"
+                    variant="outlined"
+                    color="#79a33d"
                     multiple
                   ></v-select>
                 </v-col>
@@ -248,14 +250,17 @@ export default {
       ]
 
       try {
+        store.commit('IS_LOADING', true)
         await ApiCall.post('api/EmployeeTable/create-range', data)
         await this.loadItems({
           page: this.page,
           itemsPerPage: this.itemsPerPage,
           sortBy: this.sortBy
         })
+        store.commit('IS_LOADING', false)
       } catch (e) {
         console.log(e)
+        store.commit('IS_LOADING', false)
       }
       this.dialogData = {
         id: null,
