@@ -28,10 +28,24 @@
           />
         </template>
         <template v-slot:item.name="{ item }">
-          <span>{{ item.raw.user.fullName }}</span>
+          <div class="name-container">
+            <div class="me-2 employee-name">
+              {{ item.raw.user.fullName }}
+            </div>
+            <div class="fav-icon">
+              <v-icon
+                width="36"
+                height="36"
+                class=""
+                icon="mdi-star-circle"
+                :color="fav === true ? 'yellow-darken-3' : 'grey-lighten-1'"
+                @click="addFav"
+              ></v-icon>
+            </div>
+          </div>
         </template>
         <template v-slot:item.email="{ item }">
-          <span>{{ item.raw.user.email }}</span>
+          <span class="email-container">{{ item.raw.user.email }}</span>
         </template>
         <template v-slot:item.phoneNumber="{ item }">
           <span>{{ item.raw.user.phoneNumber }}</span>
@@ -41,7 +55,7 @@
             ><v-btn
               width="36"
               height="36"
-              variant="outlined"
+              variant="plain"
               color="success"
               icon="mdi-account-edit"
             ></v-btn
@@ -50,7 +64,7 @@
             ><v-btn
               width="36"
               height="36"
-              variant="outlined"
+              variant="plain"
               @click="removeEmployee(item)"
               icon="mdi-trash-can"
               color="#cc080b"
@@ -70,6 +84,7 @@ import ApiCall from '../../api/apiInterface'
 export default {
   data() {
     return {
+      fav: false,
       totalItems: 0,
       itemsPerPage: 10,
       totalPages: 0,
@@ -86,14 +101,13 @@ export default {
           align: 'start',
           key: 'name',
           sortable: false,
-          title: 'Name',
-          width: '200px'
+          title: 'Name'
         },
         { title: 'Email', key: 'email' },
         { title: 'Designation', key: 'designation' },
-        { title: 'Join Date', key: 'joinDate', width: '130px' },
+        { title: 'Join Date', key: 'joinDate' },
         { title: 'Phone Number', key: 'phoneNumber' },
-        { title: 'Action', key: 'action', width: '130px' }
+        { title: 'Action', key: 'action' }
       ]
     }
   },
@@ -112,6 +126,9 @@ export default {
     }),
     addEmployee() {
       this.$router.push({ path: '/add-employee' })
+    },
+    addFav() {
+      this.fav = !this.fav
     },
     viewProfile(data) {
       console.log('clo', data.item.value)
@@ -155,7 +172,31 @@ export default {
     margin-bottom: 10px;
   }
 }
+.name-container {
+  display: grid;
+  grid-template-columns: 1fr 0.1fr;
+  //   display: flex;
+  width: 100%;
+  align-items: center;
+  .employee-name {
+    // flex: 1;
+    min-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .fav-icon {
+    cursor: pointer;
+    white-space: nowrap;
+  }
+}
 
+.email-container span{
+  min-width: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .add-btn {
   @include btn($primary);
 }

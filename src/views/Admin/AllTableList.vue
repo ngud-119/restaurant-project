@@ -23,39 +23,57 @@
           {{ item.raw.isOccupied ? 'Booked' : 'Available' }}
         </template>
         <template v-slot:item.employees="{ item }">
-          <p class="assigned-employees" v-for="employee in item.raw.employees" :key="employee.id">
-            {{ employee.name }}
-            <v-icon
-              class="assigned-employees-close-icon"
-              icon="mdi-minus-circle-outline"
-              @click="removeAssignedEmployee(employee.employeeTableId)"
-            ></v-icon>
-          </p>
-          <p v-if="item.raw.employees.length <= 0">No assigned employee</p>
+          <div class="assign-employees-column">
+            <div class="d-flex flex-column">
+              <div
+                class="assigned-employees my-1"
+                v-for="employee in item.raw.employees"
+                :key="employee.id"
+              >
+                <p>{{ employee.name }}</p>
+                <v-icon
+                  class="assigned-employees-close-icon"
+                  icon="mdi-minus-circle-outline"
+                  @click="removeAssignedEmployee(employee.employeeTableId)"
+                ></v-icon>
+              </div>
+            </div>
+            <div class="d-flex align-center">
+              <p v-if="item.raw.employees.length <= 0">No assigned employee</p>
+              <v-btn
+                color="green"
+                variant="plain"
+                icon="mdi-plus-circle-outline"
+                width="36"
+                height="36"
+                @click="openDialog(item)"
+              ></v-btn>
+            </div>
+          </div>
         </template>
-        <template v-slot:item.assignEmployees="{ item }">
+        <!-- <template v-slot:item.assignEmployees="{ item }">
           <div>
             <v-btn
               color="green"
-              variant="outlined"
+              variant="plain"
               icon="mdi-plus-circle-outline"
               width="36"
               height="36"
               @click="openDialog(item)"
             ></v-btn>
           </div>
-        </template>
+        </template> -->
         <template v-slot:item.action="{ item }">
-          <span class="me-2"
-            ><v-btn
-              variant="outlined"
+          <div>
+            <v-btn
+              variant="plain"
               width="36"
               height="36"
               @click="removeTable(item)"
               icon="mdi-trash-can"
               color="#cc080b"
-            ></v-btn
-          ></span>
+            ></v-btn>
+          </div>
         </template>
       </v-data-table-server>
       <!-- sc
@@ -159,18 +177,12 @@ export default {
         {
           title: 'Employees',
           key: 'employees',
-          width: '300px'
-        },
-        {
-          title: 'Assign Employees',
-          key: 'assignEmployees',
-          align: 'center',
-          width: '100px'
+          width: '200px'
         },
         {
           title: 'Action',
           key: 'action',
-          width: '100px'
+          width: '120px'
         }
       ]
     }
@@ -248,7 +260,6 @@ export default {
           return { employeeId: item, tableId: this.dialogData.id }
         })
       ]
-
       try {
         store.commit('IS_LOADING', true)
         await ApiCall.post('api/EmployeeTable/create-range', data)
@@ -275,32 +286,46 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+@import '../../assets/config';
 
+// .v-data-table__thead tr {
+//   background-color: $primary !important;
+// }
+
+</style>
 <style lang="scss" scoped>
 @import '../../assets/config';
 @import '../../assets/responsive';
 @import '../../styles/component';
 
-.assigned-employees {
-  padding: 5px 10px;
-  margin-top: 10px;
-  margin-bottom: 2px;
-  margin-right: 10px;
-  background-color: rgb(233, 233, 233);
-  border-radius: 20px;
-  display: block;
-  flex-direction: row;
+.assign-employees-column {
+  display: flex;
 
-  @include lg {
-    display: inline-flex;
-  }
+  flex-direction: column;
+  // display: grid;
+  // grid-template-columns: 1fr 0.5fr;
+  .assigned-employees {
+    padding: 5px 10px;
+    margin-bottom: 2px;
+    margin-right: 10px;
+    background-color: rgb(233, 233, 233);
+    border-radius: 20px;
+    display: flex;
+    width: fit-content;
+    flex-direction: row;
 
-  .assigned-employees-close-icon {
-    margin-left: 5px;
+    @include lg {
+      display: flex;
+    }
 
-    &:hover {
-      color: $primary;
-      cursor: pointer;
+    .assigned-employees-close-icon {
+      margin-left: 5px;
+
+      &:hover {
+        color: $primary;
+        cursor: pointer;
+      }
     }
   }
 }

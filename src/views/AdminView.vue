@@ -163,7 +163,7 @@ export default {
   min-height: 90vh;
 
   .dashboard-view {
-    max-width: 1280px;
+    
     min-height: 91vh;
     margin: 0 auto;
     padding: 10px 10px;

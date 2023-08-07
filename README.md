@@ -37,8 +37,13 @@ npm run build
 <br>
 <br>
 
-![employee-list](https://github.com/ishtiyak98/inessa/assets/56845656/94a2e137-ca84-4a3e-8e68-55a8e44a853e)
+![employee-list](https://github.com/ishtiyak98/vue-basic/assets/56845656/729f1ce6-ba39-41a4-b637-aca532f9a21f)
 <center>Employee List</center>
+<br>
+<br>
+
+![all-employee-mobile](https://github.com/ishtiyak98/vue-basic/assets/56845656/023244d7-460c-48b4-b74d-13df00e0d289)
+<center>Employee List Mobile</center>
 <br>
 <br>
 
@@ -47,7 +52,7 @@ npm run build
 <br>
 <br>
 
-![all-table-list](https://github.com/ishtiyak98/inessa/assets/56845656/9bcb11bd-2aa7-4920-ba9b-35ed24275f37)
+![all-table-list](https://github.com/ishtiyak98/vue-basic/assets/56845656/cf1545b5-0a36-47a7-9d71-28913622ef03)
 <center>All Table List</center>
 <br>
 <br>
