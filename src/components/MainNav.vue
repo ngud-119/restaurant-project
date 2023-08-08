@@ -14,6 +14,8 @@
     <div class="link-container">
       <!-- <RouterLink class="nav-link" to="/home">Home</RouterLink> -->
       <RouterLink class="nav-link" to="/admin">Admin</RouterLink>
+      <RouterLink class="nav-link" to="/services">Our Services</RouterLink>
+      <RouterLink class="nav-link" to="/about">About Us</RouterLink>
 
       <!-- <button v-if="getCurrentUser.email" @click="logoutUserData" class="nav-link">
         <v-icon icon="mdi-login" />

@@ -61,6 +61,11 @@ const router = createRouter({
           path: '/admin-add-food',
           name: 'adminFoodAdd',
           component: () => import('../views/Admin/AdminAddFood.vue')
+        },
+        {
+          path: '/order',
+          name: 'orderFood',
+          component: () => import('../views/OrderFood.vue')
         }
       ]
     }

@@ -37,7 +37,7 @@ npm run build
 <br>
 <br>
 
-![employee-list](https://github.com/ishtiyak98/vue-basic/assets/56845656/729f1ce6-ba39-41a4-b637-aca532f9a21f)
+![employee-list](https://github.com/ishtiyak98/restaurant-project/assets/56845656/f40258eb-6d6d-4818-b804-a4b2633420de)
 <center>Employee List</center>
 <br>
 <br>
@@ -48,32 +48,37 @@ npm run build
 <br>
 <br>
 
-![add-employee](https://github.com/ishtiyak98/inessa/assets/56845656/6c62d8c4-9ff4-4bd4-b3cd-db286097edc1)
+![add-employee](https://github.com/ishtiyak98/restaurant-project/assets/56845656/14b766f2-6272-4f2e-a93f-0b659753c136)
 <center>Add Employee Page</center>
 <br>
 <br>
 
-![all-table-list](https://github.com/ishtiyak98/vue-basic/assets/56845656/cf1545b5-0a36-47a7-9d71-28913622ef03)
+![all-table-list](https://github.com/ishtiyak98/restaurant-project/assets/56845656/7a9028e7-245c-4ee0-980e-5071c2814856)
 <center>All Table List</center>
 <br>
 <br>
 
-![assign-employee](https://github.com/ishtiyak98/inessa/assets/56845656/7d71793c-06b3-4316-ac6a-3e8f17d52065)
+![assign-employee](https://github.com/ishtiyak98/restaurant-project/assets/56845656/ac3b7f33-2545-4a76-a9c6-28f68ffdb936)
 <center>Assign one or multiple employee to a table</center>
 <br>
 <br>
 
-![add-table](https://github.com/ishtiyak98/inessa/assets/56845656/48c348f9-43e0-42bc-bd92-52ce4195a1a8)
+![remove-employee-warning](https://github.com/ishtiyak98/restaurant-project/assets/56845656/316286d9-82ae-49ff-ba41-4bd26cbb0138)
+<center>Remove employee warning</center>
+<br>
+<br>
+
+![add-table](https://github.com/ishtiyak98/restaurant-project/assets/56845656/3417a2bd-db1e-4533-b334-49218594cd58)
 <center>Add Table</center>
 <br>
 <br>
 
-![all-food-list](https://github.com/ishtiyak98/inessa/assets/56845656/621f4844-56ec-4b8e-ac1f-9c3eec548aa0)
+![all-food-list](https://github.com/ishtiyak98/restaurant-project/assets/56845656/0dc773cd-bc6b-47da-a848-9588bb742aa3)
 <center>All Food List</center>
 <br>
 <br>
 
-![add-food](https://github.com/ishtiyak98/inessa/assets/56845656/ace95697-e6ac-423f-a2ca-7f78d1151297)
+![add-food](https://github.com/ishtiyak98/restaurant-project/assets/56845656/48af6ed9-ad55-49bf-b07e-7879d8ad20e8)
 <center>Add Food</center>
 <br>
 

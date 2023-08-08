@@ -29,12 +29,47 @@
             height="40"
           />
         </template>
+        <template v-slot:item.name="{ item }">
+          <div class="col-container">
+            <div class="col-text">
+              {{ item.raw.name }}
+            </div>
+          </div>
+        </template>
+        <template v-slot:item.price="{ item }">
+          <div class="col-container">
+            <div class="col-text">
+              {{ item.raw.price }}
+            </div>
+          </div>
+        </template>
+        <template v-slot:item.discountType="{ item }">
+          <div class="col-container">
+            <div class="col-text">
+              {{ item.raw.discountType }}
+            </div>
+          </div>
+        </template>
+        <template v-slot:item.discount="{ item }">
+          <div class="col-container">
+            <div class="col-text">
+              {{ item.raw.discount }}
+            </div>
+          </div>
+        </template>
+        <template v-slot:item.discountPrice="{ item }">
+          <div class="col-container">
+            <div class="col-text">
+              {{ item.raw.discountPrice }}
+            </div>
+          </div>
+        </template>
         <template v-slot:item.action="{ item }">
           <span class="me-4"
             ><v-btn
               width="36"
               height="36"
-              variant="outlined"
+              variant="plain"
               color="success"
               icon="mdi-circle-edit-outline"
             ></v-btn
@@ -43,7 +78,7 @@
             ><v-btn
               width="36"
               height="36"
-              variant="outlined"
+              variant="plain"
               @click="removeFood(item.raw.id)"
               icon="mdi-trash-can"
               color="#cc080b"
@@ -65,6 +100,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import { imageUrl } from '../../constants/config'
 import ApiCall from '../../api/apiInterface'
+import store from '../../store'
 
 export default {
   name: 'AllFoodList',
@@ -92,7 +128,7 @@ export default {
         { title: 'Discount Type', key: 'discountType' },
         { title: 'Discount', key: 'discount' },
         { title: 'Discount Price', key: 'discountPrice' },
-        { title: 'Action', key: 'action', width: '130px' }
+        { title: 'Action', key: 'action', width: '120px' }
       ]
     }
   },
@@ -103,13 +139,23 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchAllFoodData: 'fetchAllFoodData',
-      deleteFood: 'deleteFood'
+      fetchAllFoodData: 'fetchAllFoodData'
     }),
 
-    removeFood(id) {
-      console.log(id)
-      this.deleteFood(id)
+    async removeFood(id) {
+      try {
+        store.commit('IS_LOADING', true)
+        await ApiCall.delete(`api/Food/delete/${id}`)
+        await this.loadItems({
+          page: this.page,
+          itemsPerPage: this.itemsPerPage,
+          sortBy: this.sortBy
+        })
+        store.commit('IS_LOADING', false)
+      } catch (error) {
+        console.log(error)
+        store.commit('IS_LOADING', false)
+      }
     },
 
     async loadItems({ page, itemsPerPage, sortBy }) {

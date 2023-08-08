@@ -2,7 +2,7 @@
   <div class="text-center">
     <v-btn color="primary">
       Open Dialog
-      <v-dialog v-model="dialog" activator="parent" width="auto">
+      <v-dialog  v-model="dialog" activator="parent" width="auto">
         <v-card>
           <v-card-item>
             <div class="text-center text-h3">

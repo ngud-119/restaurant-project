@@ -1,5 +1,4 @@
 <!-- eslint-disable vue/valid-v-slot -->
-
 <template>
   <div>
     <div class="heading-container">
@@ -17,7 +16,6 @@
         hide-default-footer
         :hover="true"
         class="elevation-1"
-        width="350"
       >
         <template v-slot:item.image="{ item }">
           <img
@@ -32,6 +30,7 @@
           <div class="name-container">
             <div class="me-2 employee-name">
               {{ item.raw.user.fullName }}
+             
             </div>
             <div class="fav-icon">
               <v-icon
@@ -49,6 +48,7 @@
           <div class="col-container">
             <div class="col-text">
               {{ item.raw.user.email }}
+             
             </div>
           </div>
         </template>
@@ -56,6 +56,7 @@
           <div class="col-container">
             <div class="col-text">
               {{ item.raw.joinDate }}
+              
             </div>
           </div>
         </template>
@@ -63,6 +64,7 @@
           <div class="col-container">
             <div class="col-text">
               {{ item.raw.designation }}
+              
             </div>
           </div>
         </template>
@@ -70,6 +72,9 @@
           <div class="col-container">
             <div class="col-text">
               {{ item.raw.user.phoneNumber }}
+              <!-- <v-tooltip class="table-tooltip" activator="parent" location="bottom">{{
+                item.raw.user.phoneNumber
+              }}</v-tooltip> -->
             </div>
           </div>
         </template>
@@ -103,6 +108,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import { imageUrl } from '../../constants/config'
 import ApiCall from '../../api/apiInterface'
+import store from '../../store'
 
 export default {
   data() {
@@ -159,8 +165,20 @@ export default {
     nextPage() {
       console.log('dsdvd')
     },
-    removeEmployee(item) {
-      this.deleteEmployee(item.raw.id)
+    async removeEmployee(item) {
+      try {
+        store.commit('IS_LOADING', true)
+        await ApiCall.delete(`api/Employee/delete/${item.raw.id}`)
+        await this.loadItems({
+          page: this.page,
+          itemsPerPage: this.itemsPerPage,
+          sortBy: this.sortBy
+        })
+        store.commit('IS_LOADING', false)
+      } catch (error) {
+        store.commit('IS_LOADING', false)
+        console.log(error)
+      }
     },
 
     async loadItems({ page, itemsPerPage, sortBy }) {
@@ -178,19 +196,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.v-data-table-header__content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-
-  span {
-    min-width: 50px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-</style>
+<style lang="scss"></style>
 
 <style lang="scss" scoped>
 @import '../../assets/config';
@@ -212,11 +218,7 @@ export default {
 .name-container {
   display: grid;
   grid-template-columns: 1fr 0.1fr;
-  //   display: flex;
-  width: 100%;
-  align-items: center;
   .employee-name {
-    // flex: 1;
     min-width: 50px;
     white-space: nowrap;
     overflow: hidden;
@@ -228,16 +230,6 @@ export default {
   }
 }
 
-.col-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  .col-text {
-    min-width: 50px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
 .add-btn {
   @include btn($primary);
 }

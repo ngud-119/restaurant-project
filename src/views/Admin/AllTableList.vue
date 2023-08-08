@@ -19,14 +19,26 @@
         class="elevation-1 my-custom-v-table"
         :hover="true"
       >
+        <template v-slot:item.tableNumber="{ item }">
+          <div class="col-container">
+            <div class="col-text">{{ item.raw.tableNumber }}</div>
+          </div>
+        </template>
+        <template v-slot:item.numberOfSeats="{ item }">
+          <div class="col-container">
+            <div class="col-text">{{ item.raw.numberOfSeats }}</div>
+          </div>
+        </template>
         <template v-slot:item.isOccupied="{ item }">
-          {{ item.raw.isOccupied ? 'Booked' : 'Available' }}
+          <div class="col-container">
+            <div class="col-text">{{ item.raw.isOccupied ? 'Booked' : 'Available' }}</div>
+          </div>
         </template>
         <template v-slot:item.employees="{ item }">
           <div class="assign-employees-column">
-            <div class="d-flex flex-column">
+            <div class="">
               <div
-                class="assigned-employees my-1"
+                class="assigned-employees mt-2"
                 v-for="employee in item.raw.employees"
                 :key="employee.id"
               >
@@ -38,16 +50,17 @@
                 ></v-icon>
               </div>
             </div>
-            <div class="d-flex align-center">
-              <p v-if="item.raw.employees.length <= 0">No assigned employee</p>
-              <v-btn
-                color="green"
-                variant="plain"
-                icon="mdi-plus-circle-outline"
-                width="36"
-                height="36"
-                @click="openDialog(item)"
-              ></v-btn>
+            <div class="">
+              <div class="no-assigned-col">
+                <v-btn
+                  color="green"
+                  variant="plain"
+                  icon="mdi-plus-circle-outline"
+                  width="36"
+                  height="36"
+                  @click="openDialog(item)"
+                ></v-btn>
+              </div>
             </div>
           </div>
         </template>
@@ -76,12 +89,6 @@
           </div>
         </template>
       </v-data-table-server>
-      <!-- sc
-      <CustomDialog
-        icon="mdi-account-remove"
-        heading="Removing Employee"
-        text="Are you Sure?"
-      ></CustomDialog> -->
     </div>
   </div>
   <!---------- Modal Data Show ------------>
@@ -138,10 +145,10 @@ import { imageUrl } from '../../constants/config'
 import CustomDialog from '../../components/CustomDialog.vue'
 import ApiCall from '../../api/apiInterface'
 import store from '../../store'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'AllTableList',
-  components: { CustomDialog },
   data() {
     return {
       dialog: false,
@@ -161,28 +168,28 @@ export default {
           align: 'start',
           key: 'tableNumber',
           sortable: false,
-          title: 'Table Number',
-          width: '140px'
+          title: 'Table Number'
+          // width: '140px'
         },
         {
-          title: 'Number of Seats',
-          key: 'numberOfSeats',
-          width: '150px'
+          title: 'Total Seats',
+          key: 'numberOfSeats'
+          // width: '150px'
         },
         {
           title: 'Booking Status',
-          key: 'isOccupied',
-          width: '150px'
+          key: 'isOccupied'
+          // width: '150px'
         },
         {
           title: 'Employees',
-          key: 'employees',
-          width: '200px'
+          key: 'employees'
+          // width: '240px'
         },
         {
           title: 'Action',
-          key: 'action',
-          width: '120px'
+          key: 'action'
+          // width: '120px'
         }
       ]
     }
@@ -239,19 +246,31 @@ export default {
       this.dialogData.seats = item.raw.numberOfSeats
     },
     async removeAssignedEmployee(employeeTableId) {
-      try {
-        store.commit('IS_LOADING', true)
-        await ApiCall.delete(`api/EmployeeTable/delete/${employeeTableId}`)
-        await this.loadItems({
-          page: this.page,
-          itemsPerPage: this.itemsPerPage,
-          sortBy: this.sortBy
-        })
-        store.commit('IS_LOADING', false)
-      } catch (e) {
-        store.commit('IS_LOADING', false)
-        console.log(e)
-      }
+      Swal.fire({
+        title: 'Remove Employee',
+        text: `Do you want to remove this employee?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        iconColor: '#FF6A00'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            store.commit('IS_LOADING', true)
+            await ApiCall.delete(`api/EmployeeTable/delete/${employeeTableId}`)
+            await this.loadItems({
+              page: this.page,
+              itemsPerPage: this.itemsPerPage,
+              sortBy: this.sortBy
+            })
+            store.commit('IS_LOADING', false)
+          } catch (e) {
+            store.commit('IS_LOADING', false)
+            console.log(e)
+          }
+        }
+      })
     },
     async dialogFinal() {
       this.dialog = false
@@ -300,24 +319,17 @@ export default {
 
 .assign-employees-column {
   display: flex;
-
   flex-direction: column;
-  // display: grid;
-  // grid-template-columns: 1fr 0.5fr;
   .assigned-employees {
     padding: 5px 10px;
     margin-bottom: 2px;
     margin-right: 10px;
-    background-color: rgb(233, 233, 233);
+    background-color: rgb(223, 223, 223);
     border-radius: 20px;
-    display: flex;
     width: fit-content;
-    flex-direction: row;
-
-    @include lg {
-      display: flex;
-    }
-
+    display: grid;
+    grid-template-columns: 1fr 0.1fr;
+    // border: 2px solid $secondary;
     p {
       min-width: 60px;
       white-space: nowrap;
@@ -327,13 +339,28 @@ export default {
 
     .assigned-employees-close-icon {
       margin-left: 5px;
+      transition: transform 0.3s ease-in-out;
 
       &:hover {
         color: $primary;
         cursor: pointer;
+        transform: rotate(360deg);
       }
     }
   }
+
+  // .no-assigned-col {
+  //   display: grid;
+  //   grid-template-columns: 1fr 0.2fr;
+
+  //   .no-assigned-col-text {
+  //     flex: 1;
+  //     min-width: 60px;
+  //     white-space: nowrap;
+  //     overflow: hidden;
+  //     text-overflow: ellipsis;
+  //   }
+  // }
 }
 
 .add-btn {

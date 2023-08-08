@@ -204,9 +204,7 @@ export default {
       ],
 
       middleNameRules: [
-        (middleName) => !!middleName || 'Middle name is required',
-        (middleName) =>
-          (middleName && middleName.length <= 10) || 'Middle name must be less than 10 characters',
+        
         (middleName) => !/\d/.test(middleName) || 'Middle name cannot contain any number'
       ],
 
@@ -283,9 +281,25 @@ export default {
       const { valid } = await this.$refs.addEmployeeForm.validate()
       if (valid) {
         this.postEmployee(this.employee)
+        this.employee = {
+          firstName: '',
+          middleName: '',
+          lastName: '',
+          fatherName: '',
+          motherName: '',
+          spouseName: '',
+          email: '',
+          phoneNumber: '',
+          genderId: 0,
+          dob: '',
+          joinDate: '',
+          nid: '',
+          designation: '',
+          image: '',
+          base64: ''
+        }
+        this.previewImg = null
       }
-
-      console.log(this.employee)
     },
     openFile() {
       //document.getElementById("img").click()
@@ -312,28 +326,34 @@ export default {
 @import '../../assets/config';
 @import '../../assets/responsive';
 
-.image-selection-input {
-  label[for='img'] {
-    display: block;
-    border: 2px dashed lightgray;
-    height: 245px;
-    padding: 10px;
+.form-container {
+  background-color: white;
+  padding: 0px 10px 30px 10px;
 
-    .img-input-field {
-      display: none;
-    }
-
-    .preview-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+  @include lg {
+    padding: 40px;
+  }
+  .image-selection-input {
+    label[for='img'] {
+      display: block;
+      border: 2px dashed lightgray;
+      height: 245px;
+      padding: 10px;
+      .img-input-field {
+        display: none;
+      }
+      .preview-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
   }
-}
 
-.submit-btn {
-  background-color: $primary;
-  padding: 25px 0px;
-  color: white;
+  .submit-btn {
+    background-color: $primary;
+    padding: 25px 0px;
+    color: white;
+  }
 }
 </style>

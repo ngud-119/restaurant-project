@@ -89,7 +89,7 @@ export default {
           image: '',
           base64: ''
         }
-		this.previewTableImg = null;
+        this.previewTableImg = null
       }
     },
 
@@ -115,28 +115,37 @@ export default {
 @import '../../assets/config';
 @import '../../assets/responsive';
 
-.image-selection-input {
-  label[for='img'] {
-    display: block;
-    border: 2px dashed lightgray;
-    height: 235px;
-    padding: 10px;
+.form-container {
+  background-color: white;
+  padding: 0px 10px 30px 10px;
 
-    .img-input-field {
-      display: none;
-    }
+  @include lg {
+    padding: 40px;
+  }
+  
+  .image-selection-input {
+    label[for='img'] {
+      display: block;
+      border: 2px dashed lightgray;
+      height: 235px;
+      padding: 10px;
 
-    .preview-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+      .img-input-field {
+        display: none;
+      }
+
+      .preview-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
   }
-}
 
-.submit-btn {
-  background-color: $primary;
-  padding: 25px 0px;
-  color: white;
+  .submit-btn {
+    background-color: $primary;
+    padding: 25px 0px;
+    color: white;
+  }
 }
 </style>

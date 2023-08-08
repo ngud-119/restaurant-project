@@ -8,6 +8,13 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
 .heading-font {
   font-family: 'Quattrocento', serif;
   font-size: 22px;
@@ -16,20 +23,41 @@
   padding-bottom: 5px;
   border-bottom: 3px solid $primary;
 
-  @include lg{
+  @include lg {
     font-size: 32px;
   }
 }
 
-body {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.6;
+.v-data-table-header__content {
+  display: grid !important;
+  grid-template-columns: 1fr 0.1fr;
+  color: $primary;
+  font-weight: 700;
+
+  span {
+    min-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
+.col-container {
+  display: grid;
+  grid-template-columns: 1fr;
 
-.v-data-table-header__content {
-  color: $primary;
-  font-weight: 600;
+  .col-text {
+    min-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.table-tooltip {
+  display: block;
+
+  @include lg {
+    display: none;
+  }
 }

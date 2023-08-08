@@ -105,18 +105,6 @@ export default createStore({
         commit('IS_LOADING', false)
       }
     },
-    async deleteFood({ commit }, payload) {
-      try {
-        commit('IS_LOADING', true)
-        const response = await ApiCall.delete(`api/Food/delete/${payload}`)
-        console.log('delete-food-pay', payload)
-        commit('REMOVE_FOOD_DATA', payload)
-        commit('IS_LOADING', false)
-      } catch (error) {
-        console.log(error)
-        commit('IS_LOADING', false)
-      }
-    },
     async fetchAllTable({ commit }, payload) {
       try {
         commit('IS_LOADING', true)
@@ -205,9 +193,6 @@ export default createStore({
     },
     ADD_ALL_FOOD(state, payload) {
       state.allFood = payload
-    },
-    REMOVE_FOOD_DATA(state, payload) {
-      state.allFood = state.allFood.data.filter((food) => food.id !== payload)
     },
     IS_LOADING(state, payload) {
       state.loadingState = payload

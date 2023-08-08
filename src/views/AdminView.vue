@@ -55,6 +55,14 @@
                     value="allFood"
                   ></v-list-item>
                 </RouterLink>
+                <RouterLink class="side-list-link" to="/order">
+                  <v-list-item
+                    class="side-list-item"
+                    prepend-icon="mdi-food-takeout-box"
+                    title="Order Food"
+                    value="orderFood"
+                  ></v-list-item>
+                </RouterLink>
               </v-list>
             </div>
             <div class="px-3">
@@ -64,7 +72,7 @@
                 class="sidebar-logout-btn"
               >
                 <v-icon icon="mdi-login" />
-                Logout
+                <p class="mt-1 ms-1">Logout</p>
               </button>
             </div>
           </div>
@@ -73,6 +81,7 @@
         <v-main>
           <MainNav></MainNav>
           <div class="dashboard-container">
+            <div class="overlay"></div>
             <div class="dashboard-view">
               <RouterView />
             </div>
@@ -132,7 +141,9 @@ export default {
       min-height: 88%;
     }
     .sidebar-logout-btn {
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 100%;
       color: $primary;
       border: 2px solid $primary;
@@ -160,11 +171,14 @@ export default {
 }
 
 .dashboard-container {
-  min-height: 90vh;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 1)),
+    url('../assets/img/dash-bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   .dashboard-view {
-    
-    min-height: 91vh;
+    min-height: calc(100vh - 65.6px);
     margin: 0 auto;
     padding: 10px 10px;
 
