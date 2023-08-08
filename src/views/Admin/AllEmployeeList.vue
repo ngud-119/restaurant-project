@@ -17,6 +17,7 @@
         hide-default-footer
         :hover="true"
         class="elevation-1"
+        width="350"
       >
         <template v-slot:item.image="{ item }">
           <img
@@ -45,10 +46,32 @@
           </div>
         </template>
         <template v-slot:item.email="{ item }">
-          <span class="email-container">{{ item.raw.user.email }}</span>
+          <div class="col-container">
+            <div class="col-text">
+              {{ item.raw.user.email }}
+            </div>
+          </div>
+        </template>
+        <template v-slot:item.joinDate="{ item }">
+          <div class="col-container">
+            <div class="col-text">
+              {{ item.raw.joinDate }}
+            </div>
+          </div>
+        </template>
+        <template v-slot:item.designation="{ item }">
+          <div class="col-container">
+            <div class="col-text">
+              {{ item.raw.designation }}
+            </div>
+          </div>
         </template>
         <template v-slot:item.phoneNumber="{ item }">
-          <span>{{ item.raw.user.phoneNumber }}</span>
+          <div class="col-container">
+            <div class="col-text">
+              {{ item.raw.user.phoneNumber }}
+            </div>
+          </div>
         </template>
         <template v-slot:item.action="{ item }">
           <span class="me-4"
@@ -106,8 +129,8 @@ export default {
         { title: 'Email', key: 'email' },
         { title: 'Designation', key: 'designation' },
         { title: 'Join Date', key: 'joinDate' },
-        { title: 'Phone Number', key: 'phoneNumber' },
-        { title: 'Action', key: 'action' }
+        { title: 'Phone', key: 'phoneNumber' },
+        { title: 'Action', key: 'action', width: '120px' }
       ]
     }
   },
@@ -155,6 +178,20 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.v-data-table-header__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  span {
+    min-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+</style>
+
 <style lang="scss" scoped>
 @import '../../assets/config';
 @import '../../assets/responsive';
@@ -191,11 +228,15 @@ export default {
   }
 }
 
-.email-container span{
-  min-width: 50px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.col-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  .col-text {
+    min-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 .add-btn {
   @include btn($primary);
