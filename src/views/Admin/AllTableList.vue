@@ -64,18 +64,6 @@
             </div>
           </div>
         </template>
-        <!-- <template v-slot:item.assignEmployees="{ item }">
-          <div>
-            <v-btn
-              color="green"
-              variant="plain"
-              icon="mdi-plus-circle-outline"
-              width="36"
-              height="36"
-              @click="openDialog(item)"
-            ></v-btn>
-          </div>
-        </template> -->
         <template v-slot:item.action="{ item }">
           <div>
             <v-btn
@@ -169,27 +157,22 @@ export default {
           key: 'tableNumber',
           sortable: false,
           title: 'Table Number'
-          // width: '140px'
         },
         {
           title: 'Total Seats',
           key: 'numberOfSeats'
-          // width: '150px'
         },
         {
           title: 'Booking Status',
           key: 'isOccupied'
-          // width: '150px'
         },
         {
           title: 'Employees',
           key: 'employees'
-          // width: '240px'
         },
         {
           title: 'Action',
           key: 'action'
-          // width: '120px'
         }
       ]
     }
@@ -231,12 +214,19 @@ export default {
       this.page = page ??= this.page
       this.itemsPerPage = itemsPerPage ??= this.itemsPerPage
       this.sortBy = sortBy ??= this.sortBy
-      const response = await ApiCall.get(
-        `api/Table/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`
-      )
-      this.tableData = response.data.data
-      this.totalPages = response.data.totalPages
-      this.totalItems = response.data.total
+      try {
+        store.commit('IS_LOADING', true)
+        const response = await ApiCall.get(
+          `api/Table/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`
+        )
+        this.tableData = response.data.data
+        this.totalPages = response.data.totalPages
+        this.totalItems = response.data.total
+        store.commit('IS_LOADING', false)
+      } catch (error) {
+        store.commit('IS_LOADING', false)
+        console.log(error)
+      }
     },
     openDialog(item) {
       this.dialog = true
@@ -300,9 +290,7 @@ export default {
       }
     }
   },
-  mounted() {
-    this.fetchAllTable()
-  }
+  mounted() {}
 }
 </script>
 <style lang="scss">
@@ -348,19 +336,6 @@ export default {
       }
     }
   }
-
-  // .no-assigned-col {
-  //   display: grid;
-  //   grid-template-columns: 1fr 0.2fr;
-
-  //   .no-assigned-col-text {
-  //     flex: 1;
-  //     min-width: 60px;
-  //     white-space: nowrap;
-  //     overflow: hidden;
-  //     text-overflow: ellipsis;
-  //   }
-  // }
 }
 
 .add-btn {

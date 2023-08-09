@@ -138,9 +138,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions({
-      fetchAllFoodData: 'fetchAllFoodData'
-    }),
+    ...mapActions({}),
 
     async removeFood(id) {
       try {
@@ -170,9 +168,7 @@ export default {
       this.totalItems = response.data.total
     }
   },
-  mounted() {
-    this.fetchAllFoodData()
-  }
+  mounted() {}
 }
 </script>
 

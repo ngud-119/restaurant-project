@@ -13,7 +13,8 @@ export default createStore({
     allFood: {},
     nonAssignedEmployees: [],
     drawerVisibility: true,
-    loadingState: false
+    loadingState: false,
+    myCart: {}
   },
   getters: {
     getCurrentUser: (state) => state.currentUser,
@@ -22,6 +23,7 @@ export default createStore({
     getAllNonAssignedEmployees: (state) => state.nonAssignedEmployees,
     getAllTableData: (state) => state.allTable,
     getAllFoodData: (state) => state.allFood,
+    getMyCart: (state) => state.myCart,
     getDrawerVisibility: (state) => state.drawerVisibility,
     getLoadingState: (state) => state.loadingState
   },
@@ -155,6 +157,10 @@ export default createStore({
       }
     },
 
+    addItemToCart({ commit }, payload) {
+      commit('ADD_TO_CART', payload)
+    },
+
     logoutUser({ commit }) {
       commit('DELETE_USER')
     },
@@ -190,6 +196,9 @@ export default createStore({
       state.getAllTableData.data
         .filter((item) => item.id === payload.tableId)
         .employees.push([...payload])
+    },
+    ADD_TO_CART(state, payload) {
+      state.myCart = payload
     },
     ADD_ALL_FOOD(state, payload) {
       state.allFood = payload

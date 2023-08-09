@@ -1,31 +1,32 @@
 <template>
   <nav class="nav-container">
     <div class="logo-container">
-      <v-btn
-        class="order-last menu-btn text-h5"
-        icon="mdi-menu"
-        @click.stop="toggleDrawer"
-      ></v-btn>
+      <v-btn class="order-last menu-btn text-h5" icon="mdi-menu" @click.stop="toggleDrawer"></v-btn>
       <div class="d-flex align-center order-first">
         <img src="../assets/logo.png" alt="" width="50" />
         <p class="logo-text">BSS RESTAURANT</p>
       </div>
     </div>
-    <div class="link-container">
-      <!-- <RouterLink class="nav-link" to="/home">Home</RouterLink> -->
-      <RouterLink class="nav-link" to="/admin">Admin</RouterLink>
-      <RouterLink class="nav-link" to="/services">Our Services</RouterLink>
-      <RouterLink class="nav-link" to="/about">About Us</RouterLink>
+    <div class="d-flex">
+      <div class="link-container">
+        <!-- <RouterLink class="nav-link" to="/home">Home</RouterLink> -->
+        <RouterLink class="nav-link" to="/admin">Admin</RouterLink>
+        <RouterLink class="nav-link" to="/services">Our Services</RouterLink>
+        <RouterLink class="nav-link" to="/about">About Us</RouterLink>
 
-      <!-- <button v-if="getCurrentUser.email" @click="logoutUserData" class="nav-link">
+        <!-- <button v-if="getCurrentUser.email" @click="logoutUserData" class="nav-link">
         <v-icon icon="mdi-login" />
         Logout
       </button> -->
 
-      <RouterLink v-if="!getCurrentUser.email" class="nav-link" to="/">
+        <!-- <RouterLink v-if="!getCurrentUser.email" class="nav-link" to="/">
         <v-icon icon="mdi-login" />
         Login
-      </RouterLink>
+      </RouterLink> -->
+      </div>
+      <div class="cart-icon-container">
+        <v-icon class="cart-icon" icon="mdi-basket"></v-icon>
+      </div>
     </div>
   </nav>
 </template>
@@ -91,7 +92,7 @@ export default {
     box-shadow: none;
     display: block;
 
-    @include lg{
+    @include lg {
       display: none;
     }
   }
@@ -105,6 +106,20 @@ export default {
 
     @include lg {
       font-size: 22px;
+    }
+  }
+
+  .cart-icon-container {
+    .cart-icon {
+      color: white;
+      height: 100%;
+      padding: 20px 36px;
+      transition: all 0.4s;
+      &:hover {
+        color: white;
+        background-color: #8f0709;
+        cursor: pointer;
+      }
     }
   }
 
