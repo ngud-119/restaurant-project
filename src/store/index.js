@@ -13,6 +13,7 @@ export default createStore({
     allFood: {},
     nonAssignedEmployees: [],
     drawerVisibility: true,
+    cartVisibility: false,
     loadingState: false,
     myCart: {}
   },
@@ -25,6 +26,7 @@ export default createStore({
     getAllFoodData: (state) => state.allFood,
     getMyCart: (state) => state.myCart,
     getDrawerVisibility: (state) => state.drawerVisibility,
+    getCartVisibility: (state) => state.cartVisibility,
     getLoadingState: (state) => state.loadingState
   },
   actions: {
@@ -157,8 +159,8 @@ export default createStore({
       }
     },
 
-    addItemToCart({ commit }, payload) {
-      commit('ADD_TO_CART', payload)
+    updateCart({ commit }, payload) {
+      commit('UPDATE_CART', payload)
     },
 
     logoutUser({ commit }) {
@@ -166,6 +168,9 @@ export default createStore({
     },
     toggleDrawerVisibility({ commit }) {
       commit('TOGGLE_DRAWER')
+    },
+    toggleCartVisibility({ commit }) {
+      commit('TOGGLE_CART')
     }
   },
   mutations: {
@@ -197,11 +202,15 @@ export default createStore({
         .filter((item) => item.id === payload.tableId)
         .employees.push([...payload])
     },
-    ADD_TO_CART(state, payload) {
-      state.myCart = payload
-    },
+
     ADD_ALL_FOOD(state, payload) {
       state.allFood = payload
+    },
+    TOGGLE_CART(state) {
+      state.cartVisibility = !state.cartVisibility
+    },
+    UPDATE_CART(state, payload) {
+      state.myCart = payload
     },
     IS_LOADING(state, payload) {
       state.loadingState = payload

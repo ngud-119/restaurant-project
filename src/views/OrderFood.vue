@@ -13,7 +13,12 @@
               class="table-card mb-4 py-4 text-center border"
               :class="{ 'table-active': table.id == formData.tableId }"
               v-for="(table, index) in tableData"
-              @click="formData.tableId = table.id"
+              @click="
+                () => {
+                  formData.tableId = table.id
+                  formData.items = []
+                }
+              "
               :key="index"
             >
               <div class="table-card-img-container mt-1">
@@ -33,6 +38,14 @@
         </v-col>
         <v-col cols="12" lg="10">
           <div class="select-food-container">
+            <div v-if="formData.tableId === 0" class="select-food-overlay">
+              <div
+                class="d-flex flex-column justify-center align-center bg-white pa-8 ma-5 overlay-content"
+              >
+                <v-icon class="d-block warn-icon" icon="mdi-alert-decagram"></v-icon>
+                <p>At First Select A Table!</p>
+              </div>
+            </div>
             <h5 class="text-left text-black font-weight-bold mb-2">SELECT FOODS</h5>
             <div class="food-card border" v-for="(food, index) in foodData" :key="index">
               <div class="food-img-container ma-4">
@@ -142,7 +155,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      addItemToCart: 'addItemToCart'
+      updateCart: 'updateCart'
     }),
     async loadTable() {
       try {
@@ -185,15 +198,16 @@ export default {
           quantity: checkDuplicate.quantity + 1,
           totalPrice: (checkDuplicate.quantity + 1) * checkDuplicate.unitPrice
         }
-        this.formData.items.push(updateOrder)
+        // this.formData.items.push(updateOrder)
         this.formData.items = [
           updateOrder,
           ...this.formData.items.filter((item) => item.foodId !== food.id)
         ]
-        console.log(this.formData)
-        this.addItemToCart(this.formData)
+        this.updateCart(this.formData)
       } else {
         const foodOrderDetails = {
+          foodImage: food.image,
+          foodName: food.name,
           foodId: food.id,
           foodPackageId: 0,
           quantity: 1,
@@ -202,15 +216,29 @@ export default {
         }
         this.formData.items.push(foodOrderDetails)
         console.log(this.formData)
-        this.addItemToCart(this.formData)
+        this.updateCart(this.formData)
       }
       console.log(food)
     },
 
-    removeFromCart(){
-      
+    removeFromCart(food) {
+      let checkDuplicate = this.getMyCart?.items?.find((item) => item.foodId == food.id)
+      if (checkDuplicate) {
+        if (checkDuplicate.quantity > 0) {
+          const updateOrder = {
+            ...checkDuplicate,
+            quantity: checkDuplicate.quantity - 1,
+            totalPrice: (checkDuplicate.quantity - 1) * checkDuplicate.unitPrice
+          }
+          this.formData.items.push(updateOrder)
+          this.formData.items = [
+            updateOrder,
+            ...this.formData.items.filter((item) => item.foodId !== food.id)
+          ]
+          this.updateCart(this.formData)
+        }
+      }
     }
-
   },
   mounted() {
     this.loadTable()
@@ -252,6 +280,33 @@ export default {
   background-color: darken($color: #ffffff, $amount: 5);
   padding: 20px;
   height: 100%;
+  position: relative;
+
+  .select-food-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: darken($color: #ffffffc7, $amount: 5);
+    z-index: 2;
+
+    .overlay-content {
+      border: 2px dashed $primary;
+      .warn-icon {
+        color: $primary;
+        font-size: 60px;
+        margin-top: 20px;
+      }
+
+      p {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 700;
+        margin-top: 20px;
+      }
+    }
+  }
 
   .food-card {
     background-color: white;

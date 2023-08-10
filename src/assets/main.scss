@@ -42,6 +42,14 @@ body {
   }
 }
 
+.v-navigation-drawer--right{
+  width: 100% !important;
+
+  @include lg{
+    width: 450px !important;
+  }
+}
+
 .col-container {
   display: grid;
   grid-template-columns: 1fr;

@@ -25,7 +25,7 @@
       </RouterLink> -->
       </div>
       <div class="cart-icon-container">
-        <v-icon class="cart-icon" icon="mdi-basket"></v-icon>
+        <v-icon class="cart-icon" icon="mdi-basket" @click.stop="toggleCart"></v-icon>
       </div>
     </div>
   </nav>
@@ -43,10 +43,14 @@ export default {
   methods: {
     ...mapActions({
       logoutUser: 'logoutUser',
-      toggleDrawerVisibility: 'toggleDrawerVisibility'
+      toggleDrawerVisibility: 'toggleDrawerVisibility',
+      toggleCartVisibility: 'toggleCartVisibility'
     }),
     toggleDrawer() {
       this.toggleDrawerVisibility()
+    },
+    toggleCart() {
+      this.toggleCartVisibility()
     },
     logoutUserData() {
       localStorage.clear()
