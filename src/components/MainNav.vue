@@ -9,22 +9,14 @@
     </div>
     <div class="d-flex">
       <div class="link-container">
-        <!-- <RouterLink class="nav-link" to="/home">Home</RouterLink> -->
         <RouterLink class="nav-link" to="/admin">Admin</RouterLink>
         <RouterLink class="nav-link" to="/services">Our Services</RouterLink>
         <RouterLink class="nav-link" to="/about">About Us</RouterLink>
-
-        <!-- <button v-if="getCurrentUser.email" @click="logoutUserData" class="nav-link">
-        <v-icon icon="mdi-login" />
-        Logout
-      </button> -->
-
-        <!-- <RouterLink v-if="!getCurrentUser.email" class="nav-link" to="/">
-        <v-icon icon="mdi-login" />
-        Login
-      </RouterLink> -->
       </div>
       <div class="cart-icon-container">
+        <div v-if="getMyCart?.items?.length>0" class="cart-counter">
+          <p>{{ getMyCart.items.length }}</p>
+        </div>
         <v-icon class="cart-icon" icon="mdi-basket" @click.stop="toggleCart"></v-icon>
       </div>
     </div>
@@ -37,7 +29,8 @@ export default {
   name: 'mainNav',
   computed: {
     ...mapGetters({
-      getCurrentUser: 'getCurrentUser'
+      getCurrentUser: 'getCurrentUser',
+      getMyCart: 'getMyCart'
     })
   },
   methods: {
@@ -114,11 +107,34 @@ export default {
   }
 
   .cart-icon-container {
+    position: relative;
+    .cart-counter {
+      width: 20px;
+      height: 20px;
+      border-radius: 40px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translateY(40%) translateX(-30%);
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+
+      p {
+        margin-top: 3px;
+        font-size: 14px;
+        font-weight: 800;
+      }
+    }
+
     .cart-icon {
       color: white;
       height: 100%;
       padding: 20px 36px;
       transition: all 0.4s;
+
       &:hover {
         color: white;
         background-color: #8f0709;

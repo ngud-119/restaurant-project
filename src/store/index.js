@@ -15,7 +15,14 @@ export default createStore({
     drawerVisibility: true,
     cartVisibility: false,
     loadingState: false,
-    myCart: {}
+    myCart: {
+      tableId: 0,
+      orderNumber: '',
+      amount: 0,
+      phoneNumber: '',
+      orderStatus: 0,
+      items: []
+    }
   },
   getters: {
     getCurrentUser: (state) => state.currentUser,

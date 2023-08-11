@@ -22,7 +22,7 @@
       >
         <template v-slot:item.image="{ item }">
           <img
-            class="rounded-circle"
+            class="rounded-circle img"
             :src="imageUrl + 'food/' + item.raw.image"
             alt=""
             width="40"
@@ -157,15 +157,22 @@ export default {
     },
 
     async loadItems({ page, itemsPerPage, sortBy }) {
-      this.page = page ??= this.page
-      this.itemsPerPage = itemsPerPage ??= this.itemsPerPage
-      this.sortBy = sortBy ??= this.sortBy
-      const response = await ApiCall.get(
-        `api/Food/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`
-      )
-      this.tableData = response.data.data
-      this.totalPages = response.data.totalPages
-      this.totalItems = response.data.total
+      try {
+        store.commit('IS_LOADING', true)
+        this.page = page ??= this.page
+        this.itemsPerPage = itemsPerPage ??= this.itemsPerPage
+        this.sortBy = sortBy ??= this.sortBy
+        const response = await ApiCall.get(
+          `api/Food/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`
+        )
+        this.tableData = response.data.data
+        this.totalPages = response.data.totalPages
+        this.totalItems = response.data.total
+        store.commit('IS_LOADING', false)
+      } catch (error) {
+        console.log(error)
+        store.commit('IS_LOADING', false)
+      }
     }
   },
   mounted() {}

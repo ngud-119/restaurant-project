@@ -42,10 +42,10 @@ body {
   }
 }
 
-.v-navigation-drawer--right{
+.v-navigation-drawer--right {
   width: 100% !important;
 
-  @include lg{
+  @include lg {
     width: 450px !important;
   }
 }
@@ -68,4 +68,15 @@ body {
   @include lg {
     display: none;
   }
+}
+
+.v-navigation-drawer {
+  ::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+}
+
+::selection {
+  color: white;
+  background-color: $primary;
 }

@@ -37,7 +37,7 @@
           </div>
         </v-col>
         <v-col cols="12" lg="10">
-          <div class="select-food-container">
+          <div v-if="foodData.length > 0" class="select-food-container">
             <div v-if="formData.tableId === 0" class="select-food-overlay">
               <div
                 class="d-flex flex-column justify-center align-center bg-white pa-8 ma-5 overlay-content"
@@ -67,14 +67,14 @@
                         'text-decoration-line-through text-red-darken-2': food.discountPrice > 0
                       }"
                     >
-                      Price: <span class="font-weight-bold">{{ food.price }}TK</span>
+                      Price: <span class="font-weight-bold">{{ food.price }}৳</span>
                     </p>
                     <p class="text-success text-h6" v-if="food.discountPrice > 0">
                       Discounted Price:
-                      <span class="font-weight-bold">{{ food.discountPrice }}TK</span>
+                      <span class="font-weight-bold">{{ food.discountPrice }}৳</span>
                     </p>
                   </div>
-                  <div class="cart-control border">
+                  <!-- <div class="cart-control border">
                     <div class="cart-control-btn increase-btn border" @click="removeFromCart(food)">
                       <v-icon class="icon" icon="mdi-minus"></v-icon>
                     </div>
@@ -88,17 +88,21 @@
                     <div class="cart-control-btn decrease-btn border" @click="addToCart(food)">
                       <v-icon class="icon" icon="mdi-plus"></v-icon>
                     </div>
+                  </div> -->
+                  <div class="add-to-cart-btn">
+                    <button
+                      :class="{
+                        'btn-disabled': getMyCart?.items?.find((item) => item.foodId === food.id)
+                      }"
+                      :disabled="getMyCart?.items?.find((item) => item.foodId === food.id)"
+                      @click="addFoodToCart(food)"
+                    >
+                      Add To Cart
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" lg="12">
-          <div class="">
-            <p>Order Details</p>
           </div>
         </v-col>
       </v-row>
@@ -116,14 +120,8 @@ export default {
   name: 'orderFood',
   data() {
     return {
-      formData: {
-        tableId: 0,
-        orderNumber: '',
-        amount: 0,
-        phoneNumber: '',
-        orderStatus: 0,
-        items: []
-      },
+      formData: {},
+
       headers: [
         {
           align: 'start',
@@ -146,6 +144,11 @@ export default {
       foodTotalPages: 0,
       foodSortBy: '',
       foodPage: 1
+    }
+  },
+  watch: {
+    getMyCart(newValue) {
+      this.formData = { ...newValue }
     }
   },
   computed: {
@@ -189,60 +192,33 @@ export default {
       }
     },
 
-    addToCart(food) {
-      let checkDuplicate = this.getMyCart?.items?.find((item) => item.foodId == food.id)
-
-      if (checkDuplicate) {
-        const updateOrder = {
-          ...checkDuplicate,
-          quantity: checkDuplicate.quantity + 1,
-          totalPrice: (checkDuplicate.quantity + 1) * checkDuplicate.unitPrice
-        }
-        // this.formData.items.push(updateOrder)
-        this.formData.items = [
-          updateOrder,
-          ...this.formData.items.filter((item) => item.foodId !== food.id)
-        ]
-        this.updateCart(this.formData)
-      } else {
-        const foodOrderDetails = {
-          foodImage: food.image,
-          foodName: food.name,
-          foodId: food.id,
-          foodPackageId: 0,
-          quantity: 1,
-          unitPrice: food.discountPrice === 0 ? food.price : food.discountPrice,
-          totalPrice: 1 * food.discountPrice === 0 ? food.price : food.discountPrice
-        }
-        this.formData.items.push(foodOrderDetails)
-        console.log(this.formData)
-        this.updateCart(this.formData)
+    addFoodToCart(food) {
+      const foodOrderDetails = {
+        foodImage: food.image,
+        foodName: food.name,
+        foodId: food.id,
+        foodPackageId: 0,
+        quantity: 1,
+        unitPrice: food.discountPrice === 0 ? food.price : food.discountPrice,
+        totalPrice: 1 * food.discountPrice === 0 ? food.price : food.discountPrice
       }
-      console.log(food)
-    },
 
-    removeFromCart(food) {
-      let checkDuplicate = this.getMyCart?.items?.find((item) => item.foodId == food.id)
-      if (checkDuplicate) {
-        if (checkDuplicate.quantity > 0) {
-          const updateOrder = {
-            ...checkDuplicate,
-            quantity: checkDuplicate.quantity - 1,
-            totalPrice: (checkDuplicate.quantity - 1) * checkDuplicate.unitPrice
-          }
-          this.formData.items.push(updateOrder)
-          this.formData.items = [
-            updateOrder,
-            ...this.formData.items.filter((item) => item.foodId !== food.id)
-          ]
-          this.updateCart(this.formData)
-        }
+      let checkDuplicate = this.getMyCart?.items?.find((item) => item.foodId == food.foodId)
+      if (!checkDuplicate) {
+        this.formData.items.push(foodOrderDetails)
+        this.formData.amount = this.formData.items
+          .map((item) => item.totalPrice)
+          .reduce((acc, current) => {
+            return acc + current
+          }, 0)
+        this.updateCart(this.formData)
       }
     }
   },
   mounted() {
     this.loadTable()
     this.loadFood()
+    this.formData = this.getMyCart
   }
 }
 </script>
@@ -256,7 +232,7 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .select-table-container {
-  background-color: darken($color: #ffffff, $amount: 5);
+  background-color: darken(#ffffff, 5);
   padding: 20px;
   .container-header {
     font-size: 22px;
@@ -345,6 +321,24 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         align-items: end;
+      }
+
+      .add-to-cart-btn {
+        button {
+          display: inline-block;
+          color: white;
+          background-color: $primary;
+          padding: 10px 40px;
+          transition: background-color 0.2s;
+          &:hover {
+            background-color: darken($primary, 10);
+          }
+        }
+
+        .btn-disabled {
+          color: lightgray;
+          background-color: darken($primary, 20);
+        }
       }
       .cart-control {
         display: inline-flex;
