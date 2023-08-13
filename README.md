@@ -5,7 +5,7 @@ management, employee management, and order management using Vue JS and other tec
 
 ## Live Site Link
 
-See [https://legendary-lokum-6fdd3d.netlify.app](https://legendary-lokum-6fdd3d.netlify.app)
+👉 [https://legendary-lokum-6fdd3d.netlify.app](https://legendary-lokum-6fdd3d.netlify.app)
 
 ## Admin Login Credential
 
@@ -29,56 +29,88 @@ npm run dev
 ```sh
 npm run build
 ```
+
 <br>
 
 ## Screenshots
-![login](https://github.com/ishtiyak98/inessa/assets/56845656/86317d65-18aa-40d0-8cb2-10ee6a8b23a8)
+
+![login](https://github.com/ishtiyak98/inessa/assets/56845656/df865f53-2ccf-4ced-960a-77468de6660b)
+
 <center>Login Page</center>
 <br>
 <br>
 
-![employee-list](https://github.com/ishtiyak98/restaurant-project/assets/56845656/f40258eb-6d6d-4818-b804-a4b2633420de)
+![employee-list](https://github.com/ishtiyak98/inessa/assets/56845656/a556982c-8500-4d8c-8d4a-26b0a3410af5)
+
 <center>Employee List</center>
 <br>
 <br>
 
 ![all-employee-mobile](https://github.com/SharfarazMahmood/Meetup_webapp/assets/56845656/d041f9b3-e807-44cd-9c00-248b743e0f94)
 ![all-employee-mobile2](https://github.com/SharfarazMahmood/Meetup_webapp/assets/56845656/dd205657-3cce-44f2-a95b-cf1dfde4b6fa)
+
 <center>Employee List Mobile</center>
 <br>
 <br>
 
-![add-employee](https://github.com/ishtiyak98/restaurant-project/assets/56845656/14b766f2-6272-4f2e-a93f-0b659753c136)
+![add-employee](https://github.com/ishtiyak98/inessa/assets/56845656/85d9a4b9-3c00-4d91-bf6c-8451595ef9d7)
+
 <center>Add Employee Page</center>
 <br>
 <br>
 
-![all-table-list](https://github.com/ishtiyak98/restaurant-project/assets/56845656/7a9028e7-245c-4ee0-980e-5071c2814856)
+![add-employe-validation](https://github.com/ishtiyak98/inessa/assets/56845656/43a52563-64a2-49c2-81d9-85c69cfcbde0)
+
+<center>Form Validation</center>
+<br>
+<br>
+
+![all-table-list](https://github.com/ishtiyak98/inessa/assets/56845656/43bd458a-3914-4f20-8543-73c38340311f)
+
 <center>All Table List</center>
 <br>
 <br>
 
 ![assign-employee](https://github.com/ishtiyak98/restaurant-project/assets/56845656/ac3b7f33-2545-4a76-a9c6-28f68ffdb936)
+
 <center>Assign one or multiple employee to a table</center>
 <br>
 <br>
 
 ![remove-employee-warning](https://github.com/ishtiyak98/restaurant-project/assets/56845656/316286d9-82ae-49ff-ba41-4bd26cbb0138)
+
 <center>Remove employee warning</center>
 <br>
 <br>
 
-![add-table](https://github.com/ishtiyak98/restaurant-project/assets/56845656/3417a2bd-db1e-4533-b334-49218594cd58)
+![add-table](https://github.com/ishtiyak98/inessa/assets/56845656/f926c162-261e-44da-b988-63c1b4272c4d)
+
 <center>Add Table</center>
 <br>
 <br>
 
-![all-food-list](https://github.com/ishtiyak98/restaurant-project/assets/56845656/0dc773cd-bc6b-47da-a848-9588bb742aa3)
+![all-food-list](https://github.com/ishtiyak98/inessa/assets/56845656/d1266863-c939-4aec-ab3a-a8020280057b)
+
 <center>All Food List</center>
 <br>
 <br>
 
-![add-food](https://github.com/ishtiyak98/restaurant-project/assets/56845656/48af6ed9-ad55-49bf-b07e-7879d8ad20e8)
+![add-food](https://github.com/ishtiyak98/inessa/assets/56845656/0f38031c-d440-4834-ab90-f12836529354)
+
 <center>Add Food</center>
 <br>
 
+![order-1](https://github.com/ishtiyak98/inessa/assets/56845656/f249fcc1-f62c-47ca-891a-19bd94c9a79a)
+
+<center>Food Order Page</center>
+<br>
+
+![order-3](https://github.com/ishtiyak98/inessa/assets/56845656/3508e701-d26e-4114-bcf7-430eb51942c6)
+
+<center>Table & Food Selection</center>
+<br>
+
+![order-2](https://github.com/ishtiyak98/inessa/assets/56845656/594b0d49-254d-4e05-b013-a6cf97102b35)
+
+<center>Food Cart</center>
+<br>

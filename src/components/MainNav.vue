@@ -1,24 +1,24 @@
 <template>
   <nav class="nav-container">
     <div class="logo-container">
-      <v-btn class="order-last menu-btn text-h5" icon="mdi-menu" @click.stop="toggleDrawer"></v-btn>
       <div class="d-flex align-center order-first">
         <img src="../assets/logo.png" alt="" width="50" />
         <p class="logo-text">BSS RESTAURANT</p>
       </div>
     </div>
-    <div class="d-flex">
+    <div class="d-flex align-center">
       <div class="link-container">
         <RouterLink class="nav-link" to="/admin">Admin</RouterLink>
         <RouterLink class="nav-link" to="/services">Our Services</RouterLink>
         <RouterLink class="nav-link" to="/about">About Us</RouterLink>
       </div>
       <div class="cart-icon-container">
-        <div v-if="getMyCart?.items?.length>0" class="cart-counter">
+        <div v-if="getMyCart?.items?.length > 0" class="cart-counter">
           <p>{{ getMyCart.items.length }}</p>
         </div>
         <v-icon class="cart-icon" icon="mdi-basket" @click.stop="toggleCart"></v-icon>
       </div>
+      <v-btn class="order-last menu-btn text-h5" icon="mdi-menu" @click.stop="toggleDrawer"></v-btn>
     </div>
   </nav>
 </template>

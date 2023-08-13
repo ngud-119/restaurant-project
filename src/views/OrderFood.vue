@@ -74,21 +74,6 @@
                       <span class="font-weight-bold">{{ food.discountPrice }}৳</span>
                     </p>
                   </div>
-                  <!-- <div class="cart-control border">
-                    <div class="cart-control-btn increase-btn border" @click="removeFromCart(food)">
-                      <v-icon class="icon" icon="mdi-minus"></v-icon>
-                    </div>
-                    <div class="cart-control-text border">
-                      <p>
-                        {{
-                          getMyCart?.items?.find((item) => item.foodId === food.id)?.quantity || 0
-                        }}
-                      </p>
-                    </div>
-                    <div class="cart-control-btn decrease-btn border" @click="addToCart(food)">
-                      <v-icon class="icon" icon="mdi-plus"></v-icon>
-                    </div>
-                  </div> -->
                   <div class="add-to-cart-btn">
                     <button
                       :class="{
@@ -337,7 +322,10 @@ export default {
 
         .btn-disabled {
           color: lightgray;
-          background-color: darken($primary, 20);
+          background-color: darken($primary, 40);
+          &:hover {
+            background-color: darken($primary, 40);
+          }
         }
       }
       .cart-control {
