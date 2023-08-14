@@ -169,10 +169,13 @@ export default createStore({
       commit('UPDATE_CART', payload)
     },
     decreaseCartItem({ commit }, payload) {
-      commit('DECREASE_CART', payload)
+      commit('DECREASE_CART_ITEM', payload)
     },
     increaseCartItem({ commit }, payload) {
-      commit('INCREASE_CART', payload)
+      commit('INCREASE_CART_ITEM', payload)
+    },
+    removeCartItem({ commit }, payload) {
+      commit('REMOVE_CART_ITEM', payload)
     },
     setTotalAmount({ commit }, payload) {
       commit('SET_TOTAL_AMOUNT', payload)
@@ -223,10 +226,7 @@ export default createStore({
     TOGGLE_CART(state) {
       state.cartVisibility = !state.cartVisibility
     },
-    UPDATE_CART(state, payload) {
-      state.myCart = payload
-    },
-    DECREASE_CART(state, payload) {
+    DECREASE_CART_ITEM(state, payload) {
       const duplicate = state.myCart.items.find((item) => item.foodId == payload.foodId)
       if (duplicate) {
         if (duplicate.quantity > 1) {
@@ -237,12 +237,15 @@ export default createStore({
         }
       }
     },
-    INCREASE_CART(state, payload) {
+    INCREASE_CART_ITEM(state, payload) {
       const duplicate = state.myCart.items.find((item) => item.foodId == payload.foodId)
       if (duplicate) {
         duplicate.quantity = duplicate.quantity + 1
         duplicate.totalPrice = duplicate.quantity * duplicate.unitPrice
       }
+    },
+    REMOVE_CART_ITEM(state, payload) {
+      state.myCart.items = state.myCart.items.filter((item) => item.foodId !== payload.foodId)
     },
     SET_TOTAL_AMOUNT(state, payload) {
       state.myCart.amount = state.myCart.items
@@ -250,6 +253,9 @@ export default createStore({
         .reduce((acc, current) => {
           return acc + current
         }, 0)
+    },
+    UPDATE_CART(state, payload) {
+      state.myCart = payload
     },
     IS_LOADING(state, payload) {
       state.loadingState = payload

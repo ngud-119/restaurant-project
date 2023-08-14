@@ -103,6 +103,7 @@ export default {
       updateCart: 'updateCart',
       decreaseCartItem: 'decreaseCartItem',
       increaseCartItem: 'increaseCartItem',
+      removeCartItem: 'removeCartItem',
       setTotalAmount: 'setTotalAmount'
     }),
     toggleCart() {
@@ -119,9 +120,8 @@ export default {
     },
 
     removeCart(food) {
-      let formData = { ...this.getMyCart }
-      formData.items = formData.items.filter((item) => item.foodId !== food.foodId)
-      this.updateCart(formData)
+      this.removeCartItem(food)
+      this.setTotalAmount()
     },
 
     async confirmOrder() {
