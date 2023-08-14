@@ -101,6 +101,9 @@ import ApiCall from '../api/apiInterface'
 import { imageUrl } from '../constants/config'
 import store from '../store'
 
+import { useToast } from 'vue-toast-notification'
+const $toast = useToast()
+
 export default {
   name: 'orderFood',
   data() {
@@ -197,6 +200,7 @@ export default {
             return acc + current
           }, 0)
         this.updateCart(this.formData)
+        $toast.success('Food added to cart')
       }
     }
   },
@@ -268,6 +272,7 @@ export default {
       }
     }
   }
+  
 
   .food-card {
     background-color: white;

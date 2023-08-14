@@ -76,7 +76,9 @@
 <script>
 import ApiCall from '../api/apiInterface'
 import { imageUrl } from '../constants/config'
-import { mapActions, mapGetters } from 'vuex'
+import { Store, mapActions, mapGetters, storeKey } from 'vuex'
+import { useToast } from 'vue-toast-notification'
+const $toast = useToast()
 
 export default {
   name: 'FoodCart',
@@ -85,15 +87,7 @@ export default {
       imageUrl: imageUrl
     }
   },
-  watch: {
-    'getMyCart.items'(newValue) {
-      this.getMyCart.amount = newValue
-        .map((item) => item.totalPrice)
-        .reduce((acc, current) => {
-          return acc + current
-        }, 0)
-    }
-  },
+  watch: {},
   computed: {
     ...mapGetters({
       getCurrentUser: 'getCurrentUser',
@@ -106,60 +100,22 @@ export default {
     ...mapActions({
       logoutUser: 'logoutUser',
       toggleCartVisibility: 'toggleCartVisibility',
-      updateCart: 'updateCart'
+      updateCart: 'updateCart',
+      decreaseCartItem: 'decreaseCartItem',
+      increaseCartItem: 'increaseCartItem',
+      setTotalAmount: 'setTotalAmount'
     }),
     toggleCart() {
       this.toggleCartVisibility()
     },
     addToCart(food) {
-      let checkDuplicate = this.getMyCart?.items?.find((item) => item.foodId == food.foodId)
-      let formData = { ...this.getMyCart }
-
-      if (checkDuplicate) {
-        const updateOrder = {
-          ...checkDuplicate,
-          quantity: checkDuplicate.quantity + 1,
-          totalPrice: (checkDuplicate.quantity + 1) * checkDuplicate.unitPrice
-        }
-        formData.items = [
-          updateOrder,
-          ...formData.items.filter((item) => item.foodId !== food.foodId)
-        ]
-        formData.amount = formData.items
-          .map((item) => item.totalPrice)
-          .reduce((acc, current) => {
-            return acc + current
-          }, 0)
-
-        this.updateCart(formData)
-      }
+      this.increaseCartItem(food)
+      this.setTotalAmount()
     },
 
     decreaseCart(food) {
-      let checkDuplicate = this.getMyCart?.items?.find((item) => item.foodId == food.foodId)
-      let formData = { ...this.getMyCart }
-
-      if (checkDuplicate) {
-        if (checkDuplicate.quantity > 1) {
-          const updateOrder = {
-            ...checkDuplicate,
-            quantity: checkDuplicate.quantity - 1,
-            totalPrice: (checkDuplicate.quantity - 1) * checkDuplicate.unitPrice
-          }
-          formData.items = [
-            updateOrder,
-            ...formData.items.filter((item) => item.foodId !== food.foodId)
-          ]
-          formData.amount = formData.items.reduce((acc, current) => {
-            return acc + current.totalPrice
-          }, 0)
-
-          this.updateCart(formData)
-        } else {
-          formData.items = formData.items.filter((item) => item.foodId !== food.foodId)
-          this.updateCart(formData)
-        }
-      }
+      this.decreaseCartItem(food)
+      this.setTotalAmount()
     },
 
     removeCart(food) {
@@ -181,18 +137,18 @@ export default {
           item.foodPackageId = null
         })
         cartDetails.orderNumber = new Date().toISOString()
-        cartDetails.phoneNumber = this.getCurrentUser.phoneNumber
-        cartDetails.orderStatus = 1
+        cartDetails.phoneNumber = null
+        //cartDetails.orderStatus = 1
 
         const response = await ApiCall.post('api/order/create', cartDetails)
         console.log(response)
-
+        $toast.success('Order created successfully')
+        this.toggleCartVisibility()
         this.updateCart({
           tableId: 0,
           orderNumber: '',
           amount: 0,
           phoneNumber: '',
-          orderStatus: 0,
           items: []
         })
       } catch (error) {
@@ -221,7 +177,6 @@ export default {
     .cart-footer {
       position: sticky;
       bottom: 0;
-
       background-color: #ffffff;
       .subtotal {
         font-weight: bold;

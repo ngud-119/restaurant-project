@@ -63,6 +63,14 @@
                     value="orderFood"
                   ></v-list-item>
                 </RouterLink>
+                <RouterLink class="side-list-link" to="/all-order">
+                  <v-list-item
+                    class="side-list-item"
+                    prepend-icon="mdi-clipboard-list"
+                    title="All Orders"
+                    value="allOrder"
+                  ></v-list-item>
+                </RouterLink>
               </v-list>
             </div>
             <div class="px-3">

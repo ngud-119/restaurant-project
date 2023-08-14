@@ -13,6 +13,9 @@ import * as directives from 'vuetify/directives'
 import '@mdi/font/css/materialdesignicons.css'
 import { VDataTable, VDataTableServer } from 'vuetify/labs/VDataTable'
 
+import ToastPlugin from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-bootstrap.css'
+
 const vuetify = createVuetify({
   // components,
   components: { ...components, VDataTable, VDataTableServer },
@@ -27,5 +30,6 @@ const app = createApp(App)
 app.use(router)
 app.use(vuetify)
 app.use(store)
+app.use(ToastPlugin)
 
 app.mount('#app')

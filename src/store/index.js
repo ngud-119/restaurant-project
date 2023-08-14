@@ -20,7 +20,6 @@ export default createStore({
       orderNumber: '',
       amount: 0,
       phoneNumber: '',
-      orderStatus: 0,
       items: []
     }
   },
@@ -169,7 +168,15 @@ export default createStore({
     updateCart({ commit }, payload) {
       commit('UPDATE_CART', payload)
     },
-
+    decreaseCartItem({ commit }, payload) {
+      commit('DECREASE_CART', payload)
+    },
+    increaseCartItem({ commit }, payload) {
+      commit('INCREASE_CART', payload)
+    },
+    setTotalAmount({ commit }, payload) {
+      commit('SET_TOTAL_AMOUNT', payload)
+    },
     logoutUser({ commit }) {
       commit('DELETE_USER')
     },
@@ -218,6 +225,31 @@ export default createStore({
     },
     UPDATE_CART(state, payload) {
       state.myCart = payload
+    },
+    DECREASE_CART(state, payload) {
+      const duplicate = state.myCart.items.find((item) => item.foodId == payload.foodId)
+      if (duplicate) {
+        if (duplicate.quantity > 1) {
+          duplicate.quantity = duplicate.quantity - 1
+          duplicate.totalPrice = duplicate.quantity * duplicate.unitPrice
+        } else {
+          state.myCart.items = state.myCart.items.filter((item) => item.foodId !== payload.foodId)
+        }
+      }
+    },
+    INCREASE_CART(state, payload) {
+      const duplicate = state.myCart.items.find((item) => item.foodId == payload.foodId)
+      if (duplicate) {
+        duplicate.quantity = duplicate.quantity + 1
+        duplicate.totalPrice = duplicate.quantity * duplicate.unitPrice
+      }
+    },
+    SET_TOTAL_AMOUNT(state, payload) {
+      state.myCart.amount = state.myCart.items
+        .map((item) => item.totalPrice)
+        .reduce((acc, current) => {
+          return acc + current
+        }, 0)
     },
     IS_LOADING(state, payload) {
       state.loadingState = payload
