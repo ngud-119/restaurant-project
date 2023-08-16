@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav-container">
+  <nav id="nav" class="nav-container">
     <div class="logo-container">
       <div class="d-flex align-center order-first">
         <img src="../assets/logo.png" alt="" width="50" />
@@ -18,7 +18,7 @@
         </div>
         <v-icon class="cart-icon" icon="mdi-basket" @click.stop="toggleCart"></v-icon>
       </div>
-      <v-btn class="order-last menu-btn text-h5" icon="mdi-menu" @click.stop="toggleDrawer"></v-btn>
+      <v-btn class="menu-btn" icon="mdi-menu" @click.stop="toggleDrawer"></v-btn>
     </div>
   </nav>
 </template>
@@ -27,6 +27,11 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'mainNav',
+  data() {
+    return {
+      topNav: false
+    }
+  },
   computed: {
     ...mapGetters({
       getCurrentUser: 'getCurrentUser',
@@ -50,6 +55,17 @@ export default {
       this.logoutUser()
       this.$router.push({ name: 'login' })
     }
+  },
+  mounted() {
+    window.document.onscroll = () => {
+      let navBar = document.getElementById('nav')
+      if (window.scrollY > navBar.offsetTop) {
+        console.log(window.scrollY)
+        navBar.classList.add('fixed-top')
+      } else {
+        navBar.classList.remove('fixed-top')
+      }
+    }
   }
 }
 </script>
@@ -59,17 +75,35 @@ export default {
 @import '../assets/responsive';
 @import '../styles/component';
 
+.fixed-top {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+
+  @include md {
+    left: 0px;
+    right: 0px;
+  }
+
+  @include lg {
+    padding: 0px 40px;
+    left: 256px;
+    right: 0px;
+    //width: 100%;
+  }
+}
+
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 10px;
+  padding: 0px 10px;
   background-color: $primary;
   border-radius: 0px;
   z-index: 50;
 
   @include lg {
-    padding: 0px 40px;
+    padding: 0px 60px;
   }
 
   .logo-container {
@@ -88,7 +122,7 @@ export default {
     color: white;
     box-shadow: none;
     display: block;
-
+    font-size: 16px;
     @include lg {
       display: none;
     }
@@ -96,12 +130,13 @@ export default {
 
   .logo-text {
     margin-top: 10px;
-    margin-left: 10px;
-    font-size: 18px;
+    margin-left: 0px;
+    font-size: 16px;
 
     @include logo;
 
     @include lg {
+      margin-left: 10px;
       font-size: 22px;
     }
   }
@@ -134,6 +169,11 @@ export default {
       height: 100%;
       padding: 20px 36px;
       transition: all 0.4s;
+      font-size: 20px;
+
+      @include lg {
+        font-size: 24px;
+      }
 
       &:hover {
         color: white;

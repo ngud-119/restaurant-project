@@ -5,8 +5,7 @@
         <v-navigation-drawer
           class="nav-drawer"
           v-model="$store.state.drawerVisibility"
-          app
-          mobile-break-point="640"
+          app       
         >
           <v-list class="pb-3">
             <v-list-item
@@ -87,8 +86,12 @@
         </v-navigation-drawer>
 
         <!--!-------- Dashboard View Field Start---------->
-        <v-main>
-          <MainNav></MainNav>
+        <v-main class="dashboard-area">
+          <!-- <MainNav></MainNav> -->
+
+          <TopNavbar></TopNavbar>
+
+          <div class="box"></div>
           <div class="dashboard-container">
             <div class="overlay"></div>
             <div class="dashboard-view">
@@ -107,11 +110,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import MainNav from '../components/MainNav.vue'
+import TopNavbar from '../components/TopNavbar.vue'
 import FoodCart from '../components/FoodCart.vue'
 
 export default {
   name: 'adminView',
-  components: { MainNav, FoodCart },
+  components: { MainNav, TopNavbar, FoodCart, MainNav },
   data() {
     return {
       drawer: true
@@ -177,20 +181,23 @@ export default {
   color: $primary;
 }
 
-.dashboard-container {
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 1)),
-    url('../assets/img/dash-bg.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.dashboard-area {
+  position: relative;
+  .dashboard-container {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 1)),
+      url('../assets/img/dash-bg.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
-  .dashboard-view {
-    min-height: calc(100vh - 65.6px);
-    margin: 0 auto;
-    padding: 10px 10px;
+    .dashboard-view {
+      min-height: calc(100vh - 65.6px);
+      margin: 0 auto;
+      padding: 10px 10px;
 
-    @include lg {
-      padding: 40px 60px;
+      @include lg {
+        padding: 40px 60px;
+      }
     }
   }
 }

@@ -9,29 +9,25 @@
         <v-col cols="12" lg="2">
           <div class="select-table-container">
             <h5 class="text-center text-black font-weight-bold mb-2">SELECT A TABLE</h5>
-            <div
-              class="table-card mb-4 py-4 text-center border"
-              :class="{ 'table-active': table.id == formData.tableId }"
-              v-for="(table, index) in tableData"
-              @click="
-                () => {
-                  formData.tableId = table.id
-                  formData.items = []
-                }
-              "
-              :key="index"
-            >
-              <div class="table-card-img-container mt-1">
-                <img
-                  class="rounded-circle"
-                  :src="imageUrl + 'table/' + table.image"
-                  alt=""
-                  width="70"
-                  height="70"
-                />
-              </div>
-              <div class="table-text">
-                <p class="">{{ table.tableNumber }}</p>
+            <div class="table-container">
+              <div
+                class="table-card mb-4 py-4 text-center border"
+                :class="{ 'table-active': table.id == formData.tableId }"
+                v-for="(table, index) in tableData"
+                @click="
+                  () => {
+                    formData.tableId = table.id
+                    formData.items = []
+                  }
+                "
+                :key="index"
+              >
+                <div class="table-card-img-container mt-1">
+                  <img class="rounded-circle" :src="imageUrl + 'table/' + table.image" alt="" />
+                </div>
+                <div class="table-text">
+                  <p class="">{{ table.tableNumber }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -47,13 +43,12 @@
               </div>
             </div>
             <h5 class="text-left text-black font-weight-bold mb-2">SELECT FOODS</h5>
-            <div class="food-card border" v-for="(food, index) in foodData" :key="index">
+            <div class="food-card" v-for="(food, index) in foodData" :key="index">
               <div class="food-img-container ma-4">
                 <img
                   class="rounded-circle"
                   :src="imageUrl + 'food/' + food.image"
                   :alt="food.name"
-                  width="190"
                 />
               </div>
               <div class="food-text-container ma-4">
@@ -223,6 +218,27 @@ export default {
 .select-table-container {
   background-color: darken(#ffffff, 5);
   padding: 20px;
+
+  @include lg {
+    height: 77vh;
+  }
+
+  .table-container {
+    width: 100%;
+    height: 95%;
+    overflow: scroll;
+    display: flex;
+    flex-direction: row;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include lg {
+      flex-direction: column;
+      overflow: scroll;
+    }
+  }
   .container-header {
     font-size: 22px;
   }
@@ -232,6 +248,20 @@ export default {
       cursor: pointer;
       color: white;
       background-color: $primary;
+    }
+
+    .table-card-img-container {
+      img {
+        width: 160px;
+        height: 160px;
+        padding: 20px;
+
+        @include lg {
+          width: 130px;
+          height: 130px;
+          padding: 10px;
+        }
+      }
     }
 
     .table-text {
@@ -244,13 +274,19 @@ export default {
 .select-food-container {
   background-color: darken($color: #ffffff, $amount: 5);
   padding: 20px;
-  height: 100%;
+  // height: 100%;
+  height: 84vh;
+  overflow: scroll;
   position: relative;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .select-food-overlay {
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
     background-color: darken($color: #ffffffc7, $amount: 5);
@@ -272,7 +308,6 @@ export default {
       }
     }
   }
-  
 
   .food-card {
     background-color: white;
@@ -281,16 +316,29 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+
+    &:hover {
+      border: 2px solid $primary;
+
+      .food-img-container {
+        img {
+          animation: spin 20s linear infinite;
+        }
+      }
+    }
 
     @include lg {
       flex-direction: row;
     }
     .food-img-container {
       img {
+        width: 190px;
+        height: 190px;
         display: block;
         filter: drop-shadow(0px 10px 10px #bcbcbc);
         transform: rotate(0deg);
-        animation: spin 30s linear infinite;
       }
       @keyframes spin {
         from {
@@ -301,6 +349,10 @@ export default {
           transform: rotate(360deg);
         }
       }
+    }
+
+    .food-text-container {
+      width: 100%;
     }
 
     .price-btn-container {

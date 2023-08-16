@@ -4,6 +4,7 @@
     v-model="$store.state.cartVisibility"
     temporary
     location="right"
+
   >
     <div class="cart-container">
       <div class="header pa-4 d-flex align-center justify-space-between">
@@ -166,8 +167,9 @@ export default {
 .cart-drawer {
   .cart-container {
     .header {
-      color: white;
-      background-color: $primary;
+      color: $primary;
+      border-bottom: 3px solid $primary;
+      background-color: white;
       position: sticky;
       top: 0;
       left: 0;
@@ -197,7 +199,7 @@ export default {
     }
 
     .empty-cart-text {
-      height: 90vh;
+      height: 70vh;
       display: flex;
       justify-content: center;
       align-items: center;
