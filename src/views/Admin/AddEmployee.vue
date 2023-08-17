@@ -2,7 +2,7 @@
   <div>
     <h2 class="mb-8 heading-font">Add Employee</h2>
 
-    <div class="form-container">
+    <div class="form-container elevation-5">
       <v-form validate-on="submit lazy" ref="addEmployeeForm" @submit.prevent="submitAddEmployee">
         <v-row>
           <v-col cols="12" lg="8" class="order-last order-lg-first">
@@ -204,7 +204,6 @@ export default {
       ],
 
       middleNameRules: [
-        
         (middleName) => !/\d/.test(middleName) || 'Middle name cannot contain any number'
       ],
 
@@ -243,7 +242,7 @@ export default {
 
       emailRules: [
         (email) => !!email || 'Email name is required',
-        (email) => /^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(email) || 'Not a valid email'
+        (email) => /^[a-z0-9.-]+@[a-z.-]+\.[com]+$/i.test(email) || 'Not a valid email'
       ],
 
       phoneNumberRules: [

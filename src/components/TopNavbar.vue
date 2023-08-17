@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="navbar-container px-lg-10">
+  <v-app-bar style="height: auto" class="navbar-container px-lg-10">
     <template v-slot:prepend>
       <div class="logo-container">
         <div class="d-flex align-center order-first">
@@ -21,7 +21,7 @@
           </div>
           <v-icon class="cart-icon" icon="mdi-basket" @click.stop="toggleCart"></v-icon>
         </div>
-        <v-btn class="menu-btn" icon="mdi-menu" @click.stop="toggleDrawer"></v-btn>
+        <v-icon class="menu-btn" icon="mdi-menu" @click.stop="toggleDrawer"></v-icon>
       </div>
     </template>
   </v-app-bar>
@@ -67,7 +67,6 @@ export default {
 .navbar-container {
   color: white;
   background-color: $primary;
-
   .logo-container {
     width: 100%;
     display: flex;
@@ -109,7 +108,7 @@ export default {
     .nav-link {
       color: white;
       text-decoration: none;
-      padding: 40px 36px;
+      padding: 21px 36px;
       outline: none;
       border: 0px;
       display: block;
@@ -163,12 +162,6 @@ export default {
         font-size: 24px;
         padding: 20px 36px;
       }
-
-      //   &:hover {
-      //     color: white;
-      //     background-color: #8f0709;
-      //     cursor: pointer;
-      //   }
     }
   }
 
@@ -177,7 +170,8 @@ export default {
     color: white;
     box-shadow: none;
     display: block;
-    font-size: 16px;
+    font-size: 25px;
+    margin-left: 12px;
     @include lg {
       display: none;
     }

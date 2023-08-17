@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="mb-8 heading-font">Add Food</h2>
-    <div class="form-container">
+    <div class="form-container elevation-5">
       <v-form validate-on="submit lazy" ref="addFoodForm" @submit.prevent="submitAddFood">
         <v-row>
           <v-col cols="12" lg="8" class="order-last order-lg-first">
@@ -11,6 +11,7 @@
               label="Food Name"
               variant="outlined"
               color="#79a33d"
+              :rules="foodNameRules"
               required
             ></v-text-field>
             <v-textarea
@@ -19,6 +20,7 @@
               label="Description"
               variant="outlined"
               color="#79a33d"
+              :rules="descriptionRules"
               required
             ></v-textarea>
           </v-col>
@@ -49,6 +51,7 @@
               label="Price"
               variant="outlined"
               color="#79a33d"
+              :rules="priceRules"
               required
             ></v-text-field>
           </v-col>
@@ -66,7 +69,7 @@
           <v-col cols="12" lg="3">
             <v-text-field
               @update:modelValue="onChangeDiscount"
-              label="Discount in (%)"
+              :label="addFoodData.discountType === 1 ? 'Discount in (৳)' : 'Discount in (%)'"
               v-model="addFoodData.discount"
               variant="outlined"
               color="#79a33d"
@@ -76,7 +79,7 @@
           </v-col>
           <v-col cols="12" lg="3">
             <v-text-field
-              label="Discount Price"
+              label="Discounted Price"
               :active="true"
               v-model="addFoodData.discountPrice"
               variant="outlined"
@@ -106,6 +109,7 @@ export default {
       previewImg: null,
       foodNameRules: [(foodNameRules) => !!foodNameRules || 'Food Name is required'],
       descriptionRules: [(desc) => !!desc || 'Description is required'],
+      priceRules: [(price) => !(price <= 0) || 'Price should be greater than 0'],
       discountTypeData: [
         { key: 0, value: 'None' },
         { key: 1, value: 'Flat' },
@@ -154,28 +158,31 @@ export default {
           this.addFoodData.price - (this.addFoodData.price * $e) / 100
       }
     },
-    submitAddFood() {
-      console.log('sub')
-      const data = {
-        ...this.addFoodData,
-        price: parseInt(this.addFoodData.price),
-        discount: parseInt(this.addFoodData.discount),
-        discountPrice: parseInt(this.addFoodData.discountPrice),
-        discountType: parseInt(this.addFoodData.discountType)
+    async submitAddFood() {
+      const { valid } = await this.$refs.addFoodForm.validate()
+      console.log(valid);
+      if (valid) {
+        const data = {
+          ...this.addFoodData,
+          price: parseInt(this.addFoodData.price),
+          discount: parseInt(this.addFoodData.discount),
+          discountPrice: parseInt(this.addFoodData.discountPrice),
+          discountType: parseInt(this.addFoodData.discountType)
+        }
+        console.log(data)
+        this.postFoodDetails(data)
+        this.addFoodData = {
+          name: '',
+          description: '',
+          price: parseInt(0),
+          discountType: 0,
+          discount: parseInt(0),
+          discountPrice: parseInt(0),
+          image: '',
+          base64: ''
+        }
+        this.previewImg = null
       }
-      console.log(data)
-      this.postFoodDetails(data)
-      this.addFoodData = {
-        name: '',
-        description: '',
-        price: parseInt(0),
-        discountType: 0,
-        discount: parseInt(0),
-        discountPrice: parseInt(0),
-        image: '',
-        base64: ''
-      }
-      this.previewImg = null
     },
 
     onImageSelect(e) {

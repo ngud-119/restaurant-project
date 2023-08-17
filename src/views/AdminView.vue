@@ -2,11 +2,7 @@
   <div class="">
     <v-card>
       <v-layout>
-        <v-navigation-drawer
-          class="nav-drawer"
-          v-model="$store.state.drawerVisibility"
-          app       
-        >
+        <v-navigation-drawer class="nav-drawer" v-model="$store.state.drawerVisibility" app>
           <v-list class="pb-3">
             <v-list-item
               class=""
@@ -109,13 +105,12 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import MainNav from '../components/MainNav.vue'
 import TopNavbar from '../components/TopNavbar.vue'
 import FoodCart from '../components/FoodCart.vue'
 
 export default {
   name: 'adminView',
-  components: { MainNav, TopNavbar, FoodCart, MainNav },
+  components: { TopNavbar, FoodCart },
   data() {
     return {
       drawer: true

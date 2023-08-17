@@ -76,6 +76,10 @@ body {
   }
 }
 
+.v-toolbar__content{
+  height: auto !important;
+}
+
 ::selection {
   color: white;
   background-color: $primary;

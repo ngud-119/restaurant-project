@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="mb-8 heading-font">Add Table</h2>
-    <div class="form-container">
+    <div class="form-container elevation-5">
       <v-form validate-on="submit lazy" ref="addTableForm" @submit.prevent="submitAddTable">
         <v-row>
           <v-col cols="12" lg="8" class="order-last order-lg-first">
