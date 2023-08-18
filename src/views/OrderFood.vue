@@ -7,7 +7,7 @@
     <div>
       <v-row>
         <v-col cols="12" lg="3">
-          <div class="select-table-container">
+          <div v-if="tableData.length > 0" class="select-table-container">
             <h5 class="text-center text-black font-weight-bold mb-2">SELECT A TABLE</h5>
             <div class="table-container">
               <div

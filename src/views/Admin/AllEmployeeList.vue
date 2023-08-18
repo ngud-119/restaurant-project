@@ -146,11 +146,10 @@ export default {
     })
   },
   mounted() {
-    this.fetchAllEmployee()
+    //this.fetchAllEmployee()
   },
   methods: {
     ...mapActions({
-      fetchAllEmployee: 'fetchAllEmployee',
       deleteEmployee: 'deleteEmployee'
     }),
     addEmployee() {

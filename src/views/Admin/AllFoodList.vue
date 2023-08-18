@@ -133,9 +133,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      getAllFoodData: 'getAllFoodData'
-    })
+    // ...mapGetters({
+    //   getAllFoodData: 'getAllFoodData'
+    // })
   },
   methods: {
     ...mapActions({}),

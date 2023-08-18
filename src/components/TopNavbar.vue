@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar style="height: auto" class="navbar-container px-lg-10">
+  <v-app-bar class="navbar-container px-lg-10">
     <template v-slot:prepend>
       <div class="logo-container">
         <div class="d-flex align-center order-first">
