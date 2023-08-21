@@ -1,8 +1,20 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
   <div>
-    <div class="heading-container mb-8">
+    <div class="d-flex align-center justify-space-between mb-8">
       <h2 class="heading-font">Order Food</h2>
+      <div class="h-100 d-flex align-center">
+        <v-text-field
+          style="width: 300px"
+          class="d-block"
+          v-model="searchText"
+          variant="outlined"
+          label="Search food...."
+          color="#79a33d"
+          @input="searchFood"
+          :hide-details="true"
+        ></v-text-field>
+      </div>
     </div>
     <div>
       <v-row>
@@ -106,7 +118,7 @@ export default {
   data() {
     return {
       formData: {},
-
+      searchText: '',
       headers: [
         {
           align: 'start',
@@ -145,6 +157,19 @@ export default {
     ...mapActions({
       updateCart: 'updateCart'
     }),
+
+    async searchFood() {
+      try {
+        const response = await ApiCall.get(
+          `api/Food/datatable?sort=${this.foodSortBy}&page=${this.foodPage}&per_page=${this.foodItemsPerPage}&search=${this.searchText}`
+        )
+        this.foodData = response.data.data
+        this.foodTotalPages = response.data.totalPages
+        this.foodTotalItems = response.data.total
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async loadTable() {
       try {
         store.commit('IS_LOADING', true)

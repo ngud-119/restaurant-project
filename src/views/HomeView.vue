@@ -50,7 +50,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import MainNav from '../components/MainNav.vue';
 import Img1 from "../assets/img/homeImg/slider1.jpeg";
 import Img2 from "../assets/img/homeImg/slider2.jpg";
 import Img3 from "../assets/img/homeImg/slider3.jpg";

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex align-center justify-space-between mb-8">
-      <h2 class="heading-font">All Order</h2>
+      <h2 class="heading-font">All Orders</h2>
       <v-btn class="add-btn" @click="() => this.$router.push({ path: '/order' })">
         Place an Order
       </v-btn>
@@ -24,7 +24,7 @@
               </div>
               <div>
                 <v-icon
-                  class="delete-icon pa-5 rounded-circle"
+                  class="delete-icon text-h6 pa-4 rounded-circle"
                   icon="mdi-trash-can-outline"
                   @click="removeOrder(order.id)"
                 ></v-icon>
@@ -61,7 +61,9 @@
               </div>
               <div>
                 <p>Table: {{ order.table.tableNumber }}</p>
-                <p class="font-weight-bold text-end">{{ order.orderStatus }}</p>
+                <p class="font-weight-bold text-end text-orange-darken-1">
+                  {{ order.orderStatus }}
+                </p>
               </div>
             </div>
           </div>

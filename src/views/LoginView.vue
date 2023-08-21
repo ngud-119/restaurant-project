@@ -56,8 +56,8 @@ export default {
   data() {
     return {
       user: {
-        userName: '',
-        password: ''
+        userName: 'admin@mail.com',
+        password: 'Admin@123'
       }
     }
   },

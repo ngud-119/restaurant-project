@@ -4,7 +4,6 @@
     v-model="$store.state.cartVisibility"
     temporary
     location="right"
-
   >
     <div class="cart-container">
       <div class="header pa-4 d-flex align-center justify-space-between">
@@ -77,8 +76,9 @@
 <script>
 import ApiCall from '../api/apiInterface'
 import { imageUrl } from '../constants/config'
-import { Store, mapActions, mapGetters, storeKey } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { useToast } from 'vue-toast-notification'
+import Swal from 'sweetalert2'
 const $toast = useToast()
 
 export default {
@@ -143,7 +143,14 @@ export default {
 
         const response = await ApiCall.post('api/order/create', cartDetails)
         console.log(response)
-        $toast.success('Order created successfully')
+        // $toast.success('Order created successfully')
+        Swal.fire({
+          title: 'Order Placed',
+          text: 'Order has been placed successfully',
+          icon: 'success',
+          confirmButtonText: 'ok',
+          iconColor: '#32CD32'
+        })
         this.toggleCartVisibility()
         this.updateCart({
           tableId: 0,
