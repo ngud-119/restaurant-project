@@ -61,9 +61,21 @@
               </div>
               <div>
                 <p>Table: {{ order.table.tableNumber }}</p>
-                <p class="font-weight-bold text-end text-orange-darken-1">
-                  {{ order.orderStatus }}
-                </p>
+                <div class="d-flex align-center justify-space-between">
+                  <p class="font-weight-bold text-end text-orange-darken-1">
+                    {{ order.orderStatus }}
+                  </p>
+                  <v-icon class="status-change-icon" icon="mdi-pencil-outline"></v-icon>
+                </div>
+                <!-- <v-select
+                  :items="orderStatusData"
+                  
+                  item-title="value"
+                  item-value="key"
+                  label="Status"
+                  variant="outlined"
+                  color="#79a33d"
+                ></v-select> -->
               </div>
             </div>
           </div>
@@ -83,6 +95,14 @@ export default {
   data() {
     return {
       imageUrl: imageUrl,
+      orderStatusData: [
+        { key: 0, value: 'Pending' },
+        { key: 1, value: 'Confirmed' },
+        { key: 2, value: 'Preparing' },
+        { key: 3, value: 'Prepared To Serve ' },
+        { key: 4, value: 'Served' },
+        { key: 5, value: 'Payed' }
+      ],
       totalItems: 0,
       itemsPerPage: 10,
       totalPages: 0,
@@ -205,6 +225,14 @@ export default {
         gap: 20px;
         margin-bottom: 10px;
         margin-right: 15px;
+      }
+    }
+    .status-change-icon {
+      color: lightgray;
+
+      &:hover {
+        cursor: pointer;
+        color: green;
       }
     }
   }
