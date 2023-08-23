@@ -77,9 +77,7 @@
 import ApiCall from '../api/apiInterface'
 import { imageUrl } from '../constants/config'
 import { mapActions, mapGetters } from 'vuex'
-import { useToast } from 'vue-toast-notification'
 import Swal from 'sweetalert2'
-const $toast = useToast()
 
 export default {
   name: 'FoodCart',

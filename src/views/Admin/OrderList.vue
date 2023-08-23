@@ -15,6 +15,7 @@
           @update:options="loadItems"
           v-for="(order, index) in orderData"
           :key="index"
+          class="pa-5"
         >
           <div class="orderList-Card">
             <div class="d-flex justify-space-between">
@@ -45,37 +46,58 @@
                 <div class="w-100">
                   <h3 class="mb-2">{{ item.food.name }}</h3>
                   <div class="d-flex justify-space-between">
-                    <p>{{ item.totalPrice }}৳</p>
-                    <p>Qty: {{ item.quantity }}</p>
+                    <p class="text-green font-weight-bold">{{ item.totalPrice }}৳</p>
+                    <p class="">Qty: {{ item.quantity }}</p>
                   </div>
                 </div>
               </div>
             </div>
             <hr />
-            <div class="mt-3 d-flex align-end justify-space-between">
+            <div class="mt-3 d-flex align-stretch justify-space-between">
               <div>
-                <p>Total Item: {{ order.orderItems.length }}</p>
+                <p>
+                  Total Item: <span class="font-weight-bold">{{ order.orderItems.length }}</span>
+                </p>
                 <p class="text-h6">
                   Total: <strong class="text-green">{{ order.amount }}৳</strong>
                 </p>
               </div>
-              <div>
-                <p>Table: {{ order.table.tableNumber }}</p>
-                <div class="d-flex align-center justify-space-between">
-                  <p class="font-weight-bold text-end text-orange-darken-1">
+              <div class="order-edit-col">
+                <p class="text-end">
+                  Table: <span class="font-weight-bold"> {{ order.table.tableNumber }}</span>
+                </p>
+                <div
+                  v-if="orderEditData.id !== order.id"
+                  class="d-flex align-center justify-space-between"
+                >
+                  <p class="font-weight-bold text-end mt-1 text-orange-darken-1">
                     {{ order.orderStatus }}
                   </p>
-                  <v-icon class="status-change-icon" icon="mdi-pencil-outline"></v-icon>
+                  <v-icon
+                    class="status-change-icon mt-1"
+                    icon="mdi-circle-edit-outline"
+                    @click="
+                      () => {
+                        orderEditData.id = order.id
+                        orderEditData.status = order.orderStatus
+                      }
+                    "
+                  ></v-icon>
                 </div>
-                <!-- <v-select
+                <v-select
+                  :single-line="true"
+                  :hide-details="true"
+                  class="order-status-select"
                   :items="orderStatusData"
-                  
+                  v-if="orderEditData.id === order.id"
                   item-title="value"
                   item-value="key"
                   label="Status"
-                  variant="outlined"
+                  variant="underlined"
                   color="#79a33d"
-                ></v-select> -->
+                  v-model="orderEditData.status"
+                  @update:modelValue="editStatus(order.id)"
+                ></v-select>
               </div>
             </div>
           </div>
@@ -95,6 +117,9 @@ export default {
   data() {
     return {
       imageUrl: imageUrl,
+      statusEdit: false,
+      orderStatus: 0,
+      orderEditData: {},
       orderStatusData: [
         { key: 0, value: 'Pending' },
         { key: 1, value: 'Confirmed' },
@@ -144,6 +169,29 @@ export default {
         console.log(error)
       }
     },
+
+    displayStatusChange() {
+      this.statusEdit = !this.statusEdit
+    },
+
+    async editStatus(id) {
+      console.log(id)
+      console.log(this.orderEditData.status)
+      try {
+        store.commit('IS_LOADING', true)
+        await ApiCall.put(`api/Order/update-status/${id}`, { status: this.orderEditData.status })
+        await this.loadItems({
+          page: this.page,
+          itemsPerPage: this.itemsPerPage,
+          sortBy: this.sortBy
+        })
+        store.commit('IS_LOADING', false)
+        this.orderEditData = {}
+      } catch (error) {
+        console.log(error)
+        store.commit('IS_LOADING', false)
+      }
+    },
     async loadItems({ page, itemsPerPage, sortBy }) {
       try {
         store.commit('IS_LOADING', true)
@@ -169,6 +217,23 @@ export default {
   }
 }
 </script>
+<style>
+.order-status-select .v-input--density-default {
+  --v-input-control-height: 56px;
+  --v-input-padding-top: 0px;
+}
+.order-status-select .v-field__input {
+  min-height: 0px;
+  padding: 0px;
+}
+.order-status-select .v-field__append-inner {
+  padding: 0px !important;
+}
+
+.order-status-select .v-field {
+  font-size: 14px;
+}
+</style>
 
 <style lang="scss" scoped>
 @import '../../assets/config';
@@ -183,7 +248,6 @@ export default {
   .orderList-Card {
     background-color: white;
     padding: 20px;
-
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
     .date-time {
@@ -227,13 +291,21 @@ export default {
         margin-right: 15px;
       }
     }
+    .order-edit-col {
+      height: 65px;
+    }
     .status-change-icon {
       color: lightgray;
+      font-size: 22px;
 
       &:hover {
         cursor: pointer;
         color: green;
       }
+    }
+    .order-status-select {
+      width: 160px !important;
+      height: 40px !important;
     }
   }
 }

@@ -1,12 +1,11 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
   <div>
-    <div class="d-flex align-center justify-space-between mb-8">
+    <div class="d-flex flex-wrap align-center justify-space-between mb-8">
       <h2 class="heading-font">Order Food</h2>
-      <div class="h-100 d-flex align-center">
+      <div class="h-100 d-flex align-center mt-5 mt-lg-0">
         <v-text-field
-          style="width: 300px"
-          class="d-block"
+          class="d-block search-field"
           v-model="searchText"
           variant="outlined"
           label="Search food...."
@@ -237,6 +236,13 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/config';
 @import '../assets/responsive';
+
+.search-field{
+  width: 95vw;
+  @include lg{
+    width: 300px;
+  }
+}
 .table-active {
   color: white;
   background-color: $primary;
