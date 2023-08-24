@@ -1,13 +1,31 @@
 <template>
   <div>
-    <div class="d-flex align-center justify-space-between mb-8">
+    <div class="d-flex flex-wrap align-center justify-space-between mb-8">
       <h2 class="heading-font">All Orders</h2>
-      <v-btn class="add-btn" @click="() => this.$router.push({ path: '/order' })">
-        Place an Order
-      </v-btn>
+      <div class="order-filter">
+        <v-select
+          :hide-details="true"
+          :items="[{ key: 6, value: 'All' }, ...orderStatusData]"
+          item-title="value"
+          item-value="key"
+          label="Filter Order by Status"
+          variant="underlined"
+          color="#79a33d"
+          v-model="orderFilterBy.status"
+          @update:modelValue="filterByStatus"
+        >
+        </v-select>
+      </div>
     </div>
     <div>
-      <v-row class="orderList-container">
+      <v-row v-if="orderData.length <= 0" class="orderList-container">
+        <v-col cols="12" md="12" lg="12">
+          <div class="">
+            <h1>No Order Found!</h1>
+          </div>
+        </v-col>
+      </v-row>
+      <v-row v-if="orderData.length > 0" class="orderList-container">
         <v-col
           cols="12"
           md="6"
@@ -24,11 +42,14 @@
                 <p class="date-time mb-4">{{ order.orderTime }}</p>
               </div>
               <div>
-                <v-icon
-                  class="delete-icon text-h6 pa-4 rounded-circle"
+                <v-btn
                   icon="mdi-trash-can-outline"
+                  class="delete-icon rounded-circle"
+                  :disabled="order.orderStatus !== 'Pending' && true"
                   @click="removeOrder(order.id)"
-                ></v-icon>
+                  variant="plain"
+                >
+                </v-btn>
               </div>
             </div>
 
@@ -70,7 +91,17 @@
                   v-if="orderEditData.id !== order.id"
                   class="d-flex align-center justify-space-between"
                 >
-                  <p class="font-weight-bold text-end mt-1 text-orange-darken-1">
+                  <p
+                    class="font-weight-bold text-end mt-1 mx-2"
+                    :class="{
+                      'text-orange-darken-1': order.orderStatus === orderStatusData[0].value,
+                      'text-blue-darken-1': order.orderStatus === orderStatusData[1].value,
+                      'text-yellow-darken-2': order.orderStatus === orderStatusData[2].value,
+                      'text-green-accent-4': order.orderStatus === 'PreparedToServe',
+                      'text-green': order.orderStatus === orderStatusData[4].value,
+                      'text-teal-darken-1': order.orderStatus === orderStatusData[5].value
+                    }"
+                  >
                     {{ order.orderStatus }}
                   </p>
                   <v-icon
@@ -104,6 +135,18 @@
         </v-col>
       </v-row>
     </div>
+    <div v-if="orderData.length > 0" class="orderList-container mt-5">
+      <v-pagination
+        v-model="page"
+        :length="totalPages"
+        rounded="circle"
+        @prev="paginate"
+        @next="paginate"
+        @update:modelValue="paginate"
+        active-color="#cc080b"
+        color="#cc080b"
+      ></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -119,23 +162,25 @@ export default {
       imageUrl: imageUrl,
       statusEdit: false,
       orderStatus: 0,
+      orderFilterBy: {},
       orderEditData: {},
       orderStatusData: [
         { key: 0, value: 'Pending' },
         { key: 1, value: 'Confirmed' },
         { key: 2, value: 'Preparing' },
-        { key: 3, value: 'Prepared To Serve ' },
+        { key: 3, value: 'Prepared To Serve' },
         { key: 4, value: 'Served' },
         { key: 5, value: 'Payed' }
       ],
       totalItems: 0,
-      itemsPerPage: 10,
+      itemsPerPage: 9,
       totalPages: 0,
       sortBy: '',
       page: 1,
       orderData: []
     }
   },
+  computed: {},
   methods: {
     async loadOrder() {
       try {
@@ -151,6 +196,37 @@ export default {
         store.commit('IS_LOADING', false)
         console.log(error)
       }
+    },
+
+    async filterByStatus() {
+      console.log(this.orderFilterBy)
+      if (this.orderFilterBy.status === 0) {
+        await this.loadOrder()
+        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Pending')
+      } else if (this.orderFilterBy.status === 1) {
+        await this.loadOrder()
+        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Confirmed')
+      } else if (this.orderFilterBy.status === 2) {
+        await this.loadOrder()
+        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Preparing')
+      } else if (this.orderFilterBy.status === 3) {
+        await this.loadOrder()
+        this.orderData = this.orderData.filter((item) => item.orderStatus === 'PreparedToServe')
+      } else if (this.orderFilterBy.status === 4) {
+        await this.loadOrder()
+        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Served')
+      } else if (this.orderFilterBy.status === 5) {
+        await this.loadOrder()
+        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Payed')
+      } else if (this.orderFilterBy.status === 6) {
+        this.loadOrder()
+      }
+    },
+
+    paginate() {
+      console.log('next')
+      this.loadItems({ page: this.page, itemsPerPage: this.itemsPerPage })
+      this.orderFilterBy= {}
     },
 
     async removeOrder(id) {
@@ -179,7 +255,7 @@ export default {
       console.log(this.orderEditData.status)
       try {
         store.commit('IS_LOADING', true)
-        await ApiCall.put(`api/Order/update-status/${id}`, { status: this.orderEditData.status })
+        await ApiCall.put(`api/Order/update-status/${id}`, this.orderEditData)
         await this.loadItems({
           page: this.page,
           itemsPerPage: this.itemsPerPage,
@@ -240,8 +316,13 @@ export default {
 @import '../../assets/responsive';
 @import '../../styles/component';
 
-.add-btn {
-  @include btn($primary);
+.order-filter {
+  width: 100%;
+  margin-top: 20px;
+
+  @include lg {
+    width: 300px;
+  }
 }
 
 .orderList-container {
@@ -256,6 +337,9 @@ export default {
 
     .delete-icon {
       color: red;
+      width: 40px !important;
+      height: 40px;
+      padding: 0pc !important;
       border: 1px solid red;
 
       &:hover {

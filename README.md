@@ -115,7 +115,22 @@ npm run build
 <center>Food Cart</center>
 <br>
 
-![all-order-list](https://github.com/ruhul100/style-radio-button-and-checkbox/assets/56845656/e9edb003-a82a-408c-b1b5-3a87f5e793fb)
+![all-order-list](https://github.com/aarongarciah/itcss-sample/assets/56845656/e84231eb-5046-49e4-a8a5-c7d2aeace927)
 
 <center>All Order List</center>
+<br>
+
+![order-list-oreder-status-change](https://github.com/aarongarciah/itcss-sample/assets/56845656/7773a36a-0dcf-4e38-a8b5-2c878cd86183)
+
+<center>Order List Change Status</center>
+<br>
+
+![order-list-pagination](https://github.com/aarongarciah/itcss-sample/assets/56845656/1bde3eef-7236-49a8-b9ba-f2293d86b21a)
+
+<center>Order List Pagination</center>
+<br>
+
+![order-list-filter](https://github.com/aarongarciah/itcss-sample/assets/56845656/93cb3824-b0ae-4321-a012-8a609d5e9420)
+
+<center>Order List Filter</center>
 <br>
