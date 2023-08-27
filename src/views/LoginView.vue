@@ -1,60 +1,82 @@
 <template>
   <section class="login-section-bg">
     <div class="login-section">
-      <div class="img-container">
-        <img src="../assets/img/login-bg.png" alt="" />
-      </div>
-      <div class="login-container-wrapper">
-        <div class="login-container">
-          <div class="logo">
-            <img src="../assets/logo.png" alt="" width="150" />
-            <p class="logo-text">BSS RESTAURANT</p>
-          </div>
-          <div class="form-container">
-            <form @submit.prevent="submitLoginInfo">
-              <div class="mb-5">
-                <p class="input-label">Username:</p>
-                <input
-                  class="input-field"
-                  type="text"
-                  v-model="user.userName"
-                  name="userName"
-                  id="userName"
-                  required
-                />
-              </div>
-              <div class="mb-5">
-                <p class="input-label">Password:</p>
-                <input
-                  class="input-field"
-                  type="password"
-                  v-model="user.password"
-                  name="password"
-                  id="password"
-                  required
-                />
-              </div>
-              <div>
-                <input class="submit-btn" type="submit" value="Login" />
-              </div>
-            </form>
-          </div>
-          <div class="mt-5 text-center">
-            <RouterLink class="link" to="/admin-add-food">Back To Home</RouterLink>
-          </div>
+      <transition appear @after-enter="loginImgEnterAnimation">
+        <div class="img-container">
+          <transition appear @after-enter="imgRotate">
+            <img src="../assets/img/login-bg.png" alt="" />
+          </transition>
         </div>
+      </transition>
+      <div class="login-container-wrapper">
+        <transition appear @after-enter="loginEnterAnimation">
+          <div class="login-container">
+            <div class="logo">
+              <img src="../assets/logo.png" alt="" width="110" />
+              <p class="logo-text">BSS RESTAURANT</p>
+            </div>
+            <div class="form-container">
+              <form @submit.prevent="submitLoginInfo">
+                <div class="mb-5">
+                  <p class="input-label">Username:</p>
+                  <input
+                    class="input-field"
+                    type="text"
+                    v-model="user.userName"
+                    name="userName"
+                    id="userName"
+                    required
+                  />
+                </div>
+                <div class="mb-5">
+                  <p class="input-label">Password:</p>
+                  <div class="position-relative">
+                    <input
+                      class="input-field"
+                      :type="!showPass ? 'password' : 'text'"
+                      v-model="user.password"
+                      name="password"
+                      id="password"
+                      required
+                    />
+                    <div class="eye-icon">
+                      <v-icon
+                        v-if="!showPass"
+                        icon="mdi-eye-off-outline"
+                        @click="() => (showPass = !showPass)"
+                      ></v-icon>
+                      <v-icon
+                        v-if="showPass"
+                        icon="mdi-eye-outline"
+                        @click="() => (showPass = !showPass)"
+                      ></v-icon>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <input class="submit-btn" type="submit" value="Login" />
+                </div>
+              </form>
+            </div>
+            <div class="mt-5 text-center">
+              <RouterLink class="link" to="/admin-add-food">Back To Home</RouterLink>
+            </div>
+          </div>
+        </transition>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import { gsap } from 'gsap'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'LoginView',
   data() {
     return {
+      showPass: false,
       user: {
         userName: 'admin@mail.com',
         password: 'Admin@123'
@@ -72,6 +94,32 @@ export default {
     ...mapActions({
       loginUser: 'loginUser'
     }),
+
+    imgRotate(el) {
+      gsap.to(el, {
+        rotate: 360,
+        repeat: -1,
+        ease: 'none',
+        duration: 30
+      })
+    },
+
+    loginImgEnterAnimation(el) {
+      gsap.from(el, {
+        y: -2500,
+        ease: 'expo',
+        duration: 2
+      })
+    },
+
+    loginEnterAnimation(el) {
+      gsap.from(el, {
+        x: 2500,
+
+        ease: 'expo',
+        duration: 1.5
+      })
+    },
 
     async submitLoginInfo() {
       await this.loginUser(this.user)
@@ -129,7 +177,7 @@ export default {
         height: 480px;
         filter: drop-shadow(20px 15px 25px #aaaaaa);
         transform: rotate(0deg);
-        animation: spin 40s linear infinite;
+        //animation: spin 40s linear infinite;
       }
 
       @keyframes spin {
@@ -207,6 +255,18 @@ export default {
           .input-label {
             font-size: 18px;
             margin-bottom: 8px;
+          }
+
+          .eye-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translate(0%, -50%);
+
+            &:hover {
+              cursor: pointer;
+              color: $primary;
+            }
           }
 
           .input-field {

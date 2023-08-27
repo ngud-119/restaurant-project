@@ -34,6 +34,7 @@
                     value="allEmployee"
                   ></v-list-item>
                 </RouterLink>
+
                 <RouterLink class="side-list-link" to="/all-table">
                   <v-list-item
                     class="side-list-item"
@@ -83,7 +84,6 @@
 
         <!--!-------- Dashboard View Field Start---------->
         <v-main class="dashboard-area">
-
           <TopNavbar></TopNavbar>
 
           <div class="box"></div>
@@ -183,6 +183,7 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 
     .dashboard-view {
       min-height: calc(100vh - 65.6px);
