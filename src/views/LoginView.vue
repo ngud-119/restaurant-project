@@ -274,8 +274,13 @@ export default {
             outline: none;
             font-size: 18px;
             padding: 10px;
+            padding-right: 50px;
             border: 2px solid gray;
             border-radius: 5px;
+
+            &:focus {
+              border-color: $secondary;
+            }
           }
 
           .submit-btn {
