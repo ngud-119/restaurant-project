@@ -175,7 +175,7 @@ export default {
         { key: 2, value: 'Preparing' },
         { key: 3, value: 'Prepared To Serve' },
         { key: 4, value: 'Served' },
-        { key: 5, value: 'Payed' }
+        { key: 5, value: 'Paid' }
       ],
       totalItems: 0,
       itemsPerPage: 10,
@@ -239,7 +239,7 @@ export default {
         this.orderData = this.orderData.filter((item) => item.orderStatus === 'Served')
       } else if (this.orderFilterBy.status === 5) {
         await this.loadOrder()
-        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Payed')
+        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Paid')
       } else if (this.orderFilterBy.status === 6) {
         this.loadOrder()
       }
