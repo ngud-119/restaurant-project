@@ -6,7 +6,7 @@
           <v-list class="pb-3">
             <v-list-item
               class=""
-              prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
+              :prepend-avatar="AvatarImg"
               :title="getCurrentUser.fullName"
               :right="$vuetify.rtl"
               :subtitle="getCurrentUser.email"
@@ -106,13 +106,15 @@
 import { mapActions, mapGetters } from 'vuex'
 import TopNavbar from '../components/TopNavbar.vue'
 import FoodCart from '../components/FoodCart.vue'
+import AvatarImg from '../../src/assets/img/rifat.jpg'
 
 export default {
   name: 'adminView',
   components: { TopNavbar, FoodCart },
   data() {
     return {
-      drawer: true
+      drawer: true,
+      AvatarImg: AvatarImg
     }
   },
   computed: {

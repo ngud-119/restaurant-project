@@ -5,7 +5,7 @@
       <div class="order-filter">
         <v-select
           :hide-details="true"
-          :items="[{ key: 6, value: 'All' }, ...orderStatusData]"
+          :items="[{ key: '', value: 'All' }, ...orderStatusData]"
           item-title="value"
           item-value="key"
           label="Filter Order by Status"
@@ -35,7 +35,7 @@
           :key="index"
           class="pa-5"
         >
-          <transition appear @enter="enter" @after-enter="afterEnter">
+          <transition appear @enter="enter">
             <div class="orderList-Card">
               <div class="d-flex justify-space-between">
                 <div>
@@ -158,6 +158,8 @@ import store from '../../store'
 import { imageUrl } from '../../constants/config'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useToast } from 'vue-toast-notification'
+const $toast = useToast()
 
 export default {
   name: 'OrderList',
@@ -167,7 +169,7 @@ export default {
       imageUrl: imageUrl,
       statusEdit: false,
       orderStatus: 0,
-      orderFilterBy: {},
+      orderFilterBy: { status: '' },
       orderEditData: {},
       orderStatusData: [
         { key: 0, value: 'Pending' },
@@ -195,14 +197,9 @@ export default {
         opacity: 0,
         scale: 0.8,
         ease: 'back',
-        scrub: true,
         duration: 0.8,
         stagger: 0.2
       })
-    },
-
-    afterEnter(el) {
-      console.log('AfterEnter')
     },
     async loadOrder() {
       try {
@@ -217,38 +214,30 @@ export default {
       } catch (error) {
         store.commit('IS_LOADING', false)
         console.log(error)
+        $toast.error(error.message)
       }
     },
 
     async filterByStatus() {
-      console.log(this.orderFilterBy)
-      if (this.orderFilterBy.status === 0) {
-        await this.loadOrder()
-        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Pending')
-      } else if (this.orderFilterBy.status === 1) {
-        await this.loadOrder()
-        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Confirmed')
-      } else if (this.orderFilterBy.status === 2) {
-        await this.loadOrder()
-        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Preparing')
-      } else if (this.orderFilterBy.status === 3) {
-        await this.loadOrder()
-        this.orderData = this.orderData.filter((item) => item.orderStatus === 'PreparedToServe')
-      } else if (this.orderFilterBy.status === 4) {
-        await this.loadOrder()
-        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Served')
-      } else if (this.orderFilterBy.status === 5) {
-        await this.loadOrder()
-        this.orderData = this.orderData.filter((item) => item.orderStatus === 'Paid')
-      } else if (this.orderFilterBy.status === 6) {
-        this.loadOrder()
+      console.log(this.orderFilterBy.status)
+      try {
+        store.commit('IS_LOADING', true)
+        await this.loadItems({
+          page: this.page,
+          itemsPerPage: this.itemsPerPage,
+          sortBy: this.sortBy
+        })
+        store.commit('IS_LOADING', false)
+      } catch (error) {
+        store.commit('IS_LOADING', false)
+        console.log(error)
+        $toast.error(error.message)
       }
     },
 
     paginate() {
       console.log(this.page)
       this.loadItems({ page: this.page, itemsPerPage: this.itemsPerPage })
-      this.orderFilterBy = {}
     },
 
     async removeOrder(id) {
@@ -265,6 +254,7 @@ export default {
       } catch (error) {
         store.commit('IS_LOADING', false)
         console.log(error)
+        $toast.error(error.message)
       }
     },
 
@@ -273,16 +263,18 @@ export default {
     },
 
     async editStatus(id) {
-      console.log(id)
-      console.log(this.orderEditData.status)
       try {
         store.commit('IS_LOADING', true)
-        await ApiCall.put(`api/Order/update-status/${id}`, this.orderEditData)
+        const response = await ApiCall.put(`api/Order/update-status/${id}`, this.orderEditData)
         await this.loadItems({
           page: this.page,
           itemsPerPage: this.itemsPerPage,
           sortBy: this.sortBy
         })
+        console.log(response)
+        if (response.status === 200) {
+          $toast.success('Order status updated!')
+        }
         store.commit('IS_LOADING', false)
         this.orderEditData = {}
       } catch (error) {
@@ -297,7 +289,7 @@ export default {
         this.itemsPerPage = itemsPerPage ??= this.itemsPerPage
         this.sortBy = sortBy ??= this.sortBy
         const response = await ApiCall.get(
-          `api/Order/datatable?sort=${this.sortBy}&page=${this.page}&per_page=${this.itemsPerPage}`
+          `api/Order/datatable?sort=${this.sortBy}&page=${this.page}&per_page=${this.itemsPerPage}&Search=${this.orderFilterBy.status}`
         )
         this.orderData = response.data.data
         this.totalPages = response.data.totalPages
@@ -306,31 +298,13 @@ export default {
       } catch (error) {
         console.log(error)
         store.commit('IS_LOADING', false)
+        $toast.error(error.message)
       }
-    },
-    scrollCheck() {
-      // window.addEventListener('scroll', () => {
-      //   if (window.innerHeight + window.scrollY >= (document.body.offsetHeight)) {
-      //     console.log("cscscsc");
-      //     if (this.page < this.totalPages) {
-      //       console.log('scrolled')
-      //       console.log(this.page + 1)
-      //       console.log(this.totalPages)
-      //       this.loadItems({ page: this.page + 1, itemsPerPage: this.itemsPerPage })
-      //     }
-      //   }
-      // })
-      console.log('sc')
-    },
-
-    gsapAnimation() {}
+    }
   },
 
   mounted() {
     this.loadOrder()
-    console.log('click')
-    this.gsapAnimation()
-    // this.scrollCheck()
   }
 }
 </script>

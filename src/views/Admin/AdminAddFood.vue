@@ -38,9 +38,10 @@
                 placeholder="Pick an Image"
                 prepend-icon="mdi-camera"
                 label="Image"
+                :rules="imgRules"
                 required
               ></v-file-input>
-              <img class="preview-img" v-if="previewImg" :src="previewImg" alt="" />
+              <img class="preview-img" v-if="previewImg" :src="previewImg" alt="preview_img" />
             </label>
           </v-col>
         </v-row>
@@ -108,6 +109,7 @@ export default {
     return {
       previewImg: null,
       foodNameRules: [(foodNameRules) => !!foodNameRules || 'Food Name is required'],
+      imgRules: [(imgRule) => !!imgRule || 'Image is required'],
       descriptionRules: [(desc) => !!desc || 'Description is required'],
       priceRules: [(price) => !(price <= 0) || 'Price should be greater than 0'],
       discountTypeData: [
@@ -160,7 +162,7 @@ export default {
     },
     async submitAddFood() {
       const { valid } = await this.$refs.addFoodForm.validate()
-      console.log(valid);
+      console.log(valid)
       if (valid) {
         const data = {
           ...this.addFoodData,
@@ -194,7 +196,6 @@ export default {
     createBase64Image(fileObject) {
       const reader = new FileReader()
       reader.onload = (e) => {
-        // console.log("base 64 working", e.target.result);
         this.addFoodData.base64 = e.target.result
       }
       reader.readAsDataURL(fileObject)

@@ -30,7 +30,6 @@
           <div class="name-container">
             <div class="me-2 employee-name">
               {{ item.raw.user.fullName }}
-             
             </div>
             <div class="fav-icon">
               <v-icon
@@ -48,7 +47,6 @@
           <div class="col-container">
             <div class="col-text">
               {{ item.raw.user.email }}
-             
             </div>
           </div>
         </template>
@@ -56,7 +54,6 @@
           <div class="col-container">
             <div class="col-text">
               {{ item.raw.joinDate }}
-              
             </div>
           </div>
         </template>
@@ -64,7 +61,6 @@
           <div class="col-container">
             <div class="col-text">
               {{ item.raw.designation }}
-              
             </div>
           </div>
         </template>
@@ -181,15 +177,22 @@ export default {
     },
 
     async loadItems({ page, itemsPerPage, sortBy }) {
-      this.page = page ??= this.page
-      this.itemsPerPage = itemsPerPage ??= this.itemsPerPage
-      this.sortBy = sortBy ??= this.sortBy
-      const response = await ApiCall.get(
-        `api/Employee/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`
-      )
-      this.tableData = response.data.data
-      this.totalPages = response.data.totalPages
-      this.totalItems = response.data.total
+      try {
+        store.commit('IS_LOADING', true)
+        this.page = page ??= this.page
+        this.itemsPerPage = itemsPerPage ??= this.itemsPerPage
+        this.sortBy = sortBy ??= this.sortBy
+        const response = await ApiCall.get(
+          `api/Employee/datatable?sort=${sortBy}&page=${page}&per_page=${itemsPerPage}`
+        )
+        this.tableData = response.data.data
+        this.totalPages = response.data.totalPages
+        this.totalItems = response.data.total
+        store.commit('IS_LOADING', false)
+      } catch (error) {
+        console.log(error)
+        store.commit('IS_LOADING', false)
+      }
     }
   }
 }

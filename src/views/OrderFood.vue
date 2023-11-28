@@ -19,8 +19,10 @@
       <v-row>
         <v-col cols="12" lg="3">
           <div v-if="tableData.length > 0" class="select-table-container">
-            <h5 class="text-center text-black font-weight-bold mb-2">SELECT A TABLE</h5>
-            <div class="table-container">
+            <h5 class="text-center text-black font-weight-bold mb-2">
+              SELECT A TABLE ({{ tableData.length }})
+            </h5>
+            <div class="table-container" @scroll="reqMoreTable">
               <div
                 class="table-card text-center"
                 :class="{ 'table-active': table.id == formData.tableId }"
@@ -53,9 +55,16 @@
                 <p>At First Select A Table!</p>
               </div>
             </div>
-            <h5 class="text-left text-black font-weight-bold mb-2">SELECT FOODS</h5>
-            <div class="food-container">
-              <div class="food-card" v-for="(food, index) in foodData" :key="index">
+            <h5 class="text-left text-black font-weight-bold mb-2">
+              SELECT FOODS ({{ foodData.length }})
+            </h5>
+            <div class="food-container" @scroll="reqMoreFood">
+              <div
+                class="food-card"
+                @update:options="loadFood"
+                v-for="(food, index) in foodData"
+                :key="index"
+              >
                 <div class="food-img-container ma-4">
                   <img
                     class="rounded-circle"
@@ -108,7 +117,6 @@ import { mapActions, mapGetters } from 'vuex'
 import ApiCall from '../api/apiInterface'
 import { imageUrl } from '../constants/config'
 import store from '../store'
-
 import { useToast } from 'vue-toast-notification'
 const $toast = useToast()
 
@@ -185,6 +193,25 @@ export default {
       }
     },
 
+    async loadTableItems({ page, itemsPerPage, sortBy }) {
+      try {
+        store.commit('IS_LOADING', true)
+        this.page = page ??= this.page
+        this.itemsPerPage = itemsPerPage ??= this.itemsPerPage
+        this.sortBy = sortBy ??= this.sortBy
+        const response = await ApiCall.get(
+          `api/Table/datatable?sort=${this.sortBy}&page=${this.page}&per_page=${this.itemsPerPage}`
+        )
+        this.tableData = response.data.data
+        this.totalPages = response.data.totalPages
+        this.totalItems = response.data.total
+        store.commit('IS_LOADING', false)
+      } catch (error) {
+        console.log(error)
+        store.commit('IS_LOADING', false)
+      }
+    },
+
     async loadFood() {
       try {
         store.commit('IS_LOADING', true)
@@ -198,6 +225,26 @@ export default {
       } catch (error) {
         store.commit('IS_LOADING', false)
         console.log(error)
+      }
+    },
+
+    async loadFoodItems({ page, itemsPerPage, sortBy }) {
+      try {
+        console.log('call')
+        store.commit('IS_LOADING', true)
+        this.foodPage = page ??= this.foodPage
+        this.foodItemsPerPage = itemsPerPage ??= this.foodItemsPerPage
+        this.foodSortBy = sortBy ??= this.foodSortBy
+        const response = await ApiCall.get(
+          `api/Food/datatable?sort=${this.foodSortBy}&page=${this.foodPage}&per_page=${this.foodItemsPerPage}`
+        )
+        this.foodData = response.data.data
+        this.foodTotalPages = response.data.totalPages
+        this.foodTotalItems = response.data.total
+        store.commit('IS_LOADING', false)
+      } catch (error) {
+        console.log(error)
+        store.commit('IS_LOADING', false)
       }
     },
 
@@ -223,6 +270,33 @@ export default {
         this.updateCart(this.formData)
         $toast.success('Food added to cart')
       }
+    },
+
+    async reqMoreTable() {
+      const tableContainer = this.$el.querySelector('.table-container')
+
+      if (
+        tableContainer.scrollTop + tableContainer.clientHeight + 1 >=
+        tableContainer.scrollHeight
+      ) {
+        if (this.tableData.length < this.totalItems) {
+          await this.loadTableItems({
+            itemsPerPage: this.itemsPerPage + 5
+          })
+        }
+      }
+    },
+
+    async reqMoreFood() {
+      const foodContainer = this.$el.querySelector('.food-container')
+
+      if (foodContainer.scrollTop + foodContainer.clientHeight + 1 >= foodContainer.scrollHeight) {
+        if (this.foodData.length < this.foodTotalItems) {
+          await this.loadFoodItems({
+            itemsPerPage: this.foodItemsPerPage + 5
+          })
+        }
+      }
     }
   },
   mounted() {
@@ -237,9 +311,9 @@ export default {
 @import '../assets/config';
 @import '../assets/responsive';
 
-.search-field{
+.search-field {
   width: 95vw;
-  @include lg{
+  @include lg {
     width: 300px;
   }
 }
@@ -387,6 +461,7 @@ export default {
       align-items: center;
       border: 2px solid lightgray;
       border-radius: 10px;
+      text-align: center;
 
       &:hover {
         border: 2px solid $primary;
@@ -400,6 +475,7 @@ export default {
 
       @include lg {
         flex-direction: row;
+        text-align: start;
       }
       .food-img-container {
         img {

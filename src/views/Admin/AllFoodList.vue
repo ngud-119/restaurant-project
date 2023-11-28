@@ -14,7 +14,6 @@
         :headers="headers"
         :items-length="totalItems"
         :items="tableData"
-        :items-per-page="itemsPerPage"
         @update:options="loadItems"
         hide-default-footer
         class="elevation-1"
@@ -97,7 +96,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import { imageUrl } from '../../constants/config'
 import ApiCall from '../../api/apiInterface'
 import store from '../../store'

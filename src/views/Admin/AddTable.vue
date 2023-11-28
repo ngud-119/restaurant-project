@@ -55,7 +55,9 @@
 </template>
 
 <script>
+import { useToast } from 'vue-toast-notification'
 import { mapActions } from 'vuex'
+const $toast = useToast()
 
 export default {
   name: 'AddTable',
@@ -81,7 +83,6 @@ export default {
     async submitAddTable() {
       const { valid } = await this.$refs.addTableForm.validate()
       if (valid) {
-        console.log(this.tableData)
         this.postTable({ ...this.tableData, numberOfSeats: parseInt(this.tableData.numberOfSeats) })
         this.tableData = {
           tableNumber: '',
@@ -90,6 +91,7 @@ export default {
           base64: ''
         }
         this.previewTableImg = null
+        $toast.success("New Table Added!")
       }
     },
 
@@ -122,7 +124,7 @@ export default {
   @include lg {
     padding: 40px;
   }
-  
+
   .image-selection-input {
     label[for='img'] {
       display: block;
