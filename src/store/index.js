@@ -12,7 +12,7 @@ export default createStore({
     allTable: {},
     allFood: {},
     nonAssignedEmployees: [],
-    drawerVisibility: true,
+    drawerVisibility: window.innerWidth <= 1024 ? false : true,
     cartVisibility: false,
     loadingState: false,
     myCart: {

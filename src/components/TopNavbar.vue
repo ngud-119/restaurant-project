@@ -172,7 +172,8 @@ export default {
     display: block;
     font-size: 25px;
     margin-left: 12px;
-    @include lg {
+
+    @include xl {
       display: none;
     }
   }
