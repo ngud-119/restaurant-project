@@ -28,8 +28,8 @@ const router = createRouter({
           component: () => import('../views/Admin/AdminHome.vue')
         },
         {
-          path: '/all-employee',
-          name: 'allEmployee',
+          path: '/employees',
+          name: 'allEmployees',
           component: () => import('../views/Admin/AllEmployeeList.vue')
         },
         {
@@ -43,7 +43,7 @@ const router = createRouter({
           component: () => import('../views/Admin/AddEmployee.vue')
         },
         {
-          path: '/all-table',
+          path: '/tables',
           name: 'allTable',
           component: () => import('../views/Admin/AllTableList.vue')
         },
@@ -53,7 +53,7 @@ const router = createRouter({
           component: () => import('../views/Admin/AddTable.vue')
         },
         {
-          path: '/admin-all-food-list',
+          path: '/foods',
           name: 'adminAllFood',
           component: () => import('../views/Admin/AllFoodList.vue')
         },
@@ -68,7 +68,7 @@ const router = createRouter({
           component: () => import('../views/OrderFood.vue')
         },
         {
-          path: '/all-order',
+          path: '/orders',
           name: 'orderList',
           component: () => import('../views/Admin/OrderList.vue')
         }

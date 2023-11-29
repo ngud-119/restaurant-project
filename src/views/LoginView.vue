@@ -115,7 +115,6 @@ export default {
     loginEnterAnimation(el) {
       gsap.from(el, {
         x: 2500,
-
         ease: 'expo',
         duration: 1.5
       })
@@ -124,14 +123,14 @@ export default {
     async submitLoginInfo() {
       await this.loginUser(this.user)
 
-      this.$router.push({ name: 'admin' })
+      this.$router.push({ name: 'allEmployees' })
     }
   },
   mounted() {
     console.log('mounted')
     let currentUser = this.getCurrentUser
     if (currentUser) {
-      this.$router.push({ path: '/admin' })
+      this.$router.push({ path: '/employees' })
     }
   }
 }

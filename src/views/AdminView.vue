@@ -18,36 +18,36 @@
           <div class="sidebar-item-container">
             <div class="sidebar-link-container">
               <v-list density="compact" nav>
-                <RouterLink class="side-list-link" to="/admin">
+                <!-- <RouterLink class="side-list-link" to="/admin">
                   <v-list-item
                     class="side-list-item"
                     prepend-icon="mdi-home-account"
                     title="Home"
                     value="adminHome"
                   ></v-list-item>
-                </RouterLink>
-                <RouterLink class="side-list-link" to="/all-employee">
+                </RouterLink> -->
+                <RouterLink class="side-list-link" to="/employees">
                   <v-list-item
                     class="side-list-item"
                     prepend-icon="mdi-account-multiple"
-                    title="All Employee List"
+                    title="Employees"
                     value="allEmployee"
                   ></v-list-item>
                 </RouterLink>
 
-                <RouterLink class="side-list-link" to="/all-table">
+                <RouterLink class="side-list-link" to="/tables">
                   <v-list-item
                     class="side-list-item"
                     prepend-icon="mdi-list-box"
-                    title="All Table List"
+                    title="Tables"
                     value="allTable"
                   ></v-list-item>
                 </RouterLink>
-                <RouterLink class="side-list-link" to="/admin-all-food-list">
+                <RouterLink class="side-list-link" to="/foods">
                   <v-list-item
                     class="side-list-item"
                     prepend-icon="mdi-food"
-                    title="All Food List"
+                    title="Foods"
                     value="allFood"
                   ></v-list-item>
                 </RouterLink>
@@ -55,15 +55,15 @@
                   <v-list-item
                     class="side-list-item"
                     prepend-icon="mdi-food-takeout-box"
-                    title="Order Food"
+                    title="New Order"
                     value="orderFood"
                   ></v-list-item>
                 </RouterLink>
-                <RouterLink class="side-list-link" to="/all-order">
+                <RouterLink class="side-list-link" to="/orders">
                   <v-list-item
                     class="side-list-item"
                     prepend-icon="mdi-clipboard-list"
-                    title="All Orders"
+                    title="Orders"
                     value="allOrder"
                   ></v-list-item>
                 </RouterLink>
@@ -197,5 +197,11 @@ export default {
       }
     }
   }
+}
+</style>
+
+<style>
+.v-list-item__prepend > .v-icon {
+  margin-inline-end: 12px;
 }
 </style>
