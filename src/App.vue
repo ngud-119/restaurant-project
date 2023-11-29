@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import LoadingSpinner from './components/LoadingSpinner.vue'
 import { mapGetters } from 'vuex'
 

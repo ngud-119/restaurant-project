@@ -1,19 +1,18 @@
 <template>
   <div class="">
-    <v-card>
-      <v-layout>
-        <v-navigation-drawer class="nav-drawer" v-model="$store.state.drawerVisibility" app>
-          <v-list class="pb-3">
-            <v-list-item
-              class=""
-              :prepend-avatar="AvatarImg"
-              :title="getCurrentUser.fullName"
-              :right="$vuetify.rtl"
-              :subtitle="getCurrentUser.email"
-            ></v-list-item>
-          </v-list>
+    <v-layout>
+      <v-navigation-drawer class="nav-drawer" :mini-variant="true" v-model="$store.state.drawerVisibility">
+        <v-list class="pb-3">
+          <v-list-item
+            class=""
+            :prepend-avatar="AvatarImg"
+            :title="getCurrentUser.fullName"
+            :right="$vuetify.rtl"
+            :subtitle="getCurrentUser.email"
+          ></v-list-item>
+        </v-list>
 
-          <v-divider thickness="2px"></v-divider>
+        <v-divider thickness="2px"></v-divider>
 
           <div class="sidebar-item-container">
             <div class="sidebar-link-container">
@@ -82,23 +81,22 @@
           </div>
         </v-navigation-drawer>
 
-        <!--!-------- Dashboard View Field Start---------->
-        <v-main class="dashboard-area">
-          <TopNavbar></TopNavbar>
+      <!--!-------- Dashboard View Field Start---------->
+      <v-main class="dashboard-area">
+        <TopNavbar></TopNavbar>
 
-          <div class="box"></div>
-          <div class="dashboard-container">
-            <div class="overlay"></div>
-            <div class="dashboard-view">
-              <RouterView />
-            </div>
+        <div class="box"></div>
+        <div class="dashboard-container">
+          <div class="overlay"></div>
+          <div class="dashboard-view">
+            <RouterView />
           </div>
-        </v-main>
-        <!--!-------- Dashboard View Field End---------->
+        </div>
+      </v-main>
+      <!--!-------- Dashboard View Field End---------->
 
-        <FoodCart></FoodCart>
-      </v-layout>
-    </v-card>
+      <FoodCart></FoodCart>
+    </v-layout>
   </div>
 </template>
 
@@ -132,6 +130,9 @@ export default {
       this.logoutUser()
       this.$router.push({ name: 'login' })
     }
+  },
+  mounted() {
+    console.log(this.$vuetify.breakpoint)
   }
 }
 </script>

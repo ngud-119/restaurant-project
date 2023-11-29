@@ -29,7 +29,7 @@
         <template v-slot:item.name="{ item }">
           <div class="name-container">
             <div class="me-2 employee-name">
-              {{ item.raw.user.fullName }}
+              <span v-tooltip="item.raw.user.fullName">{{ item.raw.user.fullName }}</span>
             </div>
             <div class="fav-icon">
               <v-icon
@@ -46,31 +46,30 @@
         <template v-slot:item.email="{ item }">
           <div class="col-container">
             <div class="col-text">
-              {{ item.raw.user.email }}
+              <span style="min-width: 100%" v-tooltip="item.raw.user.email">{{
+                item.raw.user.email
+              }}</span>
             </div>
           </div>
         </template>
         <template v-slot:item.joinDate="{ item }">
           <div class="col-container">
             <div class="col-text">
-              {{ item.raw.joinDate }}
+              <span v-tooltip="item.raw.joinDate">{{ item.raw.joinDate }}</span>
             </div>
           </div>
         </template>
         <template v-slot:item.designation="{ item }">
           <div class="col-container">
             <div class="col-text">
-              {{ item.raw.designation }}
+              <span v-tooltip="item.raw.designation">{{ item.raw.designation }}</span>
             </div>
           </div>
         </template>
         <template v-slot:item.phoneNumber="{ item }">
           <div class="col-container">
             <div class="col-text">
-              {{ item.raw.user.phoneNumber }}
-              <!-- <v-tooltip class="table-tooltip" activator="parent" location="bottom">{{
-                item.raw.user.phoneNumber
-              }}</v-tooltip> -->
+              <span v-tooltip="item.raw.user.phoneNumber">{{ item.raw.user.phoneNumber }}</span>
             </div>
           </div>
         </template>
@@ -101,10 +100,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import { imageUrl } from '../../constants/config'
 import ApiCall from '../../api/apiInterface'
 import store from '../../store'
+import { useToast } from 'vue-toast-notification'
+const $toast = useToast()
 
 export default {
   data() {
@@ -137,12 +138,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      getAllEmployee: 'getAllEmployee'
-    })
-  },
-  mounted() {
-    //this.fetchAllEmployee()
+    // ...mapGetters({
+    //   getAllEmployee: 'getAllEmployee'
+    // })
   },
   methods: {
     ...mapActions({
@@ -173,6 +171,7 @@ export default {
       } catch (error) {
         store.commit('IS_LOADING', false)
         console.log(error)
+        $toast.error(error.message)
       }
     },
 
@@ -192,13 +191,25 @@ export default {
       } catch (error) {
         console.log(error)
         store.commit('IS_LOADING', false)
+        $toast.error(error.message)
       }
     }
   }
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.v-popper__wrapper {
+  .v-popper__inner {
+    border-radius: 200px;
+    div {
+      div {
+        color: #fff;
+      }
+    }
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 @import '../../assets/config';
@@ -231,7 +242,6 @@ export default {
     white-space: nowrap;
   }
 }
-
 .add-btn {
   @include btn($primary);
 }
