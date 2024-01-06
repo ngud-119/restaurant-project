@@ -36,16 +36,26 @@
           ></AreaLineChart>
         </v-col>
       </v-row>
+      <div style="margin-top: 12px">
+        <v-row>
+          <v-col cols="12" lg="7">
+            <BarChart></BarChart>
+          </v-col>
+          <v-col cols="12" lg="5"><p>pie chart</p></v-col>
+        </v-row>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import AreaLineChart from '../../components/AreaLineChart.vue'
+
+import BarChart from '../../components/BarChart.vue'
 import { lineChartOptions, lineData } from '../../components/graph-data/lineChart'
 
 export default {
-  components: { AreaLineChart },
+  components: { AreaLineChart, BarChart },
   data() {
     return {
       chartData: lineData,

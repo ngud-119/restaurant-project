@@ -1,7 +1,11 @@
 <template>
   <div class="">
     <v-layout>
-      <v-navigation-drawer class="nav-drawer" :mini-variant="true" v-model="$store.state.drawerVisibility">
+      <v-navigation-drawer
+        class="nav-drawer"
+        :mini-variant="true"
+        v-model="$store.state.drawerVisibility"
+      >
         <v-list class="pb-3">
           <v-list-item
             class=""
@@ -14,72 +18,68 @@
 
         <v-divider thickness="2px"></v-divider>
 
-          <div class="sidebar-item-container">
-            <div class="sidebar-link-container">
-              <v-list density="compact" nav>
-                <RouterLink class="side-list-link" to="/admin">
-                  <v-list-item
-                    class="side-list-item"
-                    prepend-icon="mdi-home-account"
-                    title="Home"
-                    value="adminHome"
-                  ></v-list-item>
-                </RouterLink>
-                <RouterLink class="side-list-link" to="/employees">
-                  <v-list-item
-                    class="side-list-item"
-                    prepend-icon="mdi-account-multiple"
-                    title="Employees"
-                    value="allEmployee"
-                  ></v-list-item>
-                </RouterLink>
+        <div class="sidebar-item-container">
+          <div class="sidebar-link-container">
+            <v-list density="compact" nav>
+              <RouterLink class="side-list-link" to="/admin">
+                <v-list-item
+                  class="side-list-item"
+                  prepend-icon="mdi-home-account"
+                  title="Home"
+                  value="adminHome"
+                ></v-list-item>
+              </RouterLink>
+              <RouterLink class="side-list-link" to="/employees">
+                <v-list-item
+                  class="side-list-item"
+                  prepend-icon="mdi-account-multiple"
+                  title="Employees"
+                  value="allEmployee"
+                ></v-list-item>
+              </RouterLink>
 
-                <RouterLink class="side-list-link" to="/tables">
-                  <v-list-item
-                    class="side-list-item"
-                    prepend-icon="mdi-list-box"
-                    title="Tables"
-                    value="allTable"
-                  ></v-list-item>
-                </RouterLink>
-                <RouterLink class="side-list-link" to="/foods">
-                  <v-list-item
-                    class="side-list-item"
-                    prepend-icon="mdi-food"
-                    title="Foods"
-                    value="allFood"
-                  ></v-list-item>
-                </RouterLink>
-                <RouterLink class="side-list-link" to="/order">
-                  <v-list-item
-                    class="side-list-item"
-                    prepend-icon="mdi-food-takeout-box"
-                    title="New Order"
-                    value="orderFood"
-                  ></v-list-item>
-                </RouterLink>
-                <RouterLink class="side-list-link" to="/orders">
-                  <v-list-item
-                    class="side-list-item"
-                    prepend-icon="mdi-clipboard-list"
-                    title="Orders"
-                    value="allOrder"
-                  ></v-list-item>
-                </RouterLink>
-              </v-list>
-            </div>
-            <div class="px-3">
-              <button
-                v-if="getCurrentUser.email"
-                @click="logoutUserData"
-                class="sidebar-logout-btn"
-              >
-                <v-icon icon="mdi-login" />
-                <p class="mt-1 ms-1">Logout</p>
-              </button>
-            </div>
+              <RouterLink class="side-list-link" to="/tables">
+                <v-list-item
+                  class="side-list-item"
+                  prepend-icon="mdi-list-box"
+                  title="Tables"
+                  value="allTable"
+                ></v-list-item>
+              </RouterLink>
+              <RouterLink class="side-list-link" to="/foods">
+                <v-list-item
+                  class="side-list-item"
+                  prepend-icon="mdi-food"
+                  title="Foods"
+                  value="allFood"
+                ></v-list-item>
+              </RouterLink>
+              <RouterLink class="side-list-link" to="/order">
+                <v-list-item
+                  class="side-list-item"
+                  prepend-icon="mdi-food-takeout-box"
+                  title="New Order"
+                  value="orderFood"
+                ></v-list-item>
+              </RouterLink>
+              <RouterLink class="side-list-link" to="/orders">
+                <v-list-item
+                  class="side-list-item"
+                  prepend-icon="mdi-clipboard-list"
+                  title="Orders"
+                  value="allOrder"
+                ></v-list-item>
+              </RouterLink>
+            </v-list>
           </div>
-        </v-navigation-drawer>
+          <div class="px-3">
+            <button v-if="getCurrentUser.email" @click="logoutUserData" class="sidebar-logout-btn">
+              <v-icon icon="mdi-login" />
+              <p class="mt-1 ms-1">Logout</p>
+            </button>
+          </div>
+        </div>
+      </v-navigation-drawer>
 
       <!--!-------- Dashboard View Field Start---------->
       <v-main class="dashboard-area">
@@ -181,8 +181,10 @@ export default {
 .dashboard-area {
   position: relative;
   .dashboard-container {
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 1)),
+    background: linear-gradient(0deg, rgba(240, 240, 240, 0.5), rgb(240, 240, 240)),
       url('../assets/img/dash-bg.png');
+    background-color: #f0f0f0;
+    backdrop-filter: blur(10px);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

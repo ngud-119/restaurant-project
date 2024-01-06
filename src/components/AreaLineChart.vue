@@ -59,6 +59,7 @@ export default {
 @import '../assets/responsive';
 .line-chart {
   background-color: rgba(234, 234, 234, 0.549);
+  background-color: white;
   backdrop-filter: blur(10px);
   border-radius: 10px;
   .details {

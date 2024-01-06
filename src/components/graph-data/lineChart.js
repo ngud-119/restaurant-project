@@ -1,9 +1,9 @@
 export const lineData = {
-  labels: ['', '', '', '', '', '', '', ''],
+  labels: ['', '', '', '', '', ''],
   datasets: [
     {
       label: '',
-      data: [20, 20, 32, 32, 50, 50, 34, 34],
+      data: [20, 32, 50, 34, 60, 60],
       //backgroundColor: 'rgba(204, 8, 11, 0.2)',
       backgroundColor: (context) => {
         const bgColor = ['rgba(204, 8, 11, 0.2)', 'rgba(234, 234, 234, 0.549)']
@@ -19,7 +19,21 @@ export const lineData = {
         gradBG.addColorStop(1, bgColor[1])
         return gradBG
       },
+      animation: {
+        onComplete: () => {
+          // eslint-disable-next-line no-unused-labels
+          delayed: true
+        },
+        delay: (context) => {
+          let delay = 0
+          if (context.type === 'data' && context.mode === 'default') {
+            delay = context.dataIndex * 400
+          }
+          return delay
+        }
+      },
       fill: 'start',
+      stepped: true,
       borderColor: 'rgba(204, 8, 11, 1)',
       pointStyle: 'circle',
       pointRadius: 2,

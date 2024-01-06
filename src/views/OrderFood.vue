@@ -323,7 +323,7 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .select-table-container {
-  background-color: darken(#ffffff, 5);
+  background-color: white;
   padding: 20px;
 
   .table-container {
@@ -397,7 +397,7 @@ export default {
 }
 
 .select-food-container {
-  background-color: darken($color: #ffffff, $amount: 5);
+  background-color: white;
   padding: 20px;
   position: relative;
 
