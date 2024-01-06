@@ -130,7 +130,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { imageUrl } from '../../constants/config'
-import CustomDialog from '../../components/CustomDialog.vue'
 import ApiCall from '../../api/apiInterface'
 import store from '../../store'
 import Swal from 'sweetalert2'

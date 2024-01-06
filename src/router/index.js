@@ -24,7 +24,7 @@ const router = createRouter({
       children: [
         {
           path: '',
-          name: 'admin',
+          name: 'adminHome',
           component: () => import('../views/Admin/AdminHome.vue')
         },
         {

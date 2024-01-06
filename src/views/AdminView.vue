@@ -17,14 +17,14 @@
           <div class="sidebar-item-container">
             <div class="sidebar-link-container">
               <v-list density="compact" nav>
-                <!-- <RouterLink class="side-list-link" to="/admin">
+                <RouterLink class="side-list-link" to="/admin">
                   <v-list-item
                     class="side-list-item"
                     prepend-icon="mdi-home-account"
                     title="Home"
                     value="adminHome"
                   ></v-list-item>
-                </RouterLink> -->
+                </RouterLink>
                 <RouterLink class="side-list-link" to="/employees">
                   <v-list-item
                     class="side-list-item"

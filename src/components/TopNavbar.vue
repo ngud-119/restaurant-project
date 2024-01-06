@@ -12,8 +12,8 @@
       <div class="d-flex align-center">
         <div class="link-container">
           <RouterLink class="nav-link" to="/admin">Admin</RouterLink>
-          <RouterLink class="nav-link" to="/services">Our Services</RouterLink>
-          <RouterLink class="nav-link" to="/about">About Us</RouterLink>
+          <!-- <RouterLink class="nav-link" to="/services">Our Services</RouterLink>
+          <RouterLink class="nav-link" to="/about">About Us</RouterLink> -->
         </div>
         <div class="cart-icon-container">
           <div v-if="getMyCart?.items?.length > 0" class="cart-counter">

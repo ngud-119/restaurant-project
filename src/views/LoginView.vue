@@ -123,14 +123,14 @@ export default {
     async submitLoginInfo() {
       await this.loginUser(this.user)
 
-      this.$router.push({ name: 'allEmployees' })
+      this.$router.push({ name: 'adminHome' })
     }
   },
   mounted() {
     console.log('mounted')
     let currentUser = this.getCurrentUser
     if (currentUser) {
-      this.$router.push({ path: '/employees' })
+      this.$router.push({ name: 'adminHome' })
     }
   }
 }
