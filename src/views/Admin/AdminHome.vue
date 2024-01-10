@@ -41,7 +41,9 @@
           <v-col cols="12" lg="7">
             <BarChart></BarChart>
           </v-col>
-          <v-col cols="12" lg="5"><p>pie chart</p></v-col>
+          <v-col cols="12" lg="5">
+            <DoughnutChart :data="{ doughnutData, doughnutOptions }"></DoughnutChart>
+          </v-col>
         </v-row>
       </div>
     </div>
@@ -52,14 +54,18 @@
 import AreaLineChart from '../../components/AreaLineChart.vue'
 
 import BarChart from '../../components/BarChart.vue'
+import DoughnutChart from '../../components/DoughnutChart.vue'
+import { doughnutData, doughnutOptions } from '../../components/graph-data/doughnutChart'
 import { lineChartOptions, lineData } from '../../components/graph-data/lineChart'
 
 export default {
-  components: { AreaLineChart, BarChart },
+  components: { AreaLineChart, BarChart, DoughnutChart },
   data() {
     return {
       chartData: lineData,
-      options: lineChartOptions
+      options: lineChartOptions,
+      doughnutData: doughnutData,
+      doughnutOptions: doughnutOptions
     }
   }
 }

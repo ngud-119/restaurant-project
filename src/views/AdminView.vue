@@ -70,6 +70,9 @@
                   value="allOrder"
                 ></v-list-item>
               </RouterLink>
+              <div>
+                <v-btn class="mt-2 bg-red" @click="callNotify()">Call Notify</v-btn>
+              </div>
             </v-list>
           </div>
           <div class="px-3">
@@ -125,6 +128,12 @@ export default {
     ...mapActions({
       logoutUser: 'logoutUser'
     }),
+    callNotify() {
+      this.$notify('success', 'Success', 'custom msg wsdsac...', { permanent: true })
+      this.$notify('error', 'error', 'custom msg wsdsac...', { permanent: true })
+      this.$notify('info', 'info', 'custom msg wsdsac...', { permanent: true })
+      this.$notify('warning', 'warning', 'custom msg wsdsac...', { permanent: true })
+    },
     logoutUserData() {
       localStorage.clear()
       this.logoutUser()

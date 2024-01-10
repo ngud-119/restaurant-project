@@ -1,7 +1,10 @@
 <template>
-  <div class="bar-chart">
+  <div class="doughnut-chart">
     <div class="details d-flex justify-space-between">
-      <h4 class="font-weight-bold">Sales Figures</h4>
+      <div>
+        <h4 class="font-weight-bold">Popular Food</h4>
+        <span>On this week</span>
+      </div>
       <div>
         <v-select
           :hide-details="true"
@@ -17,40 +20,29 @@
       </div>
     </div>
     <div class="chart">
-      <Bar style="height: 300px" :data="barData" :options="barChartOptions" />
+      <Doughnut :data="data.doughnutData" :options="data.doughnutOptions" />
     </div>
   </div>
 </template>
 
 <script>
-import { Bar } from 'vue-chartjs'
-import { barData, barChartOptions } from './graph-data/barChart'
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-} from 'chart.js'
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Doughnut } from 'vue-chartjs'
+ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default {
-  name: 'barChart',
+  name: 'doughnutChart',
+  props: ['data'],
   components: {
-    Bar
+    Doughnut
   },
   data() {
     return {
-      barData: barData,
-      barChartOptions: barChartOptions,
-      selectedYear: { key: 0, value: '2023 - 2024' },
+      selectedYear: { key: 0, value: '01 - 07, Jan' },
       barYearFilter: [
-        { key: 0, value: '2023 - 2024' },
-        { key: 1, value: '2022 - 2023' },
-        { key: 2, value: '2021 - 2022' }
+        { key: 0, value: '01 - 07, Jan 2024' },
+        { key: 1, value: '08 - 14, Feb 2024' },
+        { key: 2, value: '15 - 21, Mar 2024' }
       ]
     }
   }
@@ -58,7 +50,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bar-chart {
+@import '../assets/config';
+@import '../assets/responsive';
+.doughnut-chart {
   background-color: rgba(234, 234, 234, 0.549);
   background-color: white;
   backdrop-filter: blur(10px);
@@ -71,11 +65,10 @@ export default {
     h4 {
       font-size: 22px;
     }
-
-    .year-filter {
-      min-width: 140px;
+    span {
+      font-size: 14px;
+      color: rgb(130, 130, 130);
     }
   }
 }
 </style>
-7654

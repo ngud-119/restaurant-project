@@ -4,7 +4,7 @@ export const barData = {
     {
       label: '',
       backgroundColor: '#cc080b',
-      data: [4000, 7000, 1200, 5900, 1000, 4000, 6000, 8000, 4000, 2000, 1200, 1100],
+      data: [4000, 7000, 1200, 5900, 1000, 4000, 6000, 8000, 4000, 2000, 5600, 9100],
       borderWidth: 0,
       barPercentage: 0.4,
       categoryPercentage: 1

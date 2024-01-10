@@ -268,7 +268,9 @@ export default {
             return acc + current
           }, 0)
         this.updateCart(this.formData)
-        $toast.success('Food added to cart')
+        // $toast.success('Food added to cart')
+        this.$notify('success', 'Food added to cart', '', { permanent: false })
+
       }
     },
 
