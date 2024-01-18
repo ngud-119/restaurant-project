@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`mount vue component 1`] = `
+"<div data-v-f3b1501a="" class="line-chart">
+  <div data-v-f3b1501a="" class="details">
+    <div data-v-f3b1501a="">
+      <!-- <v-icon class="icon" size="32" :icon="data.icon"></v-icon> -->
+    </div>
+    <div data-v-f3b1501a="" class="content">
+      <!-- <p>{{ data.name }}</p>
+        <h4>{{ data.stat }}</h4> -->
+    </div>
+  </div>
+  <div data-v-f3b1501a="" class="chart">
+    <!-- <Line :data="data.chartData" :options="data.options" /> -->
+  </div>
+</div>"
+`;

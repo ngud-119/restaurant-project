@@ -43,7 +43,7 @@ ChartJS.register(
 
 export default {
   name: 'areaLineChart',
-  props: ['data'],
+  props: ['data', 'customName'],
   components: {
     // eslint-disable-next-line vue/no-reserved-component-names
     Line
