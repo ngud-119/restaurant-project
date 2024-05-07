@@ -84,7 +84,6 @@ export default {
     })
   },
   mounted() {
-    console.log(Img3);
   }
 }
 </script>

@@ -57,7 +57,6 @@ export default createStore({
       try {
         commit('IS_LOADING', true)
         const response = await ApiCall.get('api/Employee/datatable')
-        console.log(response.data)
         commit('ADD_ALL_EMPLOYEE', response.data)
         commit('IS_LOADING', false)
       } catch (error) {
@@ -70,7 +69,6 @@ export default createStore({
       try {
         commit('IS_LOADING', true)
         const response = await ApiCall.post('api/Employee/create', payload)
-        console.log(response.data)
         commit('IS_LOADING', false)
       } catch (error) {
         console.log(error)
@@ -81,9 +79,8 @@ export default createStore({
     async postFoodDetails({ commit }, payload) {
       try {
         commit('IS_LOADING', true)
-        console.log('payload-addFood', payload)
+
         const response = await ApiCall.post('api/Food/create', payload)
-        console.log(response.data)
         commit('IS_LOADING', false)
       } catch (error) {
         console.log(error)
@@ -95,7 +92,6 @@ export default createStore({
       try {
         commit('IS_LOADING', true)
         const response = await ApiCall.get('api/Food/datatable')
-        console.log(response.data)
         commit('ADD_ALL_FOOD', response.data)
         commit('IS_LOADING', false)
       } catch (error) {
@@ -107,7 +103,6 @@ export default createStore({
       try {
         commit('IS_LOADING', true)
         const response = await ApiCall.delete(`api/Employee/delete/${payload}`)
-        console.log('delete-employee-pay', payload)
         commit('REMOVE_EMPLOYEE', payload)
         commit('IS_LOADING', false)
       } catch (error) {
@@ -119,7 +114,6 @@ export default createStore({
       try {
         commit('IS_LOADING', true)
         const response = await ApiCall.get('api/Table/datatable')
-        console.log(response.data)
         commit('ADD_ALL_TABLE', response.data)
         commit('IS_LOADING', false)
       } catch (error) {
@@ -130,9 +124,7 @@ export default createStore({
     async postTable({ commit }, payload) {
       try {
         commit('IS_LOADING', true)
-        console.log('payload', payload)
         const response = await ApiCall.post('api/Table/create', payload)
-        console.log(response.data)
         commit('IS_LOADING', false)
       } catch (error) {
         commit('IS_LOADING', false)
@@ -144,7 +136,6 @@ export default createStore({
       try {
         commit('IS_LOADING', true)
         const response = await ApiCall.get(`api/Employee/non-assigned-employees/${payload}`)
-        console.log(response.data)
         commit('ADD_ALL_NON_ASSIGNED_EMPLOYEES', response.data)
         commit('IS_LOADING', false)
       } catch (error) {
@@ -155,7 +146,6 @@ export default createStore({
     async assignEmployee({ commit }, payload) {
       try {
         commit('IS_LOADING', true)
-        console.log('payload-assignEmployee', payload)
         const response = await ApiCall.post('api/EmployeeTable/create-range', payload)
         commit('ASSIGN_EMPLOYEE_DATA', payload)
         commit('IS_LOADING', false)

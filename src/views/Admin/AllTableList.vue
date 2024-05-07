@@ -229,7 +229,6 @@ export default {
     },
     openDialog(item) {
       this.dialog = true
-      console.log(item.raw.id)
       this.dialogData.id = item.raw.id
       this.dialogData.image = item.raw.image
       this.dialogData.seats = item.raw.numberOfSeats

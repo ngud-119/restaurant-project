@@ -230,7 +230,6 @@ export default {
 
     async loadFoodItems({ page, itemsPerPage, sortBy }) {
       try {
-        console.log('call')
         store.commit('IS_LOADING', true)
         this.foodPage = page ??= this.foodPage
         this.foodItemsPerPage = itemsPerPage ??= this.foodItemsPerPage

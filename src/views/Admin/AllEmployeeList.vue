@@ -153,10 +153,8 @@ export default {
       this.fav = !this.fav
     },
     viewProfile(data) {
-      console.log('clo', data.item.value)
     },
     nextPage() {
-      console.log('dsdvd')
     },
     async removeEmployee(item) {
       try {

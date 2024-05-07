@@ -16,7 +16,6 @@ export default {
     })
 
     const NotifyComponent = app.component(Notify.name)
-    console.log(NotifyComponent)
     if (!NotifyComponent) {
       const appInstance = createApp(Notify, {
         ...options
@@ -30,10 +29,8 @@ export default {
         customOptions = {},
         id = null
       ) => {
-        console.log(type, title, message, customOptions, id)
         vm.addItem(type, title, message, customOptions, id)
       }
-      console.log(vm)
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <CustomDialog></CustomDialog>
+  <!-- <CustomDialog></CustomDialog> -->
   <div>
     <div class="line-chart-container">
       <v-row>
@@ -55,13 +55,13 @@
 import AreaLineChart from '../../components/AreaLineChart.vue'
 
 import BarChart from '../../components/BarChart.vue'
-import CustomDialog from '../../components/CustomDialog.vue'
+// import CustomDialog from '../../components/CustomDialog.vue'
 import DoughnutChart from '../../components/DoughnutChart.vue'
 import { doughnutData, doughnutOptions } from '../../components/graph-data/doughnutChart'
 import { lineChartOptions, lineData } from '../../components/graph-data/lineChart'
 
 export default {
-  components: { AreaLineChart, BarChart, DoughnutChart, CustomDialog },
+  components: { AreaLineChart, BarChart, DoughnutChart },
   data() {
     return {
       chartData: lineData,

@@ -269,7 +269,6 @@ export default {
       postEmployee: 'postEmployee'
     }),
     async submitAddEmployee() {
-      console.log('sub')
       if (this.genderInfo === 'Male') {
         this.employee.genderId = 1
       } else if (this.genderInfo === 'Female') {
@@ -304,7 +303,6 @@ export default {
       //document.getElementById("img").click()
     },
     onImageSelect(e) {
-      console.log(e.target.files[0])
       this.previewImg = URL.createObjectURL(e.target.files[0])
       this.employee.image = e.target.files[0].name
       this.createBase64Image(e.target.files[0])

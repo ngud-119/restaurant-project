@@ -162,7 +162,6 @@ export default {
     },
     async submitAddFood() {
       const { valid } = await this.$refs.addFoodForm.validate()
-      console.log(valid)
       if (valid) {
         const data = {
           ...this.addFoodData,
@@ -171,7 +170,6 @@ export default {
           discountPrice: parseInt(this.addFoodData.discountPrice),
           discountType: parseInt(this.addFoodData.discountType)
         }
-        console.log(data)
         this.postFoodDetails(data)
         this.addFoodData = {
           name: '',
@@ -188,7 +186,6 @@ export default {
     },
 
     onImageSelect(e) {
-      console.log(e.target.files[0])
       this.previewImg = URL.createObjectURL(e.target.files[0])
       this.addFoodData.image = e.target.files[0].name
       this.createBase64Image(e.target.files[0])

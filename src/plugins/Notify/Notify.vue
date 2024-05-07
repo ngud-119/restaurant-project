@@ -58,7 +58,6 @@ const createUUID = () => {
 }
 
 const addItem = (type, title, message, customOptions, id) => {
-  console.log('addItem', type, title, message, customOptions, id)
   if (
     items.value.find(
       (it) => it.title == title && it.message == message && id !== null && it.id == id

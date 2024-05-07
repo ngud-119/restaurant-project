@@ -140,7 +140,6 @@ export default {
         //cartDetails.orderStatus = 1
 
         const response = await ApiCall.post('api/order/create', cartDetails)
-        console.log(response)
         // $toast.success('Order created successfully')
         Swal.fire({
           title: 'Order Placed',

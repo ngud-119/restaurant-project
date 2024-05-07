@@ -127,7 +127,6 @@ export default {
     }
   },
   mounted() {
-    console.log('mounted')
     let currentUser = this.getCurrentUser
     if (currentUser) {
       this.$router.push({ name: 'adminHome' })

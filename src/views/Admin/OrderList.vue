@@ -219,7 +219,6 @@ export default {
     },
 
     async filterByStatus() {
-      console.log(this.orderFilterBy.status)
       try {
         store.commit('IS_LOADING', true)
         await this.loadItems({
@@ -236,12 +235,10 @@ export default {
     },
 
     paginate() {
-      console.log(this.page)
       this.loadItems({ page: this.page, itemsPerPage: this.itemsPerPage })
     },
 
     async removeOrder(id) {
-      console.log('del', id)
       try {
         store.commit('IS_LOADING', true)
         await ApiCall.delete(`api/Order/delete/${id}`)
@@ -271,7 +268,6 @@ export default {
           itemsPerPage: this.itemsPerPage,
           sortBy: this.sortBy
         })
-        console.log(response)
         if (response.status === 200) {
           $toast.success('Order status updated!')
         }

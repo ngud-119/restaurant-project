@@ -70,9 +70,9 @@
                   value="allOrder"
                 ></v-list-item>
               </RouterLink>
-              <div>
+              <!-- <div>
                 <v-btn class="mt-2 bg-red" @click="callNotify()">Call Notify</v-btn>
-              </div>
+              </div> -->
             </v-list>
           </div>
           <div class="px-3">
@@ -141,7 +141,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$vuetify.breakpoint)
   }
 }
 </script>
